@@ -3,13 +3,13 @@
 
     <!-- The Basics -->
     <groupId>br.com</groupId>
-    <artifactId>store</artifactId>
+    <artifactId>store-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <!-- More Project Information -->
-    <name>STORE</name>
-    <description>STORE</description>
+    <name>STORE-BACKEND</name>
+    <description>STORE-BACKEND</description>
     <url></url>
 
     <organization>
@@ -38,7 +38,50 @@
         <sonar.host.url>http://integracao.plataforma.intranet/sonar/</sonar.host.url>
         <sonar.jdbc.url>jdbc:mysql://localhost:3306/sonar</sonar.jdbc.url>
         <sonar.language>java</sonar.language>
+        
+        <!-- Dependencies Versions -->
 
+        <dependency.version.aspectj>1.8.4</dependency.version.aspectj>
+        <dependency.version.commonslang>3.3.2</dependency.version.commonslang>
+        <dependency.version.commonsbeanutils>1.9.2</dependency.version.commonsbeanutils>
+        <dependency.version.joda>2.5</dependency.version.joda>
+        <dependency.version.spring>4.0.5.RELEASE</dependency.version.spring>
+        <dependency.version.spring-data>1.6.0.RELEASE</dependency.version.spring-data>
+        <dependency.version.hibernate>4.3.1.Final</dependency.version.hibernate>
+        <dependency.version.hibernate.validator>5.1.2.Final</dependency.version.hibernate.validator>
+        <dependency.version.javax.el.api>2.2.4</dependency.version.javax.el.api>
+		<dependency.version.javax.el>2.2.4</dependency.version.javax.el>
+		<dependency.version.hibernate.validator.cdi>5.1.3.Final</dependency.version.hibernate.validator.cdi>
+		<dependency.version.jersey.bean.validation>2.14</dependency.version.jersey.bean.validation>
+        <dependency.version.ojdbc>11.2.0.2.0</dependency.version.ojdbc>
+        <dependency.version.bonecp>0.8.0.RELEASE</dependency.version.bonecp>
+        
+        <dependency.version.validationAPI>0.0.1</dependency.version.validationAPI>
+
+
+        
+        <dependency.version.perf4j>0.9.16</dependency.version.perf4j>
+        <dependency.version.junit>4.12</dependency.version.junit>
+        <dependency.version.mockito>1.9.5</dependency.version.mockito>
+        <dependency.version.jmockit>1.7</dependency.version.jmockit>
+        <dependency.version.javaxAPI>2.0</dependency.version.javaxAPI>
+        <dependency.version.jersey>2.18</dependency.version.jersey>
+        <dependency.version.servle3tAPI>1.0.2.Final</dependency.version.servle3tAPI>
+        <dependency.version.inject>1</dependency.version.inject>
+        <dependency.version.guava>18.0</dependency.version.guava>
+        <dependency.version.reflections>0.9.9-RC1</dependency.version.reflections>
+        <dependency.version.log4j>1.2.17</dependency.version.log4j>
+        <dependency.version.slf4j>1.7.10</dependency.version.slf4j>
+        <dependency.version.java-hamcrest>2.0.0.0</dependency.version.java-hamcrest>
+        <dependency.version.hamcrest-junit>2.0.0.0</dependency.version.hamcrest-junit>
+        <dependency.version.jackson>2.4.1</dependency.version.jackson>
+        <dependency.version.javaeeAPI>7.0</dependency.version.javaeeAPI>
+        <dependency.version.apisecurity>2.0.3</dependency.version.apisecurity>
+        <dependency.version.jsr305>2.0.3</dependency.version.jsr305>
+        <dependency.version.modelmapper>0.7.1</dependency.version.modelmapper>
+        <dependency.version.infinispan>6.0.2.Final</dependency.version.infinispan>
+        <dependency.version.jetty>9.1.5.v20140505</dependency.version.jetty>
+        
     </properties>
 
     <dependencies>
@@ -47,58 +90,154 @@
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
-            <version>1.8.4</version>
+            <version>${dependency.version.aspectj}</version>
         </dependency>
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjrt</artifactId>
-            <version>1.8.4</version>
+            <version>${dependency.version.aspectj}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjtools</artifactId>
+            <version>${dependency.version.aspectj}</version>
         </dependency>
 
         <!-- Commons -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.3</version>
+            <version>${dependency.version.commonslang}</version>
         </dependency>
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
-            <version>1.9.2</version>
+            <version>${dependency.version.commonsbeanutils}</version>
         </dependency>
 
         <!-- Joda -->
 		<dependency>
 		    <groupId>joda-time</groupId>
 		    <artifactId>joda-time</artifactId>
-		    <version>2.5</version>
+		    <version>${dependency.version.joda}</version>
 		</dependency>
 
         <!-- Spring -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-            <version>4.0.3.RELEASE</version>
+            <version>${dependency.version.spring}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
-            <version>4.0.3.RELEASE</version>
+            <version>${dependency.version.spring}</version>
         </dependency>
        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
-            <version>4.0.3.RELEASE</version>
+            <version>${dependency.version.spring}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
-            <version>4.0.3.RELEASE</version>
+            <version>${dependency.version.spring}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>4.0.3.RELEASE</version>
+            <version>${dependency.version.spring}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${dependency.version.spring}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${dependency.version.spring}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${dependency.version.spring}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>${dependency.version.spring}</version>
+        </dependency>
+
+        <!-- Spring Data JPA -->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>${dependency.version.spring-data}</version>
+        </dependency>
+
+        <!-- Hibernate -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${dependency.version.hibernate}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${dependency.version.hibernate}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${dependency.version.hibernate.validator}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>javax.el-api</artifactId>
+            <version>${dependency.version.javax.el.api}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>javax.el</artifactId>
+            <version>${dependency.version.javax.el}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator-cdi</artifactId>
+            <version>${dependency.version.hibernate.validator.cdi}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.ext</groupId>
+            <artifactId>jersey-bean-validation</artifactId>
+            <version>${dependency.version.jersey.bean.validation}</version>
+        </dependency>
+
+        <!-- JDBC -->
+        <dependency>
+            <groupId>oracle</groupId>
+            <artifactId>ojdbc</artifactId>
+            <version>${dependency.version.ojdbc}</version>
+        </dependency>
+
+        <!-- BoneCP -->
+        <dependency>
+            <groupId>com.jolbox</groupId>
+            <artifactId>bonecp</artifactId>
+            <version>${dependency.version.bonecp}</version>
+        </dependency>
+
+        <!-- Aspects -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>${dependency.version.spring}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+            <version>${dependency.version.spring}</version>
         </dependency>
 
 
@@ -159,14 +298,13 @@
             <artifactId>commons-configuration</artifactId>
             <version>1.10</version>
         </dependency>
-
-        <!-- UOL
+        
         <dependency>
-	        <groupId>br.com.uol</groupId>
+	        <groupId>br.com.store</groupId>
 	        <artifactId>validation</artifactId>
-	        <version>1.0.16</version>
+	        <version>${dependency.version.validationAPI}</version>
         </dependency>
-		-->
+
         <!-- JAVA EE -->
         <dependency>
             <groupId>javax</groupId>
@@ -221,15 +359,6 @@
            <version>1.1.1</version>
         </dependency>
         
-
-        <!-- Hibernate -->
-		<dependency>
-		    <groupId>org.hibernate</groupId>
-		    <artifactId>hibernate-validator</artifactId>
-		    <version>5.1.2.Final</version>
-		</dependency>
-
-
         <!-- Spring Test -->
         <dependency>
             <groupId>org.springframework</groupId>
