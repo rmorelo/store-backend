@@ -1,65 +1,50 @@
 package br.com.store.backend.domain.entity;
 
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
-import br.com.store.backend.infrastructure.rest.Linkable;
-import br.com.store.backend.infrastructure.rest.model.Link;
+@Entity
+@Table(name = "partner")
+public class PartnerEntity  {
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-
-@JsonInclude(JsonInclude.Include.NON_EMPTY)
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class PartnerEntity implements Linkable {
-
-    private Long id;
+	@Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PARTNER_SEQUENCE")
+    @SequenceGenerator(name = "PARTNER_SEQUENCE", sequenceName = "SQ_PARTNER_IDT", allocationSize = 1)
+    @Column(name = "ID_PARTNER")
+    private Long idPartner;
     
-    private String name;
-    
-    private String uri;
-    
-    private List<Link> links;
+	@Column(name = "DES_PARTNER")
+    private String desPartner;
 
-    public Long getId() {
-        return id;
+    public Long getIdPartner() {
+        return idPartner;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdPartner(Long idPartner) {
+        this.idPartner = idPartner;
     }
 
-    public String getName() {
-        return name;
+    public String getDesPartner() {
+        return desPartner;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String getUri() {
-        return uri;
-    }
-    
-    public void setUri(String uri) {
-        this.uri = uri;
+    public void setDesPartner(String desPartner) {
+        this.desPartner = desPartner;
     }
     
     @Override
-    public boolean hasLink() {
-        return !links.isEmpty();
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("PartnerEntity{");
+        sb.append("idPartner=").append(idPartner);
+        sb.append(", desPartner='").append(desPartner);
+        sb.append('}');
+        return sb.toString();
     }
 
-    public List<Link> getLinks() {
-        return links;
-    }
-
-    public void addLink(Link link) {
-        links.add(link);
-    }
-
-    public void addLink(int index, Link link) {
-        links.add(index, link);
-    }
 
 }
