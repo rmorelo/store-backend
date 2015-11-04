@@ -4,16 +4,13 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "partner")
-public class PartnerEntity  {
-
+@Table(name = "PARTNER")
+public class PartnerEntity {
+    
 	@Id
     @Column(name = "ID_PARTNER")
     private Integer idPartner;
@@ -50,12 +47,10 @@ public class PartnerEntity  {
     
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("PartnerEntity{");
-        sb.append("idPartner=").append(idPartner);
-        sb.append(", desPartner='").append(desPartner);
-        sb.append('}');
-        return sb.toString();
+        return "{idPartner:" + idPartner + ",desPartner:" + desPartner + ",idAddress:" + idAddress + ",like:" + like
+                + ",partnerType:" + partnerType + ",urlLogo:" + urlLogo + ",urlSite:" + urlSite + ",urlFacebook:"
+                + urlFacebook + ",urlGooglePLus:" + urlGooglePLus + ",usernameInstagram:" + usernameInstagram
+                + ",signupDate:" + signupDate + "}";
     }
-
 
 }
