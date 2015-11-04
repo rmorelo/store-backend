@@ -1,5 +1,7 @@
 package br.com.store.backend.domain.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,29 +15,38 @@ import javax.persistence.Table;
 public class PartnerEntity  {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PARTNER_SEQUENCE")
-    @SequenceGenerator(name = "PARTNER_SEQUENCE", sequenceName = "SQ_PARTNER_IDT", allocationSize = 1)
     @Column(name = "ID_PARTNER")
-    private Long idPartner;
+    private Integer idPartner;
     
-	@Column(name = "DES_PARTNER")
-    private String desPartner;
+	@Column(name = "ID_CONTACT")
+    private Integer desPartner;
+	
+	@Column(name = "ID_ADDRESS")
+    private Integer idAddress;
+	
+	@Column(name = "LIKE")
+    private Integer like;
+	
+	@Column(name = "PARTNER_TYPE")
+    private String partnerType;
 
-    public Long getIdPartner() {
-        return idPartner;
-    }
-
-    public void setIdPartner(Long idPartner) {
-        this.idPartner = idPartner;
-    }
-
-    public String getDesPartner() {
-        return desPartner;
-    }
-
-    public void setDesPartner(String desPartner) {
-        this.desPartner = desPartner;
-    }
+	@Column(name = "URL_LOGO")
+    private String urlLogo;
+	
+	@Column(name = "URL_SITE")
+    private String urlSite;
+	
+	@Column(name = "URL_FACEBOOK")
+    private String urlFacebook;
+	
+	@Column(name = "URL_GOOGLE_PLUS")
+    private String urlGooglePLus;
+	
+	@Column(name = "USERNAME_INSTAGRAM")
+    private Integer usernameInstagram;
+	
+	@Column(name = "SIGNUP_DATE")
+    private Date signupDate;
     
     @Override
     public String toString() {
