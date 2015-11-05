@@ -4,6 +4,6 @@ import br.com.store.backend.view.resource.partner.Partner;
 
 public interface PartnerApplication {
     
-    Partner getPartner(Long idPartner);
+    Partner getPartner(Integer idPartner);
 
 }

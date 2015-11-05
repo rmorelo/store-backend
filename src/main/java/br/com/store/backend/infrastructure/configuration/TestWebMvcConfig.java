@@ -9,7 +9,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import br.com.store.backend.infrastructure.interceptor.CacheControlInterceptor;
 import br.com.store.backend.infrastructure.interceptor.TrackerInterceptor;
-import br.com.store.backend.infrastructure.interceptor.WebAuthInterceptor;
 import br.com.store.backend.infrastructure.rest.selector.SelectorValidatorInterceptor;
 
 /**
@@ -22,9 +21,6 @@ public class TestWebMvcConfig extends WebMvcConfigurerAdapter {
 
     @Autowired
     private CacheControlInterceptor cacheControlInterceptor;
-
-    @Autowired
-    private WebAuthInterceptor webAuthInterceptor;
 
     @Autowired
     private TrackerInterceptor trackerInterceptor;
@@ -40,7 +36,7 @@ public class TestWebMvcConfig extends WebMvcConfigurerAdapter {
         handlerMapping.setRemoveSemicolonContent(false);
 
         // Injeta os interceptors
-        handlerMapping.setInterceptors(new Object[] {cacheControlInterceptor, trackerInterceptor, webAuthInterceptor, selectorInterceptor });
+        handlerMapping.setInterceptors(new Object[] {cacheControlInterceptor, trackerInterceptor, selectorInterceptor });
         return handlerMapping;
     }
 

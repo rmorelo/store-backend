@@ -1,7 +1,6 @@
 package br.com.store.backend.view.endpoint;
 
 import br.com.store.backend.application.partner.PartnerApplication;
-import br.com.store.backend.infrastructure.annotation.Authentication;
 import br.com.store.backend.infrastructure.profiling.Profiling;
 import br.com.store.backend.infrastructure.rest.model.Resource;
 import br.com.store.backend.view.resource.partner.Partner;
@@ -21,10 +20,9 @@ public class PartnerEndpoint {
     private PartnerApplication partnerApplication;
     
     @Profiled(level = Profiling.ENDPOINT)
-    @Authentication
     @RequestMapping(value = "/partners/{idPartner}", method = RequestMethod.GET)
     public ResponseEntity<Resource<Partner>> getPartner(
-    		@PathVariable(value = "idPartner") Long idPartner) {
+    		@PathVariable(value = "idPartner") Integer idPartner) {
 
     	Partner partner = partnerApplication.getPartner(idPartner);
         return new ResponseEntity<>(new Resource<Partner>(partner), HttpStatus.OK);

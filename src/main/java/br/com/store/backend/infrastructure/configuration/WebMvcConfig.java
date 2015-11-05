@@ -2,7 +2,6 @@ package br.com.store.backend.infrastructure.configuration;
 
 import br.com.store.backend.infrastructure.interceptor.CacheControlInterceptor;
 import br.com.store.backend.infrastructure.interceptor.TrackerInterceptor;
-import br.com.store.backend.infrastructure.interceptor.WebAuthInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,9 +23,6 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     private CacheControlInterceptor cacheControlInterceptor;
 
     @Autowired
-    private WebAuthInterceptor webAuthInterceptor;
-
-    @Autowired
     private TrackerInterceptor trackerInterceptor;
 
     @Autowired
@@ -42,8 +38,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         handlerMapping.setUrlDecode(false);
 
         // Injeta os interceptors
-        handlerMapping.setInterceptors(new Object[] {cacheControlInterceptor, trackerInterceptor, webAuthInterceptor,
-                selectorInterceptor });
+        handlerMapping.setInterceptors(new Object[] {cacheControlInterceptor, trackerInterceptor, selectorInterceptor });
         return handlerMapping;
     }
 

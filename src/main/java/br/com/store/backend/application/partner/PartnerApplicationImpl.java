@@ -18,7 +18,7 @@ public class PartnerApplicationImpl implements PartnerApplication {
     
     @Override
     @Profiled(level = Profiling.APPLICATION)
-    public Partner getPartner(Long idPartner) {
+    public Partner getPartner(Integer idPartner) {
         try {
             return partnerService.getPartner(idPartner);
         } catch (RestClientException e) {

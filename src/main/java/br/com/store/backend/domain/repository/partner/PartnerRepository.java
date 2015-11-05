@@ -7,6 +7,6 @@ import br.com.store.backend.infrastructure.rest.RestClientException;
 
 public interface PartnerRepository extends JpaRepository<PartnerEntity, Long>{
 
-    PartnerEntity getPartner(Long idPartner) throws RestClientException;
+    PartnerEntity findByIdPartner(Integer idPartner) throws RestClientException;
 
 }

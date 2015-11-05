@@ -1,7 +1,7 @@
 package br.com.store.backend.infrastructure.interceptor;
 
 import br.com.store.backend.infrastructure.tracking.Tracker;
-import org.apache.commons.lang.StringUtils;
+
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -16,6 +16,7 @@ public class TrackerInterceptor extends HandlerInterceptorAdapter {
     protected static final String FORWARDED_FOR = "X-Forwarded-For";
     protected static final String FORWARDED_PORT = "X-Forwarded-Port";
     protected static final String VALIDATION_VERSION = "X-Validation-Version";
+    protected static final String BROWSER_IP = "Browser-IP";
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -33,6 +34,7 @@ public class TrackerInterceptor extends HandlerInterceptorAdapter {
         Tracker.insert(Tracker.PORT, getPort(request));
         Tracker.insert(Tracker.URI, getRequestURI(request));
         Tracker.insert(Tracker.VALIDATION_VERSION, getValidationVersion(request));
+        Tracker.insert(Tracker.IP, getBrowserIp(request));
     }
 
     private String getRequestId(HttpServletRequest request) {
@@ -45,22 +47,16 @@ public class TrackerInterceptor extends HandlerInterceptorAdapter {
         return requestTracker;
     }
 
-    private String getSkin(HttpServletRequest request) {
-
-        String skin = request.getHeader(SKIN);
-        if (StringUtils.isBlank(skin)) {
-            skin = "uol";
-        }
-
-        return skin;
-    }
-
     private String getPort(HttpServletRequest request) {
         return request.getHeader(FORWARDED_PORT);
     }
 
     private String getForwardedFor(HttpServletRequest request) {
         return request.getHeader(FORWARDED_FOR);
+    }
+    
+    private String getBrowserIp(HttpServletRequest request) {
+        return request.getHeader(BROWSER_IP);
     }
 
     private String getRequestURI(HttpServletRequest request) {

@@ -18,9 +18,9 @@ public class PartnerServiceImpl implements PartnerService {
 
     @Profiled(level = Profiling.SERVICE)
     @Override
-    public Partner getPartner(Long idPartner) throws RestClientException {
+    public Partner getPartner(Integer idPartner) throws RestClientException {
         
-    	PartnerEntity partnerEntity = restRepository.getPartner(idPartner);
+    	PartnerEntity partnerEntity = restRepository.findByIdPartner(idPartner);
   
     	return convert(partnerEntity);
 

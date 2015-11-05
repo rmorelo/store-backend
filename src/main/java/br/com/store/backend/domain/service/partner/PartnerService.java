@@ -5,5 +5,5 @@ import br.com.store.backend.view.resource.partner.Partner;
 
 public interface PartnerService {
   
-    Partner getPartner(Long idPartner) throws RestClientException;
+    Partner getPartner(Integer idPartner) throws RestClientException;
 }

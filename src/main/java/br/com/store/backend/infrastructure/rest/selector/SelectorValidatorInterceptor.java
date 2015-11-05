@@ -13,6 +13,7 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import br.com.store.backend.infrastructure.exception.BadRequestException;
+import br.com.store.backend.infrastructure.rest.errors.BadRequestEnum;
 
 @Component
 public class SelectorValidatorInterceptor extends HandlerInterceptorAdapter {
@@ -31,7 +32,7 @@ public class SelectorValidatorInterceptor extends HandlerInterceptorAdapter {
                 Method method = resource.getMethod(METHOD_NAME);
 
                 if (hasInvalidSelectors(request, method)) {
-                    throw new BadRequestException(BadRequestException.SELECTOR_NOT_FOUND);
+                    throw new BadRequestException(BadRequestEnum.INVALID_SELECTOR);
                 }
             }
         }
@@ -56,3 +57,4 @@ public class SelectorValidatorInterceptor extends HandlerInterceptorAdapter {
     }
     
 }
+
