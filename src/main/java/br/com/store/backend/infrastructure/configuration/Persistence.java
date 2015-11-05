@@ -18,7 +18,7 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 @Configuration
-@EnableJpaRepositories("br.com.store.uol.backend.domain")
+@EnableJpaRepositories("br.com.store.backend.domain")
 @EnableTransactionManagement
 @PropertySource("classpath:application.properties")
 public class Persistence {

@@ -20,8 +20,8 @@ public class PartnerConverter {
     public static Partner convert(PartnerEntity entity) {
         if (entity != null) {
             Partner partner = new Partner();
-            partner.setId(entity.getId());
-            partner.setName(entity.getName());
+            partner.setIdPartner(entity.getIdPartner());
+            partner.setDescription(entity.getDescription());
             
             createURI(partner);
             createLinks(partner);
@@ -31,16 +31,6 @@ public class PartnerConverter {
         } else {
             return null;
         }
-    }
-
-    public static PartnerEntity convert(Partner partner) {
-    	PartnerEntity entity = new PartnerEntity();
-        
-    	entity.setId(partner.getId());
-        
-    	entity.setName(partner.getName());
-
-        return entity;
     }
 
     private static void createLinks(Partner partner) {
