@@ -4,6 +4,7 @@ import br.com.store.backend.application.partner.PartnerApplication;
 import br.com.store.backend.infrastructure.profiling.Profiling;
 import br.com.store.backend.infrastructure.rest.model.Resource;
 import br.com.store.backend.view.resource.partner.Partner;
+
 import org.perf4j.aop.Profiled;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,9 +25,10 @@ public class PartnerEndpoint {
     public ResponseEntity<Resource<Partner>> getPartner(
     		@PathVariable(value = "idPartner") Integer idPartner) {
 
-    	Partner partner = partnerApplication.getPartner(idPartner);
+    	Partner partner = partnerApplication.findByIdPartner(idPartner);
         return new ResponseEntity<>(new Resource<Partner>(partner), HttpStatus.OK);
 
     }
+    
 
 }

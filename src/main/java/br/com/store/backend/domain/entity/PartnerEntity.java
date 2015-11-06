@@ -51,7 +51,7 @@ public class PartnerEntity {
     private Integer usernameInstagram;
 	
 	@Column(name = "SIGNUP_DATE")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
 	private Date signupDate;
     
     public Integer getIdPartner() {

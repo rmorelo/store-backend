@@ -3,6 +3,7 @@ package br.com.store.backend.domain.service.partner;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpMethod;
 
 import br.com.store.backend.domain.entity.PartnerEntity;
@@ -18,19 +19,26 @@ public class PartnerConverter {
     }
 
     public static Partner convert(PartnerEntity entity) {
-        if (entity != null) {
-            Partner partner = new Partner();
-            partner.setIdPartner(entity.getIdPartner());
-            partner.setDescription(entity.getDescription());
-            
-            createURI(partner);
-            createLinks(partner);
-            addObjectFields(entity, partner);
-
-            return partner;
-        } else {
-            return null;
+        if (entity == null) {
+        	return null;
         }
+        Partner partner = new Partner();
+        BeanUtils.copyProperties(entity, partner);
+        createURI(partner);
+        createLinks(partner);
+        addObjectFields(entity, partner);
+
+        return partner;
+    }
+    
+    public static PartnerEntity convert(Partner partner) {
+        if (partner == null) {
+        	return null;
+        }
+        PartnerEntity entity = new PartnerEntity();
+        BeanUtils.copyProperties(partner, entity);
+        
+        return entity;
     }
 
     private static void createLinks(Partner partner) {

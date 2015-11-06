@@ -7,30 +7,25 @@ import org.springframework.stereotype.Service;
 import br.com.store.backend.domain.entity.PartnerEntity;
 import br.com.store.backend.domain.repository.partner.PartnerRepository;
 import br.com.store.backend.infrastructure.profiling.Profiling;
-import br.com.store.backend.infrastructure.rest.RestClientException;
 import br.com.store.backend.view.resource.partner.Partner;
 
 @Service
 public class PartnerServiceImpl implements PartnerService {
 
     @Autowired
-    private PartnerRepository restRepository;
+    private PartnerRepository partnerRepository;
 
     @Profiled(level = Profiling.SERVICE)
     @Override
-    public Partner getPartner(Integer idPartner) throws RestClientException {
-        
-    	PartnerEntity partnerEntity = restRepository.findByIdPartner(idPartner);
-  
-    	return convert(partnerEntity);
-
+    public Partner findByIdPartner(Integer idPartner) {
+    	PartnerEntity partnerEntity = partnerRepository.findByIdPartner(idPartner);
+    	return PartnerConverter.convert(partnerEntity);
     }
-
-    private Partner convert(PartnerEntity entity) {
-        if (entity == null) {
-            return null;
-        }
-        return PartnerConverter.convert(entity);
-    }
+    
+    @Override
+	public Partner savePartner(Partner partner) {
+    	PartnerEntity partnerEntity = partnerRepository.saveAndFlush(PartnerConverter.convert(partner));
+    	return PartnerConverter.convert(partnerEntity);
+	}	
     
 }
