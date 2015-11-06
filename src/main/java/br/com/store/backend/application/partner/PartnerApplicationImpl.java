@@ -23,7 +23,7 @@ public class PartnerApplicationImpl implements PartnerApplication {
 	@Override
     @Profiled(level = Profiling.APPLICATION)
 	public Partner save(Partner partner) {
-		return partnerService.savePartner(partner);
+		return partnerService.save(partner);
 	}
 
 }

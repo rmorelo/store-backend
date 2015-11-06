@@ -6,5 +6,5 @@ public interface PartnerService {
   
     Partner findByIdPartner(Integer idPartner);
     
-    Partner savePartner(Partner partner);
+    Partner save(Partner partner);
 }

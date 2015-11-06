@@ -23,7 +23,7 @@ public class Partner implements Serializable{
 	
 	private Integer idAddress;
 	
-	private Integer like;
+	private Integer likes;
 	
     private String partnerType;
 
@@ -35,7 +35,7 @@ public class Partner implements Serializable{
 	
     private String urlGooglePLus;
 	
-    private Integer usernameInstagram;
+    private String usernameInstagram;
 	
 	private Date signupDate;
 	
@@ -76,12 +76,12 @@ public class Partner implements Serializable{
 		this.idAddress = idAddress;
 	}
 
-	public Integer getLike() {
-		return like;
+	public Integer getLikes() {
+		return likes;
 	}
 
-	public void setLike(Integer like) {
-		this.like = like;
+	public void setLike(Integer likes) {
+		this.likes = likes;
 	}
 
 	public String getPartnerType() {
@@ -124,11 +124,11 @@ public class Partner implements Serializable{
 		this.urlGooglePLus = urlGooglePLus;
 	}
 
-	public Integer getUsernameInstagram() {
+	public String getUsernameInstagram() {
 		return usernameInstagram;
 	}
 
-	public void setUsernameInstagram(Integer usernameInstagram) {
+	public void setUsernameInstagram(String usernameInstagram) {
 		this.usernameInstagram = usernameInstagram;
 	}
 

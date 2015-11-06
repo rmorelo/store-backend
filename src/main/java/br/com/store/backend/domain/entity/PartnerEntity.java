@@ -29,8 +29,8 @@ public class PartnerEntity {
 	@Column(name = "ID_ADDRESS")
     private Integer idAddress;
 	
-	@Column(name = "LIKE")
-    private Integer like;
+	@Column(name = "LIKES")
+    private Integer likes;
 	
 	@Column(name = "PARTNER_TYPE")
     private String partnerType;
@@ -48,7 +48,10 @@ public class PartnerEntity {
     private String urlGooglePLus;
 	
 	@Column(name = "USERNAME_INSTAGRAM")
-    private Integer usernameInstagram;
+    private String usernameInstagram;
+	
+	@Column(name = "USERNAME_TWITTER")
+    private String usernameTwitter;
 	
 	@Column(name = "SIGNUP_DATE")
     @Temporal(TemporalType.TIMESTAMP)
@@ -86,12 +89,12 @@ public class PartnerEntity {
 		this.idAddress = idAddress;
 	}
 
-	public Integer getLike() {
-		return like;
+	public Integer getLikes() {
+		return likes;
 	}
 
-	public void setLike(Integer like) {
-		this.like = like;
+	public void setLikes(Integer likes) {
+		this.likes = likes;
 	}
 
 	public String getPartnerType() {
@@ -134,13 +137,21 @@ public class PartnerEntity {
 		this.urlGooglePLus = urlGooglePLus;
 	}
 
-	public Integer getUsernameInstagram() {
+	public String getUsernameInstagram() {
 		return usernameInstagram;
 	}
 
-	public void setUsernameInstagram(Integer usernameInstagram) {
+	public void setUsernameInstagram(String usernameInstagram) {
 		this.usernameInstagram = usernameInstagram;
 	}
+	
+	public String getUsernameTwitter() {
+        return usernameTwitter;
+    }
+
+    public void setUsernameTwitter(String usernameTwitter) {
+        this.usernameTwitter = usernameTwitter;
+    }
 
 	public Date getSignupDate() {
 		return signupDate;
@@ -153,7 +164,7 @@ public class PartnerEntity {
 	@Override
     public String toString() {
         return "{idPartner:" + idPartner + ",description:" + description + ",idContact:" + idContact
-        		+ ",idAddress:" + idAddress + ",like:" + like + ",partnerType:" + partnerType 
+        		+ ",idAddress:" + idAddress + ",like:" + likes + ",partnerType:" + partnerType 
         		+ ",urlLogo:" + urlLogo + ",urlSite:" + urlSite + ",urlFacebook:" + urlFacebook 
         		+ ",urlGooglePLus:" + urlGooglePLus + ",usernameInstagram:" + usernameInstagram
                 + ",signupDate:" + signupDate + "}";
