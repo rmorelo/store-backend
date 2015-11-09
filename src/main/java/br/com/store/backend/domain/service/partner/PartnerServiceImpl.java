@@ -34,6 +34,15 @@ public class PartnerServiceImpl implements PartnerService {
         PartnerEntity partnerEntity = PartnerConverter.convert(partner);
         partnerEntity = partnerRepository.saveAndFlush(partnerEntity);
     	return PartnerConverter.convert(partnerEntity);
-	}	
+	}
+    
+    @Override
+    @Transactional
+    public Partner update(Partner partner) {
+        partner.setSignupDate(new Date());
+        PartnerEntity partnerEntity = PartnerConverter.convert(partner);
+        partnerEntity = partnerRepository.saveAndFlush(partnerEntity);
+        return PartnerConverter.convert(partnerEntity);
+    }
     
 }

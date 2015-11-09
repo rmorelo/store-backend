@@ -35,5 +35,15 @@ public class PartnerEndpoint {
         Resource<Partner> partnerResource = new Resource<>(partnerApplication.save(partner));        
         return new ResponseEntity<>(partnerResource, HttpStatus.CREATED);
     }
+    
+    @Profiled(level = Profiling.ENDPOINT)
+    @RequestMapping(value = "/partners/{idPartner}", method = RequestMethod.PUT)
+    public ResponseEntity<Resource<Partner>> update(@PathVariable(value = "idPartner") Integer idPartner,
+            @RequestBody Partner partner) {
+        partner.setIdPartner(idPartner);
+        Resource<Partner> partnerResource = new Resource<>(partnerApplication.update(partner));
+        return new ResponseEntity<>(partnerResource, HttpStatus.CREATED);
+    }
+    
 
 }

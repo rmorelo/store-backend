@@ -36,6 +36,8 @@ public class Partner implements Serializable{
     private String urlGooglePLus;
 	
     private String usernameInstagram;
+    
+    private String usernameTwitter;
 	
 	private Date signupDate;
 	
@@ -131,6 +133,14 @@ public class Partner implements Serializable{
 	public void setUsernameInstagram(String usernameInstagram) {
 		this.usernameInstagram = usernameInstagram;
 	}
+	
+	public String getUsernameTwitter() {
+        return usernameTwitter;
+    }
+
+    public void setUsernameTwitter(String usernameTwitter) {
+        this.usernameTwitter = usernameTwitter;
+    }
 
 	public Date getSignupDate() {
 		return signupDate;
