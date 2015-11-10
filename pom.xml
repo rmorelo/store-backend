@@ -78,7 +78,6 @@
         <dependency.version.javaeeAPI>7.0</dependency.version.javaeeAPI>
         <dependency.version.apisecurity>2.0.3</dependency.version.apisecurity>
         <dependency.version.jsr305>2.0.3</dependency.version.jsr305>
-        <dependency.version.modelmapper>0.7.1</dependency.version.modelmapper>
         <dependency.version.infinispan>6.0.2.Final</dependency.version.infinispan>
         <dependency.version.jetty>9.1.5.v20140505</dependency.version.jetty>
         
@@ -212,6 +211,20 @@
             <artifactId>jersey-bean-validation</artifactId>
             <version>${dependency.version.jersey.bean.validation}</version>
         </dependency>
+
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.13</version>
+		</dependency>
+
+		<!-- Insert contents of : pom_dependencies_service.txt -->
+
+        <dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>0.7.5</version>
+		</dependency>
 
         <!-- JDBC -->
         <dependency>
