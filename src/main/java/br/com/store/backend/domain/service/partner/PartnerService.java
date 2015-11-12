@@ -9,4 +9,6 @@ public interface PartnerService {
     Partner save(Partner partner);
     
     Partner update(Partner partner);
+    
+    void delete(Integer idPartner);
 }

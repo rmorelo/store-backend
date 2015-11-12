@@ -32,4 +32,9 @@ public class PartnerApplicationImpl implements PartnerApplication {
         return partnerService.update(partner);
     }
 	
+	@Override
+    @Profiled(level = Profiling.APPLICATION)
+    public void delete(Integer idPartner) {
+        return partnerService.delete(idPartner);
+    }
 }

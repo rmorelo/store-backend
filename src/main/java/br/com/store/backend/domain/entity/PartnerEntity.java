@@ -2,60 +2,124 @@ package br.com.store.backend.domain.entity;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.google.common.base.Objects;
+
 @Entity
 @Table(name = "PARTNER")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class PartnerEntity {
     
 	@Id
     @Column(name = "ID_PARTNER")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idPartner;
+    protected Integer idPartner;
     
 	@Column(name = "ID_CONTACT")
-    private Integer idContact;
+	protected Integer idContact;
 	
 	@Column(name = "DESCRIPTION")
-    private String description;
+	protected String description;
 	
 	@Column(name = "ID_ADDRESS")
-    private Integer idAddress;
+	protected Integer idAddress;
 	
 	@Column(name = "LIKES")
-    private Integer likes;
+	protected Integer likes;
 	
 	@Column(name = "PARTNER_TYPE")
-    private String partnerType;
+	@Enumerated(EnumType.STRING)
+	protected String partnerType;
 
 	@Column(name = "URL_LOGO")
-    private String urlLogo;
+	protected String urlLogo;
 	
 	@Column(name = "URL_SITE")
-    private String urlSite;
+	protected String urlSite;
 	
 	@Column(name = "URL_FACEBOOK")
-    private String urlFacebook;
+	protected String urlFacebook;
 	
 	@Column(name = "URL_GOOGLE_PLUS")
-    private String urlGooglePLus;
+	protected String urlGooglePlus;
 	
 	@Column(name = "USERNAME_INSTAGRAM")
-    private String usernameInstagram;
+	protected String usernameInstagram;
 	
 	@Column(name = "USERNAME_TWITTER")
-    private String usernameTwitter;
+	protected String usernameTwitter;
 	
 	@Column(name = "SIGNUP_DATE")
     @Temporal(TemporalType.TIMESTAMP)
-	private Date signupDate;
+	protected Date signupDate;
+    
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "partnerEntity")
+    private CompanyEntity companyEntity;
+	
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "partnerEntity")
+    private IndividualEntity individualEntity;
+	
+	public PartnerEntity (){
+	    
+	}
+	
+	public PartnerEntity (Date signupDate){
+        this.signupDate = signupDate;
+    }
+	
+	public PartnerTypeEnum getPartnerType() {
+        if (this.isCompanyEntity()) {
+            return PartnerTypeEnum.PESSOA_JURIDICA;
+        } else if (this.isIndividualEntity()) {
+            return PartnerTypeEnum.PESSOA_FISICA;
+        }
+        return null;
+    }
+	
+	public boolean isIndividualEntity() {
+        return this.getIndividualEntity() != null;
+    }
+
+    public boolean isCompanyEntity() {
+        return this.getCompanyEntity() != null;
+    }
+	
+    public IndividualEntity getIndividualEntity() {
+        return individualEntity;
+    }
+
+    public void setIndividualEntity(IndividualEntity individualEntity) {
+        if (this.companyEntity != null) { // A individual can never be a company simultaneously
+            this.companyEntity = null;
+        }
+        this.individualEntity = individualEntity;
+    }
+
+    public CompanyEntity getCompanyEntity() {
+        return companyEntity;
+    }
+
+    public void setCompanyEntity(CompanyEntity companyEntity) {
+        if (this.individualEntity != null) { // A company can never be an individual simultaneously
+            this.individualEntity = null;
+        }
+        this.companyEntity = companyEntity;
+    }
     
     public Integer getIdPartner() {
 		return idPartner;
@@ -97,10 +161,6 @@ public class PartnerEntity {
 		this.likes = likes;
 	}
 
-	public String getPartnerType() {
-		return partnerType;
-	}
-
 	public void setPartnerType(String partnerType) {
 		this.partnerType = partnerType;
 	}
@@ -129,12 +189,12 @@ public class PartnerEntity {
 		this.urlFacebook = urlFacebook;
 	}
 
-	public String getUrlGooglePLus() {
-		return urlGooglePLus;
+	public String getUrlGooglePlus() {
+		return urlGooglePlus;
 	}
 
-	public void setUrlGooglePLus(String urlGooglePLus) {
-		this.urlGooglePLus = urlGooglePLus;
+	public void setUrlGooglePlus(String urlGooglePlus) {
+		this.urlGooglePlus = urlGooglePlus;
 	}
 
 	public String getUsernameInstagram() {
@@ -162,12 +222,30 @@ public class PartnerEntity {
 	}
 
 	@Override
-    public String toString() {
-        return "{idPartner:" + idPartner + ",description:" + description + ",idContact:" + idContact
-        		+ ",idAddress:" + idAddress + ",like:" + likes + ",partnerType:" + partnerType 
-        		+ ",urlLogo:" + urlLogo + ",urlSite:" + urlSite + ",urlFacebook:" + urlFacebook 
-        		+ ",urlGooglePLus:" + urlGooglePLus + ",usernameInstagram:" + usernameInstagram
-                + ",signupDate:" + signupDate + "}";
+    public boolean equals(Object obj) {
+        return super.equals(obj) || (obj != null && this.getClass().isInstance(obj) && this.hashCode() == obj.hashCode());
     }
 
+    @Override
+    public int hashCode() {
+        return this.getIdPartner() == null ? super.hashCode() : this.getIdPartner().hashCode();
+    }
+	
+    @Override
+    public String toString() {
+        return Objects.toStringHelper(this)
+                .omitNullValues()
+                .add("idPartner", idPartner)
+                .add("description", description)
+                .add("idContact", idContact)
+                .add("idAddress", idAddress)
+                .add("likes", likes)
+                .add("urlLogo", urlLogo)
+                .add("urlSite", urlSite)
+                .add("urlFacebook", urlFacebook)
+                .add("urlGooglePlus", urlGooglePlus)
+                .add("usernameInstagram", usernameInstagram)
+                .add("signupDate", signupDate)
+                .toString();
+    }
 }

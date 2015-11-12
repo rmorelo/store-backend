@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import br.com.store.backend.domain.entity.PartnerEntity;
 
-public interface PartnerRepository extends JpaRepository<PartnerEntity, Long>{
+public interface PartnerRepository extends JpaRepository<PartnerEntity, Integer>{
 
     PartnerEntity findByIdPartner(Integer idPartner);
 

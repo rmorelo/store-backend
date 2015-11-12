@@ -50,4 +50,10 @@ public class PartnerServiceImpl implements PartnerService {
         return partnerServiceMapper.mapPartnerEntityToPartner(partnerEntitySaved);
     }
     
+    @Override
+    @Transactional
+    public void delete(Integer idPartner) {
+        partnerRepository.delete(idPartner);        
+    }
+    
 }

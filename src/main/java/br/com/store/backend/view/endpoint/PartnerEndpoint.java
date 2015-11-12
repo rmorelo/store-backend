@@ -1,10 +1,5 @@
 package br.com.store.backend.view.endpoint;
 
-import br.com.store.backend.application.partner.PartnerApplication;
-import br.com.store.backend.infrastructure.profiling.Profiling;
-import br.com.store.backend.infrastructure.rest.model.Resource;
-import br.com.store.backend.view.resource.partner.Partner;
-
 import org.perf4j.aop.Profiled;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +10,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import br.com.store.backend.application.partner.PartnerApplication;
+import br.com.store.backend.infrastructure.profiling.Profiling;
+import br.com.store.backend.infrastructure.rest.model.Resource;
+import br.com.store.backend.view.resource.partner.Partner;
 
 @RestController
 public class PartnerEndpoint {
@@ -44,8 +44,15 @@ public class PartnerEndpoint {
             @Validated @RequestBody Partner partner) {
         partner.setIdPartner(idPartner);
         Resource<Partner> partnerResource = new Resource<>(partnerApplication.update(partner));
-        return new ResponseEntity<>(partnerResource, HttpStatus.CREATED);
+        return new ResponseEntity<>(partnerResource, HttpStatus.OK);
     }
     
+    @Profiled(level = Profiling.ENDPOINT)
+    @RequestMapping(value = "/partners/{idPartner}", method = RequestMethod.PUT)
+    public ResponseEntity<Resource<Partner>> delete(@PathVariable(value = "idPartner") Integer idPartner){
+        partner.setIdPartner(idPartner);
+        Resource<Partner> partnerResource = new Resource<>(partnerApplication.delete(partner));
+        return new ResponseEntity<>(partnerResource, HttpStatus.OK);
+    }
 
 }

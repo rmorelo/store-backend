@@ -9,5 +9,7 @@ public interface PartnerApplication {
     Partner save(Partner partner);
     
     Partner update(Partner partner);
+    
+    void delete(Integer idPartner);
 
 }

@@ -27,7 +27,8 @@ public class Partner implements Serializable{
 	private Integer idAddress;
 	
 	private Integer likes;
-	
+
+	@NotNull
     private String partnerType;
 
     private String urlLogo;
