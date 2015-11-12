@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
 import br.com.store.backend.infrastructure.rest.model.Link;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -19,6 +21,7 @@ public class Partner implements Serializable{
     
 	private Integer idContact;
 	
+	@NotNull
     private String description;
 	
 	private Integer idAddress;

@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import br.com.store.backend.infrastructure.exception.BadRequestException;
-import br.com.store.backend.infrastructure.rest.errors.BadRequestEnum;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,16 +22,16 @@ public class HeaderInterceptor extends HandlerInterceptorAdapter {
     private void checkMandatoryHeaders(HttpServletRequest request) {
 
         if(StringUtils.isBlank(request.getHeader(TrackerInterceptor.VALIDATION_VERSION))) {
-            throw new BadRequestException(BadRequestEnum.HEADERS_VALIDATION_NULL);
+            throw new BadRequestException(BadRequestException.HEADERS_VALIDATION_NULL);
         }
         if(StringUtils.isBlank(request.getHeader(TrackerInterceptor.BROWSER_IP))) {
-            throw new BadRequestException(BadRequestEnum.HEADERS_BROWSER_IP_NULL);
+            throw new BadRequestException(BadRequestException.HEADERS_BROWSER_IP_NULL);
         }
         if(StringUtils.isBlank(request.getHeader(TrackerInterceptor.REQUEST_ID))) {
-            throw new BadRequestException(BadRequestEnum.HEADERS_REQUEST_ID_NULL);
+            throw new BadRequestException(BadRequestException.HEADERS_REQUEST_ID_NULL);
         }
         if(StringUtils.isBlank(request.getHeader("Content-Type"))) {
-            throw new BadRequestException(BadRequestEnum.HEADERS_CONTENT_TYPE_NULL);
+            throw new BadRequestException(BadRequestException.HEADERS_CONTENT_TYPE_NULL);
         }
     }
 

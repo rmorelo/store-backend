@@ -4,10 +4,12 @@ import br.com.store.backend.application.partner.PartnerApplication;
 import br.com.store.backend.infrastructure.profiling.Profiling;
 import br.com.store.backend.infrastructure.rest.model.Resource;
 import br.com.store.backend.view.resource.partner.Partner;
+
 import org.perf4j.aop.Profiled;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +41,7 @@ public class PartnerEndpoint {
     @Profiled(level = Profiling.ENDPOINT)
     @RequestMapping(value = "/partners/{idPartner}", method = RequestMethod.PUT)
     public ResponseEntity<Resource<Partner>> update(@PathVariable(value = "idPartner") Integer idPartner,
-            @RequestBody Partner partner) {
+            @Validated @RequestBody Partner partner) {
         partner.setIdPartner(idPartner);
         Resource<Partner> partnerResource = new Resource<>(partnerApplication.update(partner));
         return new ResponseEntity<>(partnerResource, HttpStatus.CREATED);

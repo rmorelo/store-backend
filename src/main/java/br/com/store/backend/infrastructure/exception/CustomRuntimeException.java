@@ -12,7 +12,7 @@ public class CustomRuntimeException extends RuntimeException {
 
     private List<ErrorMessage> erros = new LinkedList<ErrorMessage>();
     private String field;
-    private int code;
+    private long code;
     private String[] args;
 
     public CustomRuntimeException() {}
@@ -26,14 +26,14 @@ public class CustomRuntimeException extends RuntimeException {
         this.code = code;
     }
 
-    public CustomRuntimeException(String field, int code) {
+    public CustomRuntimeException(String field, long code) {
         super();
         this.field = field;
         this.code = code;
         this.erros.add(new ErrorMessage(code, field, null, null));
     }
 
-    public CustomRuntimeException(String field, int code, String title, String message, String... args) {
+    public CustomRuntimeException(String field, long code, String title, String message, String... args) {
         super();
         this.field = field;
         this.code = code;
@@ -55,7 +55,7 @@ public class CustomRuntimeException extends RuntimeException {
         return field;
     }
 
-    public int getCode() {
+    public long getCode() {
         return code;
     }
 
