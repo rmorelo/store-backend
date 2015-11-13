@@ -2,21 +2,17 @@ package br.com.store.backend.domain.entity;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import com.google.common.base.Objects;
 
@@ -42,8 +38,7 @@ public class PartnerEntity {
 	@Column(name = "LIKES")
 	protected Integer likes;
 	
-	@Column(name = "PARTNER_TYPE")
-	@Enumerated(EnumType.STRING)
+	@Transient
 	protected String partnerType;
 
 	@Column(name = "URL_LOGO")
@@ -67,12 +62,6 @@ public class PartnerEntity {
 	@Column(name = "SIGNUP_DATE")
     @Temporal(TemporalType.TIMESTAMP)
 	protected Date signupDate;
-    
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "partnerEntity")
-    private CompanyEntity companyEntity;
-	
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "partnerEntity")
-    private IndividualEntity individualEntity;
 	
 	public PartnerEntity (){
 	    
@@ -80,45 +69,6 @@ public class PartnerEntity {
 	
 	public PartnerEntity (Date signupDate){
         this.signupDate = signupDate;
-    }
-	
-	public PartnerTypeEnum getPartnerType() {
-        if (this.isCompanyEntity()) {
-            return PartnerTypeEnum.PESSOA_JURIDICA;
-        } else if (this.isIndividualEntity()) {
-            return PartnerTypeEnum.PESSOA_FISICA;
-        }
-        return null;
-    }
-	
-	public boolean isIndividualEntity() {
-        return this.getIndividualEntity() != null;
-    }
-
-    public boolean isCompanyEntity() {
-        return this.getCompanyEntity() != null;
-    }
-	
-    public IndividualEntity getIndividualEntity() {
-        return individualEntity;
-    }
-
-    public void setIndividualEntity(IndividualEntity individualEntity) {
-        if (this.companyEntity != null) { // A individual can never be a company simultaneously
-            this.companyEntity = null;
-        }
-        this.individualEntity = individualEntity;
-    }
-
-    public CompanyEntity getCompanyEntity() {
-        return companyEntity;
-    }
-
-    public void setCompanyEntity(CompanyEntity companyEntity) {
-        if (this.individualEntity != null) { // A company can never be an individual simultaneously
-            this.individualEntity = null;
-        }
-        this.companyEntity = companyEntity;
     }
     
     public Integer getIdPartner() {

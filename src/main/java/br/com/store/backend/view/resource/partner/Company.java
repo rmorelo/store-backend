@@ -1,49 +1,23 @@
 package br.com.store.backend.view.resource.partner;
 
 import java.io.Serializable;
-import java.util.List;
-
-import br.com.store.backend.infrastructure.rest.model.Link;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Company implements Serializable{
-
-    private Integer idPartner;
-    
-    private String cnpj;
-    
-    private String company_name;
-    
-    private String state_registration;
-    
-    private String commercial_name;
+public class Company extends Partner implements Serializable {
 	
-    private Partner partner;
-    
-	private String uri;
-    
-    private List<Link> links;
-    
-	public Partner getPartner() {
-        return partner;
-    }
+	private static final long serialVersionUID = 2330409383635152466L;
 
-    public void setPartner(Partner partner) {
-        this.partner = partner;
-    }
+	private String cnpj;
+    
+    private String companyName;
+    
+    private String stateRegistration;
+    
+    private String commercialName;
 
-    public Integer getIdPartner() {
-		return idPartner;
-	}
-
-	public void setIdPartner(Integer idPartner) {
-		this.idPartner = idPartner;
-	}
-	
     public String getCnpj() {
         return cnpj;
     }
@@ -52,43 +26,28 @@ public class Company implements Serializable{
         this.cnpj = cnpj;
     }
 
-    public String getCompany_name() {
-        return company_name;
+    public String getCompanyName() {
+        return companyName;
     }
 
-    public void setCompany_name(String company_name) {
-        this.company_name = company_name;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
-    public String getState_registration() {
-        return state_registration;
+    public String getStateRegistration() {
+        return stateRegistration;
     }
 
-    public void setState_registration(String state_registration) {
-        this.state_registration = state_registration;
+    public void setStateRegistration(String stateRegistration) {
+        this.stateRegistration = stateRegistration;
     }
 
-    public String getCommercial_name() {
-        return commercial_name;
+    public String getCommercialName() {
+        return commercialName;
     }
 
-    public void setCommercial_name(String commercial_name) {
-        this.commercial_name = commercial_name;
+    public void setCommercialName(String commercialName) {
+        this.commercialName = commercialName;
     }
 
-    public String getUri() {
-        return uri;
-    }
-
-    public void setUri(String uri) {
-        this.uri = uri;
-    }
-
-    public List<Link> getLinks() {
-        return links;
-    }
-
-    public void setLinks(List<Link> links) {
-        this.links = links;
-    }
 }

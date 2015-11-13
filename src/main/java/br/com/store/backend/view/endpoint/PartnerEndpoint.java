@@ -10,10 +10,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 import br.com.store.backend.application.partner.PartnerApplication;
 import br.com.store.backend.infrastructure.profiling.Profiling;
 import br.com.store.backend.infrastructure.rest.model.Resource;
+import br.com.store.backend.view.resource.partner.Company;
+import br.com.store.backend.view.resource.partner.Individual;
 import br.com.store.backend.view.resource.partner.Partner;
 
 @RestController
@@ -32,10 +33,17 @@ public class PartnerEndpoint {
     }
     
     @Profiled(level = Profiling.ENDPOINT)
-    @RequestMapping(value = "/partners", method = RequestMethod.POST)
-    public ResponseEntity<Resource<Partner>> save(@RequestBody Partner partner) {
-        Resource<Partner> partnerResource = new Resource<>(partnerApplication.save(partner));        
-        return new ResponseEntity<>(partnerResource, HttpStatus.CREATED);
+    @RequestMapping(value = "/partners/company", method = RequestMethod.POST)
+    public ResponseEntity<Resource<Company>> save(@RequestBody Company company) {
+        Resource<Company> companyResource = new Resource<>(partnerApplication.save(company));        
+        return new ResponseEntity<>(companyResource, HttpStatus.CREATED);
+    }
+    
+    @Profiled(level = Profiling.ENDPOINT)
+    @RequestMapping(value = "/partners/individual", method = RequestMethod.POST)
+    public ResponseEntity<Resource<Individual>> save(@RequestBody Individual individual) {
+        Resource<Individual> individualResource = new Resource<>(partnerApplication.save(individual));        
+        return new ResponseEntity<>(individualResource, HttpStatus.CREATED);
     }
     
     @Profiled(level = Profiling.ENDPOINT)
@@ -48,11 +56,10 @@ public class PartnerEndpoint {
     }
     
     @Profiled(level = Profiling.ENDPOINT)
-    @RequestMapping(value = "/partners/{idPartner}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/partners/{idPartner}", method = RequestMethod.DELETE)
     public ResponseEntity<Resource<Partner>> delete(@PathVariable(value = "idPartner") Integer idPartner){
-        partner.setIdPartner(idPartner);
-        Resource<Partner> partnerResource = new Resource<>(partnerApplication.delete(partner));
-        return new ResponseEntity<>(partnerResource, HttpStatus.OK);
+        partnerApplication.delete(idPartner);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

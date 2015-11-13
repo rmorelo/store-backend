@@ -28,16 +28,13 @@ public class Partner implements Serializable{
 	
 	private Integer likes;
 
-	@NotNull
-    private String partnerType;
-
     private String urlLogo;
 	
     private String urlSite;
 	
     private String urlFacebook;
 	
-    private String urlGooglePLus;
+    private String urlGooglePlus;
 	
     private String usernameInstagram;
     
@@ -90,14 +87,6 @@ public class Partner implements Serializable{
 		this.likes = likes;
 	}
 
-	public String getPartnerType() {
-		return partnerType;
-	}
-
-	public void setPartnerType(String partnerType) {
-		this.partnerType = partnerType;
-	}
-
 	public String getUrlLogo() {
 		return urlLogo;
 	}
@@ -122,12 +111,12 @@ public class Partner implements Serializable{
 		this.urlFacebook = urlFacebook;
 	}
 
-	public String getUrlGooglePLus() {
-		return urlGooglePLus;
+	public String getUrlGooglePlus() {
+		return urlGooglePlus;
 	}
 
-	public void setUrlGooglePLus(String urlGooglePLus) {
-		this.urlGooglePLus = urlGooglePLus;
+	public void setUrlGooglePlus(String urlGooglePlus) {
+		this.urlGooglePlus = urlGooglePlus;
 	}
 
 	public String getUsernameInstagram() {

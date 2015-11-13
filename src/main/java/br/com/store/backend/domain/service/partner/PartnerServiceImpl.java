@@ -9,9 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.store.backend.domain.entity.CompanyEntity;
+import br.com.store.backend.domain.entity.IndividualEntity;
 import br.com.store.backend.domain.entity.PartnerEntity;
 import br.com.store.backend.domain.repository.partner.PartnerRepository;
 import br.com.store.backend.infrastructure.profiling.Profiling;
+import br.com.store.backend.view.resource.partner.Company;
+import br.com.store.backend.view.resource.partner.Individual;
 import br.com.store.backend.view.resource.partner.Partner;
 
 @Service
@@ -34,12 +38,22 @@ public class PartnerServiceImpl implements PartnerService {
     
     @Override
     @Transactional
-	public Partner save(Partner partner) {
-        partner.setSignupDate(new Date());
-        PartnerEntity partnerEntity = PartnerConverter.convert(partner);
-        partnerEntity = partnerRepository.save(partnerEntity);
-    	return PartnerConverter.convert(partnerEntity);
+	public Company save(Company company) {
+    	company.setSignupDate(new Date());
+        CompanyEntity companyEntity = CompanyConverter.convert(company);
+        companyEntity = partnerRepository.save(companyEntity);
+    	return CompanyConverter.convert(companyEntity);
 	}
+    
+    @Override
+    @Transactional
+	public Individual save(Individual individual) {
+    	individual.setSignupDate(new Date());
+        IndividualEntity individualEntity = IndividualConverter.convert(individual);
+        individualEntity = partnerRepository.save(individualEntity);
+    	return IndividualConverter.convert(individualEntity);
+	}
+    
     
     @Override
     @Transactional

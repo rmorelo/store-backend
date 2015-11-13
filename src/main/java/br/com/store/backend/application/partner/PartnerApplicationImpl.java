@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import br.com.store.backend.domain.service.partner.PartnerService;
 import br.com.store.backend.infrastructure.profiling.Profiling;
+import br.com.store.backend.view.resource.partner.Company;
+import br.com.store.backend.view.resource.partner.Individual;
 import br.com.store.backend.view.resource.partner.Partner;
 
 @Service
@@ -22,7 +24,13 @@ public class PartnerApplicationImpl implements PartnerApplication {
 
 	@Override
     @Profiled(level = Profiling.APPLICATION)
-	public Partner save(Partner partner) {
+	public Individual save(Individual partner) {
+		return partnerService.save(partner);
+	}
+	
+	@Override
+    @Profiled(level = Profiling.APPLICATION)
+	public Company save(Company partner) {
 		return partnerService.save(partner);
 	}
 
@@ -35,6 +43,6 @@ public class PartnerApplicationImpl implements PartnerApplication {
 	@Override
     @Profiled(level = Profiling.APPLICATION)
     public void delete(Integer idPartner) {
-        return partnerService.delete(idPartner);
+        partnerService.delete(idPartner);
     }
 }

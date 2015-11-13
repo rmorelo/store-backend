@@ -2,53 +2,27 @@ package br.com.store.backend.domain.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 
 import com.google.common.base.Objects;
 
 @Entity
 @Table(name = "COMPANY")
-public class CompanyEntity {
-    
-    @Id
-    @GeneratedValue(generator = "partner-primarykey")
-    @GenericGenerator(name = "partner-primarykey", strategy = "foreign",
-            parameters = {
-                    @Parameter(name = "property", value = "partnerEntity")
-            })
-    @Column(name = "ID_PARTNER", nullable = false)
-    private Integer idPartner;
+@PrimaryKeyJoinColumn(name = "ID_PARTNER")
+public class CompanyEntity extends PartnerEntity{
     
     @Column(name = "CNPJ")
     private String cnpj;
     
     @Column(name = "COMPANY_NAME")
-    private String company_name;
+    private String companyName;
     
     @Column(name = "STATE_REGISTRATION")
-    private String state_registration;
+    private String stateRegistration;
     
     @Column(name = "COMMERCIAL_NAME")
-    private String commercial_name;
-
-    @OneToOne(optional = false)
-    @PrimaryKeyJoinColumn
-    private PartnerEntity partnerEntity;
-    
-    public Integer getIdPartner() {
-        return idPartner;
-    }
-    
-    public void setIdPartner(Integer idPartner) {
-        this.idPartner = idPartner;
-    }
+    private String commercialName;
     
     public String getCnpj() {
         return cnpj;
@@ -58,28 +32,28 @@ public class CompanyEntity {
         this.cnpj = cnpj;
     }
 
-    public String getCompany_name() {
-        return company_name;
+    public String getCompanyName() {
+        return companyName;
     }
 
-    public void setCompany_name(String company_name) {
-        this.company_name = company_name;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
-    public String getState_registration() {
-        return state_registration;
+    public String getStateRegistration() {
+        return stateRegistration;
     }
 
-    public void setState_registration(String state_registration) {
-        this.state_registration = state_registration;
+    public void setStateRegistration(String stateRegistration) {
+        this.stateRegistration = stateRegistration;
     }
 
-    public String getCommercial_name() {
-        return commercial_name;
+    public String getCommercialName() {
+        return commercialName;
     }
 
-    public void setCommercial_name(String commercial_name) {
-        this.commercial_name = commercial_name;
+    public void setCommercialName(String commercialName) {
+        this.commercialName = commercialName;
     }
     
     @Override
@@ -98,9 +72,9 @@ public class CompanyEntity {
                 .omitNullValues()
                 .add("idPartner", idPartner)
                 .add("cnpj", cnpj)
-                .add("company_name", company_name)
-                .add("state_registration", state_registration)
-                .add("commercial_name", commercial_name)
+                .add("company_name", companyName)
+                .add("state_registration", stateRegistration)
+                .add("commercial_name", commercialName)
                 .toString();
     }
 }

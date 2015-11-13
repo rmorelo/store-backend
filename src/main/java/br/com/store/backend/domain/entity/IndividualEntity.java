@@ -1,30 +1,20 @@
 package br.com.store.backend.domain.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.google.common.base.Objects;
 
 @Entity
 @Table(name = "INDIVIDUAL")
+@PrimaryKeyJoinColumn(name = "ID_PARTNER")
 public class IndividualEntity extends PartnerEntity {
-    
-    @Id
-    @GeneratedValue(generator = "partner-primarykey")
-    @GenericGenerator(name = "partner-primarykey", strategy = "foreign",
-            parameters = {
-                    @Parameter(name = "property", value = "partnerEntity")
-            })
-    @Column(name = "ID_PARTNER", nullable = false)
-    private Integer idPartner;
     
     @Column(name = "CPF")
     private String cpf;
@@ -33,12 +23,18 @@ public class IndividualEntity extends PartnerEntity {
     private String name;
     
     @Column(name = "LAST_NAME")
-    private String last_name;
-     
-    @OneToOne(optional = false)
-    @PrimaryKeyJoinColumn
-    private PartnerEntity partnerEntity;
+    private String lastName;
     
+    @Column(name = "NICK_NAME")
+    private String nickName;
+    
+    @Column(name = "SEX")
+    private Character sex;
+    
+    @Column(name = "BIRTH_DATE")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date birthDate;
+     
     public String getCpf() {
         return cpf;
     }
@@ -55,15 +51,39 @@ public class IndividualEntity extends PartnerEntity {
         this.name = name;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
     
-    @Override
+    public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+
+	public Character getSex() {
+		return sex;
+	}
+
+	public void setSex(Character sex) {
+		this.sex = sex;
+	}
+
+	public Date getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
+	}
+
+	@Override
     public boolean equals(Object obj) {
         return super.equals(obj) || (obj != null && this.getClass().isInstance(obj) && this.hashCode() == obj.hashCode());
     }
@@ -80,7 +100,10 @@ public class IndividualEntity extends PartnerEntity {
                 .add("idPartner", idPartner)
                 .add("cpf", cpf)
                 .add("name", name)
-                .add("last_name", last_name)                
+                .add("last_name", lastName)
+                .add("nickName", nickName)
+                .add("sex", sex)
+                .add("birthDate", birthDate)
                 .toString();
     }
 }
