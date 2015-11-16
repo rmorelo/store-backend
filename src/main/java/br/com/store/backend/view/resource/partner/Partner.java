@@ -39,6 +39,8 @@ public class Partner implements Serializable{
 	
 	private String partnerType;
 	
+	private Email email;
+	
 	private String uri;
     
     private List<Link> links;
@@ -146,8 +148,16 @@ public class Partner implements Serializable{
 	public void setPartnerType(String partnerType) {
 		this.partnerType = partnerType;
 	}
+	
+	public Email getEmail() {
+        return email;
+    }
 
-	public String getUri() {
+    public void setEmail(Email email) {
+        this.email = email;
+    }
+
+    public String getUri() {
         return uri;
     }
 

@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -62,11 +64,23 @@ public class PartnerEntity {
     @Temporal(TemporalType.TIMESTAMP)
 	protected Date signupDate;
 	
+	@OneToOne
+	@JoinColumn(name = "id_email")
+	private EmailEntity email;
+	
 	public PartnerEntity (){
 	    
 	}
 	
-	public PartnerEntity (Date signupDate){
+	public EmailEntity getEmail() {
+        return email;
+    }
+
+    public void setEmail(EmailEntity email) {
+        this.email = email;
+    }
+
+    public PartnerEntity (Date signupDate){
         this.signupDate = signupDate;
     }
     
