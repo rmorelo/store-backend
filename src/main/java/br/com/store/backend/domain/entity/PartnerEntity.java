@@ -12,7 +12,6 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 import com.google.common.base.Objects;
 
@@ -37,8 +36,8 @@ public class PartnerEntity {
 	
 	@Column(name = "LIKES")
 	protected Integer likes;
-	
-	@Transient
+
+	@Column(name = "PARTNER_TYPE")
 	protected String partnerType;
 
 	@Column(name = "URL_LOGO")
@@ -111,10 +110,6 @@ public class PartnerEntity {
 		this.likes = likes;
 	}
 
-	public void setPartnerType(String partnerType) {
-		this.partnerType = partnerType;
-	}
-
 	public String getUrlLogo() {
 		return urlLogo;
 	}
@@ -169,6 +164,14 @@ public class PartnerEntity {
 
 	public void setSignupDate(Date signupDate) {
 		this.signupDate = signupDate;
+	}
+	
+	public String getPartnerType() {
+		return partnerType;
+	}
+
+	public void setPartnerType(String partnerType) {
+		this.partnerType = partnerType;
 	}
 
 	@Override

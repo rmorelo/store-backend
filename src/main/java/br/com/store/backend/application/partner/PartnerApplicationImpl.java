@@ -18,8 +18,8 @@ public class PartnerApplicationImpl implements PartnerApplication {
     
     @Override
     @Profiled(level = Profiling.APPLICATION)
-    public Partner findByIdPartner(Integer idPartner) {
-    	return partnerService.findByIdPartner(idPartner);  
+    public Partner findByIdPartner(Integer idPartner) {    	
+    	 return partnerService.findByIdPartner(idPartner);  
     }
 
 	@Override

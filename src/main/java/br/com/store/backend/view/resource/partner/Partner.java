@@ -3,14 +3,10 @@ package br.com.store.backend.view.resource.partner;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-
-import javax.validation.constraints.NotNull;
-
 import br.com.store.backend.infrastructure.rest.model.Link;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-
+ 
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Partner implements Serializable{
@@ -21,7 +17,6 @@ public class Partner implements Serializable{
     
 	private Integer idContact;
 	
-	@NotNull
     private String description;
 	
 	private Integer idAddress;
@@ -42,11 +37,12 @@ public class Partner implements Serializable{
 	
 	private Date signupDate;
 	
+	private String partnerType;
+	
 	private String uri;
     
     private List<Link> links;
     
-
 	public Integer getIdPartner() {
 		return idPartner;
 	}
@@ -143,7 +139,15 @@ public class Partner implements Serializable{
 		this.signupDate = signupDate;
 	}
 
-    public String getUri() {
+    public String getPartnerType() {
+		return partnerType;
+	}
+
+	public void setPartnerType(String partnerType) {
+		this.partnerType = partnerType;
+	}
+
+	public String getUri() {
         return uri;
     }
 

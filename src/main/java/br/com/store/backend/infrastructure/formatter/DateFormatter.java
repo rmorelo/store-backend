@@ -11,7 +11,7 @@ public class DateFormatter {
 
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
 
-    public static final String CUBUS_SUPPORT_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+    public static final String STANDARD_BR_DATETIME_FORMAT = "dd-MM-yyyy'T'HH:mm:ss'Z'";
     private static final String STANDARD_BR_DATE_FORMAT = "dd/MM/yyyy HH:mm";
 
     public String getStandardDateFromSupportFormat(Date supportDate) {
@@ -21,7 +21,7 @@ public class DateFormatter {
     
     public DateFormat getDateFormat() {
         SimpleDateFormat dateFormater = new SimpleDateFormat();
-        dateFormater.applyPattern(CUBUS_SUPPORT_DATE_FORMAT);
+        dateFormater.applyPattern(STANDARD_BR_DATETIME_FORMAT);
         return dateFormater;
     }
 

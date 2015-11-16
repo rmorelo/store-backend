@@ -34,7 +34,7 @@ public class IndividualEntity extends PartnerEntity {
     @Column(name = "BIRTH_DATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date birthDate;
-     
+    
     public String getCpf() {
         return cpf;
     }

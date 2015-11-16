@@ -12,7 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.store.backend.domain.entity.CompanyEntity;
 import br.com.store.backend.domain.entity.IndividualEntity;
 import br.com.store.backend.domain.entity.PartnerEntity;
+import br.com.store.backend.domain.entity.PartnerTypeEnum;
 import br.com.store.backend.domain.repository.partner.PartnerRepository;
+import br.com.store.backend.infrastructure.exception.NotFoundException;
 import br.com.store.backend.infrastructure.profiling.Profiling;
 import br.com.store.backend.view.resource.partner.Company;
 import br.com.store.backend.view.resource.partner.Individual;
@@ -33,6 +35,11 @@ public class PartnerServiceImpl implements PartnerService {
     
     public Partner findByIdPartner(Integer idPartner) {
     	PartnerEntity partnerEntity = partnerRepository.findByIdPartner(idPartner);
+    	
+    	if(partnerEntity == null){
+    		throw new NotFoundException(NotFoundException.PARTNER_NOT_FOUND);
+    	}
+    	
     	return PartnerConverter.convert(partnerEntity);
     }
     
@@ -40,6 +47,7 @@ public class PartnerServiceImpl implements PartnerService {
     @Transactional
 	public Company save(Company company) {
     	company.setSignupDate(new Date());
+    	company.setPartnerType(PartnerTypeEnum.PESSOA_JURIDICA.getType());
         CompanyEntity companyEntity = CompanyConverter.convert(company);
         companyEntity = partnerRepository.save(companyEntity);
     	return CompanyConverter.convert(companyEntity);
@@ -49,6 +57,7 @@ public class PartnerServiceImpl implements PartnerService {
     @Transactional
 	public Individual save(Individual individual) {
     	individual.setSignupDate(new Date());
+    	individual.setPartnerType(PartnerTypeEnum.PESSOA_FISICA.getType());
         IndividualEntity individualEntity = IndividualConverter.convert(individual);
         individualEntity = partnerRepository.save(individualEntity);
     	return IndividualConverter.convert(individualEntity);
@@ -67,7 +76,8 @@ public class PartnerServiceImpl implements PartnerService {
     @Override
     @Transactional
     public void delete(Integer idPartner) {
-        partnerRepository.delete(idPartner);        
+    	PartnerEntity partnerEntity = partnerRepository.findByIdPartner(idPartner);
+        partnerRepository.delete(partnerEntity.getIdPartner());        
     }
     
 }

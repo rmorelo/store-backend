@@ -4,7 +4,7 @@ public class NotFoundException extends CustomRuntimeException {
 
     private static final long serialVersionUID = 1L;
 
-    public static final int STORE = 404001;
+    public static final int PARTNER_NOT_FOUND = 404001;
 
     public NotFoundException(int code) {
         super(code);

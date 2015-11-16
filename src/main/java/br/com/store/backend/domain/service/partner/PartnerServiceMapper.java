@@ -3,6 +3,7 @@ package br.com.store.backend.domain.service.partner;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.http.HttpMethod;
@@ -24,6 +25,8 @@ public class PartnerServiceMapper extends AbstractServiceMapper {
 	public PartnerServiceMapper() {
 		modelMapper = new ModelMapper();
 		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+		modelMapper.getConfiguration().setPropertyCondition(Conditions.isNotNull());
+
 	}
 
 	public Partner mapPartnerEntityToPartner(PartnerEntity partnerEntity) {

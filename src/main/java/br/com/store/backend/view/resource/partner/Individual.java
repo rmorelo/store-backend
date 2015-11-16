@@ -3,9 +3,13 @@ package br.com.store.backend.view.resource.partner;
 import java.io.Serializable;
 import java.util.Date;
 
+import br.com.store.backend.infrastructure.serializer.JsonDateSerializer;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+@JsonSerialize(using = JsonDateSerializer.class)
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Individual extends Partner implements Serializable {
