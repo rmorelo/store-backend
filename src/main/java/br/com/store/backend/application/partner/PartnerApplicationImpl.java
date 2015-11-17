@@ -27,15 +27,15 @@ public class PartnerApplicationImpl implements PartnerApplication {
 	@Override
     @Profiled(level = Profiling.APPLICATION)
 	@Transactional
-	public Individual save(Individual partner) {
-		return partnerService.save(partner);
+	public Individual save(Individual individual) {
+		return partnerService.save(individual);
 	}
 	
 	@Override
     @Profiled(level = Profiling.APPLICATION)
 	@Transactional
-	public Company save(Company partner) {
-		return partnerService.save(partner);
+	public Company save(Company company) {
+		return partnerService.save(company);
 	}
 
 	@Override

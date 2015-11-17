@@ -53,7 +53,7 @@ public class PartnerEndpoint {
         Resource<Partner> partnerResource = new Resource<>(partnerApplication.update(partner));
         return new ResponseEntity<>(partnerResource, HttpStatus.OK);
     }
-    
+        
     @Profiled(level = Profiling.ENDPOINT)
     @RequestMapping(value = "/partners/{idPartner}", method = RequestMethod.PATCH)
     public ResponseEntity<Resource<Partner>> updatePartial(@PathVariable(value = "idPartner") Integer idPartner,

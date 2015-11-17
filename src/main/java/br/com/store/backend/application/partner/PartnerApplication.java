@@ -13,7 +13,7 @@ public interface PartnerApplication {
     Individual save(Individual individual);
     
     Partner update(Partner partner);
-    
+        
     void delete(Integer idPartner);
 
 }

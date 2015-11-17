@@ -13,6 +13,6 @@ public interface PartnerService {
     Individual save(Individual individual);
     
     Partner update(Partner partner);
-    
+            
     void delete(Integer idPartner);
 }
