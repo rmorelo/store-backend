@@ -37,6 +37,7 @@ public class CompanyConverter {
         if (company == null) {
         	return null;
         }
+        
         CompanyEntity entity = new CompanyEntity();
         BeanUtils.copyProperties(company, entity);
         

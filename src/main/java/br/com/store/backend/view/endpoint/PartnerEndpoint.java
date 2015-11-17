@@ -27,7 +27,6 @@ public class PartnerEndpoint {
     @RequestMapping(value = "/partners/{idPartner}", method = RequestMethod.GET)
     public ResponseEntity<Resource<Partner>> findByIdPartner(
     		@PathVariable(value = "idPartner") Integer idEmail) {
-
     	Partner partner = partnerApplication.findByIdPartner(idEmail);
     	return new ResponseEntity<>(new Resource<Partner>(partner), HttpStatus.OK);
     }

@@ -1,5 +1,7 @@
 package br.com.store.backend.application.partner;
 
+import javax.transaction.Transactional;
+
 import org.perf4j.aop.Profiled;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,29 +21,33 @@ public class PartnerApplicationImpl implements PartnerApplication {
     @Override
     @Profiled(level = Profiling.APPLICATION)
     public Partner findByIdPartner(Integer idPartner) {    	
-    	 return partnerService.findByIdPartner(idPartner);  
+    	 return partnerService.findByIdPartner(idPartner);
     }
 
 	@Override
     @Profiled(level = Profiling.APPLICATION)
+	@Transactional
 	public Individual save(Individual partner) {
 		return partnerService.save(partner);
 	}
 	
 	@Override
     @Profiled(level = Profiling.APPLICATION)
+	@Transactional
 	public Company save(Company partner) {
 		return partnerService.save(partner);
 	}
 
 	@Override
     @Profiled(level = Profiling.APPLICATION)
+	@Transactional
     public Partner update(Partner partner) {
         return partnerService.update(partner);
     }
 	
 	@Override
     @Profiled(level = Profiling.APPLICATION)
+	@Transactional
     public void delete(Integer idPartner) {
         partnerService.delete(idPartner);
     }

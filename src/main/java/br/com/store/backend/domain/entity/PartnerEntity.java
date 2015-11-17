@@ -2,8 +2,10 @@ package br.com.store.backend.domain.entity;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -64,7 +66,7 @@ public class PartnerEntity {
     @Temporal(TemporalType.TIMESTAMP)
 	protected Date signupDate;
 	
-	@OneToOne
+	@OneToOne(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_email")
 	private EmailEntity email;
 	

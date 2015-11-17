@@ -30,21 +30,31 @@ public class PartnerServiceImpl implements PartnerService {
     @Resource
 	private PartnerServiceMapper partnerServiceMapper;
     
-    @Profiled(level = Profiling.SERVICE)
     @Override
-    
+    @Profiled(level = Profiling.SERVICE)
     public Partner findByIdPartner(Integer idPartner) {
     	PartnerEntity partnerEntity = partnerRepository.findByIdPartner(idPartner);
+    	CompanyEntity companyEntity = null;
+    	IndividualEntity individualEntity = null;
     	
     	if(partnerEntity == null){
     		throw new NotFoundException(NotFoundException.PARTNER_NOT_FOUND);
     	}
     	
-    	return PartnerConverter.convert(partnerEntity);
+    	if(partnerEntity.getPartnerType().equals(PartnerTypeEnum.PESSOA_JURIDICA.getType())){
+    		companyEntity = (CompanyEntity)partnerEntity;
+    		return CompanyConverter.convert(companyEntity); 
+    	} else if(partnerEntity.getPartnerType().equals(PartnerTypeEnum.PESSOA_FISICA.getType())){
+    		individualEntity = (IndividualEntity)partnerEntity;
+    		return IndividualConverter.convert(individualEntity);
+    	}
+    	
+    	return null;
     }
     
     @Override
     @Transactional
+    @Profiled(level = Profiling.SERVICE)
 	public Company save(Company company) {
     	company.setSignupDate(new Date());
     	company.setPartnerType(PartnerTypeEnum.PESSOA_JURIDICA.getType());
@@ -55,6 +65,7 @@ public class PartnerServiceImpl implements PartnerService {
     
     @Override
     @Transactional
+    @Profiled(level = Profiling.SERVICE)
 	public Individual save(Individual individual) {
     	individual.setSignupDate(new Date());
     	individual.setPartnerType(PartnerTypeEnum.PESSOA_FISICA.getType());
@@ -66,6 +77,7 @@ public class PartnerServiceImpl implements PartnerService {
     
     @Override
     @Transactional
+    @Profiled(level = Profiling.SERVICE)
     public Partner update(Partner partner) {
     	PartnerEntity partnerEntity = partnerRepository.findByIdPartner(partner.getIdPartner());
     	partnerServiceMapper.mapPartnerToPartnerEntity(partner, partnerEntity);
@@ -75,6 +87,7 @@ public class PartnerServiceImpl implements PartnerService {
     
     @Override
     @Transactional
+    @Profiled(level = Profiling.SERVICE)
     public void delete(Integer idPartner) {
     	PartnerEntity partnerEntity = partnerRepository.findByIdPartner(idPartner);
         partnerRepository.delete(partnerEntity.getIdPartner());        

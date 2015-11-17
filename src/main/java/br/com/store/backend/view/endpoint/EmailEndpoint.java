@@ -5,9 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 import br.com.store.backend.application.partner.EmailApplication;
 import br.com.store.backend.infrastructure.profiling.Profiling;
 import br.com.store.backend.infrastructure.rest.model.Resource;
@@ -20,11 +22,11 @@ public class EmailEndpoint {
     private EmailApplication emailApplication;
     
     @Profiled(level = Profiling.ENDPOINT)
-    @RequestMapping(value = "/partners/{idPartner}/emails", method = RequestMethod.GET)
-    public ResponseEntity<Resource<Email>> findByIdPartner(
-    		@PathVariable(value = "idPartner") Integer idPartner) {
-
-        
-    	return null;
-    }   
+    @RequestMapping(value = "/partners/{idPartner}/emails", method = RequestMethod.POST)
+    public ResponseEntity<Resource<Email>> save(@PathVariable(value = "idPartner") Integer idPartner, 
+    		@RequestBody Email email) {
+        Resource<Email> emailResource = new Resource<>(emailApplication.save(idPartner, email));        
+        return new ResponseEntity<>(emailResource, HttpStatus.CREATED);
+    }
+    
 }
