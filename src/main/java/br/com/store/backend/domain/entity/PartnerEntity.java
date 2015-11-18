@@ -28,10 +28,7 @@ public class PartnerEntity {
     @Column(name = "ID_PARTNER")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer idPartner;
-    
-	@Column(name = "ID_CONTACT")
-	protected Integer idContact;
-	
+    	
 	@Column(name = "DESCRIPTION")
 	protected String description;
 	
@@ -70,7 +67,7 @@ public class PartnerEntity {
 	@JoinColumn(name = "id_email")
 	private EmailEntity email;
 	
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_telephone")
 	private TelephoneEntity telephone;
 	
@@ -106,14 +103,6 @@ public class PartnerEntity {
 		this.idPartner = idPartner;
 	}
 	
-	public Integer getIdContact() {
-		return idContact;
-	}
-    
-	public void setIdContact(Integer idContact) {
-		this.idContact = idContact;
-	}
-
 	public String getDescription() {
 		return description;
 	}
@@ -217,8 +206,7 @@ public class PartnerEntity {
         return Objects.toStringHelper(this)
                 .omitNullValues()
                 .add("idPartner", idPartner)
-                .add("description", description)
-                .add("idContact", idContact)
+                .add("description", description)                
                 .add("idAddress", idAddress)
                 .add("likes", likes)
                 .add("urlLogo", urlLogo)

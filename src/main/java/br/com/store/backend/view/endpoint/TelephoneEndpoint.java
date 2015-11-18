@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 import br.com.store.backend.application.partner.TelephoneApplication;
+import br.com.store.backend.domain.entity.TelephoneTypeEnum;
 import br.com.store.backend.infrastructure.profiling.Profiling;
 import br.com.store.backend.infrastructure.rest.model.Resource;
 import br.com.store.backend.view.resource.partner.Telephone;
@@ -27,5 +29,13 @@ public class TelephoneEndpoint {
         Resource<Telephone> telephoneResource = new Resource<>(telephoneApplication.save(idPartner, telephone));        
         return new ResponseEntity<>(telephoneResource, HttpStatus.CREATED);
     }
+    
+    @Profiled(level = Profiling.ENDPOINT)
+    @RequestMapping(value = "/telephones/types", method = RequestMethod.GET)
+    public ResponseEntity<Resource<TelephoneTypeEnum[]>> getTelephoneType() {
+        Resource<TelephoneTypeEnum[]> telephoneResource = new Resource<>(TelephoneTypeEnum.values());
+        return new ResponseEntity<>(telephoneResource, HttpStatus.CREATED);
+    }
+    
     
 }

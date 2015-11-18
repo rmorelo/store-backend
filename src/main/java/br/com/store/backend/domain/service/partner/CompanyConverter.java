@@ -68,7 +68,7 @@ public class CompanyConverter {
         }
         if(entity.getTelephone() != null){
         	Telephone telephone = new Telephone();
-           	BeanUtils.copyProperties(entity.getEmail(), telephone);
+           	BeanUtils.copyProperties(entity.getTelephone(), telephone);
            	company.setTelephone(telephone);
         }
     }
