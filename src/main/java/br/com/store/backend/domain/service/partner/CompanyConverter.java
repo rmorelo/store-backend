@@ -7,11 +7,12 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpMethod;
 
 import br.com.store.backend.domain.entity.CompanyEntity;
-import br.com.store.backend.domain.entity.PartnerEntity;
 import br.com.store.backend.infrastructure.rest.model.Link;
 import br.com.store.backend.view.resource.partner.Company;
+import br.com.store.backend.view.resource.partner.Email;
 import br.com.store.backend.view.resource.partner.Partner;
 import br.com.store.backend.view.resource.partner.PartnerLinks;
+import br.com.store.backend.view.resource.partner.Telephone;
 
 public class CompanyConverter {
 
@@ -26,10 +27,10 @@ public class CompanyConverter {
         }
         Company company = new Company();
         BeanUtils.copyProperties(entity, company);
+        addObjectFields(entity, company);
         createURI(company);
         createLinks(company);
-        addObjectFields(entity, company);
-
+        
         return company;
     }
     
@@ -59,13 +60,17 @@ public class CompanyConverter {
         partner.setUri(URI_PATTERN);
     }
 
-    private static void addObjectFields(PartnerEntity entity, Partner partner) {
-//        if (CollectionUtils.isNotEmpty(entity.getTrademarks())) {
-//            user.setTrademark(TrademarkConverter.convert(entity.getUserTrademark()));
-//        }
-//        if (CollectionUtils.isNotEmpty(entity.getContacts())) {
-//            user.setContacts(ContactConverter.convert(entity.getContacts()));
-//        }
+    private static void addObjectFields(CompanyEntity entity, Company company) {
+        if(entity.getEmail() != null){
+           	Email email = new Email();
+           	BeanUtils.copyProperties(entity.getEmail(), email);
+           	company.setEmail(email);
+        }
+        if(entity.getTelephone() != null){
+        	Telephone telephone = new Telephone();
+           	BeanUtils.copyProperties(entity.getEmail(), telephone);
+           	company.setTelephone(telephone);
+        }
     }
     
 }

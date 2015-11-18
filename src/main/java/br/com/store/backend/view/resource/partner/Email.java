@@ -10,7 +10,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Email implements Serializable{
 
-    private Integer idEmail;
+	private static final long serialVersionUID = -8349430254253463535L;
+
+	private Integer idEmail;
     	
     private String email;
 	

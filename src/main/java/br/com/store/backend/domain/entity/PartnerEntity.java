@@ -66,14 +66,26 @@ public class PartnerEntity {
     @Temporal(TemporalType.TIMESTAMP)
 	protected Date signupDate;
 	
-	@OneToOne(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_email")
 	private EmailEntity email;
+	
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_telephone")
+	private TelephoneEntity telephone;
 	
 	public PartnerEntity (){
 	    
 	}
 	
+	public TelephoneEntity getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(TelephoneEntity telephone) {
+		this.telephone = telephone;
+	}
+
 	public EmailEntity getEmail() {
         return email;
     }

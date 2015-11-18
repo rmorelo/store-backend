@@ -2,7 +2,7 @@ package br.com.store.backend.domain.entity;
 
 public enum ConfirmationStatusEnum {
 
-    ACTIVE("A"), INACTIVE("I");
+    CONFIRMED("C"), PENDING("P");
     
     private String status;
     

@@ -7,11 +7,12 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpMethod;
 
 import br.com.store.backend.domain.entity.IndividualEntity;
-import br.com.store.backend.domain.entity.PartnerEntity;
 import br.com.store.backend.infrastructure.rest.model.Link;
+import br.com.store.backend.view.resource.partner.Email;
 import br.com.store.backend.view.resource.partner.Individual;
 import br.com.store.backend.view.resource.partner.Partner;
 import br.com.store.backend.view.resource.partner.PartnerLinks;
+import br.com.store.backend.view.resource.partner.Telephone;
 
 public class IndividualConverter {
 
@@ -24,12 +25,13 @@ public class IndividualConverter {
         if (entity == null) {
         	return null;
         }
+        
         Individual individual = new Individual();
         BeanUtils.copyProperties(entity, individual);
+        addObjectFields(entity, individual);
         createURI(individual);
         createLinks(individual);
-        addObjectFields(entity, individual);
-
+        
         return individual;
     }
     
@@ -58,13 +60,17 @@ public class IndividualConverter {
         partner.setUri(URI_PATTERN);
     }
 
-    private static void addObjectFields(PartnerEntity entity, Partner partner) {
-//        if (CollectionUtils.isNotEmpty(entity.getTrademarks())) {
-//            user.setTrademark(TrademarkConverter.convert(entity.getUserTrademark()));
-//        }
-//        if (CollectionUtils.isNotEmpty(entity.getContacts())) {
-//            user.setContacts(ContactConverter.convert(entity.getContacts()));
-//        }
+    private static void addObjectFields(IndividualEntity entity, Individual individual) {
+        if(entity.getEmail() != null){
+           	Email email = new Email();
+           	BeanUtils.copyProperties(entity.getEmail(), email);
+            individual.setEmail(email);
+        }
+        if(entity.getTelephone() != null){
+        	Telephone telephone = new Telephone();
+           	BeanUtils.copyProperties(entity.getEmail(), telephone);
+            individual.setTelephone(telephone);
+        }
     }
     
 }

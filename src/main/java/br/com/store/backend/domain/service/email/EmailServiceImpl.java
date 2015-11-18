@@ -22,7 +22,7 @@ public class EmailServiceImpl implements EmailService {
     @Transactional
     @Profiled(level = Profiling.SERVICE)
 	public Email save(Email email){
-    	email.setConfirmation(ConfirmationStatusEnum.INACTIVE.getStatus());
+    	email.setConfirmation(ConfirmationStatusEnum.PENDING.getStatus());
         EmailEntity emailEntity = EmailConverter.convert(email);
         emailEntity = emailRepository.save(emailEntity);
         return EmailConverter.convert(emailEntity);
