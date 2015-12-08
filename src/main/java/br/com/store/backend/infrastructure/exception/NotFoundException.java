@@ -8,7 +8,9 @@ public class NotFoundException extends CustomRuntimeException {
     
     public static final int EMAIL_NOT_FOUND = 404002;
     
-    public static final int COMPANY_NOT_FOUND = 404001;
+    public static final int COMPANY_NOT_FOUND = 404003;
+    
+    public static final int POSTAL_AREA_NOT_FOUND = 404004;
 
     public NotFoundException(int code) {
         super(code);
