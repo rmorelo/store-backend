@@ -12,71 +12,73 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PostalArea implements Serializable{
 
-	private Integer id_postal_area;
+	private static final long serialVersionUID = -9171673824071100365L;
+
+	private Integer idPostalArea;
 	
-	private Integer id_city;
+	private Integer idCity;
     
-    private String nam_postal_area;
+    private String namPostalArea;
     
-    private String cod_postal_area;
+    private String codPostalArea;
     
-    private String des_segment;
+    private String desSegment;
     
-    private Integer id_parent_postal_area;
+    private Integer idParentPostalArea;
 	    
 	private String uri;
     
     private List<Link> links;
     
-	public Integer getId_postal_area() {
-        return id_postal_area;
-    }
+    public Integer getIdPostalArea() {
+		return idPostalArea;
+	}
 
-    public void setId_postal_area(Integer id_postal_area) {
-        this.id_postal_area = id_postal_area;
-    }
+	public void setIdPostalArea(Integer idPostalArea) {
+		this.idPostalArea = idPostalArea;
+	}
 
-    public Integer getId_city() {
-        return id_city;
-    }
+	public Integer getIdCity() {
+		return idCity;
+	}
 
-    public void setId_city(Integer id_city) {
-        this.id_city = id_city;
-    }
+	public void setIdCity(Integer idCity) {
+		this.idCity = idCity;
+	}
 
-    public String getNam_postal_area() {
-        return nam_postal_area;
-    }
+	public String getNamPostalArea() {
+		return namPostalArea;
+	}
 
-    public void setNam_postal_area(String nam_postal_area) {
-        this.nam_postal_area = nam_postal_area;
-    }
+	public void setNamPostalArea(String namPostalArea) {
+		this.namPostalArea = namPostalArea;
+	}
 
-    public String getCod_postal_area() {
-        return cod_postal_area;
-    }
+	public String getCodPostalArea() {
+		return codPostalArea;
+	}
 
-    public void setCod_postal_area(String cod_postal_area) {
-        this.cod_postal_area = cod_postal_area;
-    }
+	public void setCodPostalArea(String codPostalArea) {
+		this.codPostalArea = codPostalArea;
+	}
 
-    public String getDes_segment() {
-        return des_segment;
-    }
+	public String getDesSegment() {
+		return desSegment;
+	}
 
-    public void setDes_segment(String des_segment) {
-        this.des_segment = des_segment;
-    }
+	public void setDesSegment(String desSegment) {
+		this.desSegment = desSegment;
+	}
 
-    public Integer getId_parent_postal_area() {
-        return id_parent_postal_area;
-    }
+	public Integer getIdParentPostalArea() {
+		return idParentPostalArea;
+	}
 
-    public void setId_parent_postal_area(Integer id_parent_postal_area) {
-        this.id_parent_postal_area = id_parent_postal_area;
-    }
+	public void setIdParentPostalArea(Integer idParentPostalArea) {
+		this.idParentPostalArea = idParentPostalArea;
+	}
 
-    public String getUri() {
+	public String getUri() {
         return uri;
     }
 
