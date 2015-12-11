@@ -63,6 +63,8 @@ public class BadRequestException extends CustomRuntimeException {
     public static final Integer HEADERS_BROWSER_IP_NULL = 4002035;
     public static final Integer HEADERS_REQUEST_ID_NULL = 4002036;
     public static final Integer HEADERS_CONTENT_TYPE_NULL = 4002037;
+    
+    public static final Integer INVALID_SELECTOR = 4002056;
 
     public BadRequestException(int code) {
         super(code);

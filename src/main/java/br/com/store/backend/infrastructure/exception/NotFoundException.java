@@ -11,7 +11,11 @@ public class NotFoundException extends CustomRuntimeException {
     public static final int COMPANY_NOT_FOUND = 404003;
     
     public static final int POSTAL_AREA_NOT_FOUND = 404004;
-
+    
+    public static final int DISTRICT_NOT_FOUND = 404005;
+    
+    public static final int CITY_NOT_FOUND = 404006;
+    
     public NotFoundException(int code) {
         super(code);
     }

@@ -13,28 +13,18 @@ import com.fasterxml.jackson.annotation.JsonInclude;
  
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PostalArea implements Serializable, Linkable{
+public class District implements Serializable, Linkable{
 
 	private static final long serialVersionUID = -9171673824071100365L;
-	
+
 	public static final String CITY = "city";
 	
-	private Integer idPostalArea;
+	private Integer idDistrict;
 	
 	private Integer idCity;
     
-    private String namPostalArea;
-    
-    private String codPostalArea;
-    
-    private String desSegment;
-    
-    private Integer idParentPostalArea;
-    
-    private List<District> districts;
-    
-    private City city;
-	    
+    private String namDistrict;
+    	    
 	private String uri;
     
     private List<Link> links;
@@ -44,14 +34,6 @@ public class PostalArea implements Serializable, Linkable{
         return Arrays.asList(CITY);
     }
     
-    public Integer getIdPostalArea() {
-		return idPostalArea;
-	}
-
-	public void setIdPostalArea(Integer idPostalArea) {
-		this.idPostalArea = idPostalArea;
-	}
-
 	public Integer getIdCity() {
 		return idCity;
 	}
@@ -59,53 +41,21 @@ public class PostalArea implements Serializable, Linkable{
 	public void setIdCity(Integer idCity) {
 		this.idCity = idCity;
 	}
-
-	public String getNamPostalArea() {
-		return namPostalArea;
-	}
-
-	public void setNamPostalArea(String namPostalArea) {
-		this.namPostalArea = namPostalArea;
-	}
-
-	public String getCodPostalArea() {
-		return codPostalArea;
-	}
-
-	public void setCodPostalArea(String codPostalArea) {
-		this.codPostalArea = codPostalArea;
-	}
-
-	public String getDesSegment() {
-		return desSegment;
-	}
-
-	public void setDesSegment(String desSegment) {
-		this.desSegment = desSegment;
-	}
-
-	public Integer getIdParentPostalArea() {
-		return idParentPostalArea;
-	}
-
-	public void setIdParentPostalArea(Integer idParentPostalArea) {
-		this.idParentPostalArea = idParentPostalArea;
-	}
 	
-	public List<District> getDistricts() {
-		return districts;
+	public Integer getIdDistrict() {
+		return idDistrict;
 	}
 
-	public void setDistricts(List<District> districts) {
-		this.districts = districts;
-	}
-	
-	public City getCity() {
-		return city;
+	public void setIdDistrict(Integer idDistrict) {
+		this.idDistrict = idDistrict;
 	}
 
-	public void setCity(City city) {
-		this.city = city;
+	public String getNamDistrict() {
+		return namDistrict;
+	}
+
+	public void setNamDistrict(String namDistrict) {
+		this.namDistrict = namDistrict;
 	}
 
 	public String getUri() {

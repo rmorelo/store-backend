@@ -110,6 +110,14 @@ public class Resource<T> implements Linkable {
     public void setErrors(ErrorResource errors) {
         this.errors = errors;
     }
+    
+    @Override public boolean hasNextPage() {
+        return false;
+    }
+
+    @Override public String getNextPageHref() {
+        return null;
+    }
 
     @Override
     public String toString() {

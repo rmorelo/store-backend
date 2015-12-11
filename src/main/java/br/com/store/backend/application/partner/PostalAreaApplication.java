@@ -4,6 +4,6 @@ import br.com.store.backend.view.resource.partner.PostalArea;
 
 public interface PostalAreaApplication {
  
-    PostalArea findByCodPostalArea(String codPostalArea);
+    PostalArea findByCodPostalArea(String codPostalArea, String[] selector);
 	
 }

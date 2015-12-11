@@ -1,5 +1,6 @@
 package br.com.store.backend.view.endpoint;
 
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.perf4j.aop.Profiled;
@@ -22,11 +23,12 @@ public class PostalAreaEndpoint {
     @Autowired
     private PostalAreaApplication postalAreaApplication;
     
+    
     @Profiled(level = Profiling.ENDPOINT)
     @RequestMapping(value = "/postalareas{codPostalArea}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON})
     public ResponseEntity<Resource<PostalArea>> findByCodPostalArea(
-            @MatrixVariable(value = "codPostalArea", required = true) String codPostalArea) {
-        PostalArea postalArea = postalAreaApplication.findByCodPostalArea(codPostalArea);
+            @MatrixVariable(value = "codPostalArea", required = true) String codPostalArea, @QueryParam("selector") String[] selector) {
+        PostalArea postalArea = postalAreaApplication.findByCodPostalArea(codPostalArea, selector);
     	return new ResponseEntity<>(new Resource<PostalArea>(postalArea), HttpStatus.OK);
     }
   
