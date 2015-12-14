@@ -34,7 +34,7 @@ public class DistrictEntity {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private CityEntity city;
 	
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "DISTRICT_POSTAL_AREA", joinColumns = { @JoinColumn(name = "ID_DISTRICT") },
 			inverseJoinColumns = { @JoinColumn(name = "ID_POSTAL_AREA") })
 	private Set<DistrictEntity> postalArea;

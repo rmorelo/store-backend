@@ -6,10 +6,12 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpMethod;
 
+import br.com.store.backend.domain.entity.CityEntity;
 import br.com.store.backend.domain.entity.DistrictEntity;
 import br.com.store.backend.infrastructure.rest.model.Link;
+import br.com.store.backend.view.resource.partner.City;
 import br.com.store.backend.view.resource.partner.District;
-import br.com.store.backend.view.resource.partner.PartnerLinks;
+import br.com.store.backend.view.resource.partner.DistrictLinks;
 
 public class DistrictConverter {
 
@@ -24,6 +26,7 @@ public class DistrictConverter {
         }
         District district = new District();
         BeanUtils.copyProperties(districtEntity, district);
+        addObjectFields(districtEntity, district);
         createURI(district);
         createLinks(district);        
 
@@ -43,16 +46,26 @@ public class DistrictConverter {
     private static void createLinks(District district) {
 
         List<Link> linkList = new ArrayList<Link>();
-        for (PartnerLinks userLink : PartnerLinks.values()) {
-            Link link = new Link(userLink.getDescription(), district.getUri() + userLink.getDescription(), HttpMethod.GET.name());
+        for (DistrictLinks districtLink : DistrictLinks.values()) {
+            Link link = new Link(districtLink.getDescription(), district.getUri() + "/" + districtLink.getDescription(), HttpMethod.GET.name());
             linkList.add(link);
         }
 
         district.setLinks(linkList);
     }
 
+    private static void addObjectFields(DistrictEntity districtEntity, District district) {
+        if(districtEntity.getCity() != null){
+        	City cityResult = new City();
+        	CityEntity cityEntity = districtEntity.getCity();
+        	City city = CityConverter.convert(cityEntity);
+        	cityResult.setIdCity(city.getIdCity());
+        	district.setCity(cityResult);
+        }
+    }
+    
     private static void createURI(District district) {
-    	district.setUri(URI_PATTERN);
+    	district.setUri(URI_PATTERN + district.getIdDistrict());
     }
     
 }

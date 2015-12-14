@@ -1,7 +1,6 @@
 package br.com.store.backend.view.resource.partner;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.List;
 
 import br.com.store.backend.infrastructure.rest.Linkable;
@@ -17,13 +16,11 @@ public class District implements Serializable, Linkable{
 
 	private static final long serialVersionUID = -9171673824071100365L;
 
-	public static final String CITY = "city";
-	
 	private Integer idDistrict;
-	
-	private Integer idCity;
     
     private String namDistrict;
+    
+    private City city;
     	    
 	private String uri;
     
@@ -31,15 +28,15 @@ public class District implements Serializable, Linkable{
     
     @JsonIgnore
     public static List<String> getSelectableResources() {
-        return Arrays.asList(CITY);
+        return null;
     }
     
-	public Integer getIdCity() {
-		return idCity;
+	public City getCity() {
+		return city;
 	}
 
-	public void setIdCity(Integer idCity) {
-		this.idCity = idCity;
+	public void setCity(City city) {
+		this.city = city;
 	}
 	
 	public Integer getIdDistrict() {
