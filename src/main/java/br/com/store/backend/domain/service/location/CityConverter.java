@@ -9,7 +9,7 @@ import org.springframework.http.HttpMethod;
 import br.com.store.backend.domain.entity.CityEntity;
 import br.com.store.backend.infrastructure.rest.model.Link;
 import br.com.store.backend.view.resource.partner.City;
-import br.com.store.backend.view.resource.partner.PartnerLinks;
+import br.com.store.backend.view.resource.partner.CityLinks;
 
 public class CityConverter {
 
@@ -43,8 +43,8 @@ public class CityConverter {
     private static void createLinks(City city) {
 
         List<Link> linkList = new ArrayList<Link>();
-        for (PartnerLinks userLink : PartnerLinks.values()) {
-            Link link = new Link(userLink.getDescription(), city.getUri() + userLink.getDescription(), HttpMethod.GET.name());
+        for (CityLinks cityLink : CityLinks.values()) {
+            Link link = new Link(cityLink.getDescription(), city.getUri() + cityLink.getDescription(), HttpMethod.GET.name());
             linkList.add(link);
         }
 
@@ -52,7 +52,7 @@ public class CityConverter {
     }
 
     private static void createURI(City city) {
-    	city.setUri(URI_PATTERN);
+    	city.setUri(URI_PATTERN + city.getIdCity());
     }
     
 }

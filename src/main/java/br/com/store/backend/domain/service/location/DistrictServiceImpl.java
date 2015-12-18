@@ -4,6 +4,7 @@ import org.perf4j.aop.Profiled;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import br.com.store.backend.domain.entity.DistrictEntity;
 import br.com.store.backend.domain.repository.partner.DistrictRepository;
 import br.com.store.backend.infrastructure.exception.NotFoundException;

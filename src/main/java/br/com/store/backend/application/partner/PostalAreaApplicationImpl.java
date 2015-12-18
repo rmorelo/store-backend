@@ -3,7 +3,6 @@ package br.com.store.backend.application.partner;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.perf4j.aop.Profiled;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,35 +29,23 @@ public class PostalAreaApplicationImpl implements PostalAreaApplication {
 	
     @Override
     @Profiled(level = Profiling.APPLICATION)    
-	public PostalArea findByCodPostalArea(String codPostalArea, String[] selector){
-    	
+	public PostalArea findByCodPostalArea(String codPostalArea, String selector){
     	PostalArea postalArea = postalAreaService.findByCodPostalArea(codPostalArea);
-    	
-    	boolean hasDistrictSelector = ArrayUtils.contains(selector, PostalArea.DISTRICS);
-    	if (hasDistrictSelector) {
-    		addDistrict(postalArea);
-    		
-    		boolean hasCitySelector = ArrayUtils.contains(selector, PostalArea.CITY);
-        	if (hasCitySelector) {
-        		addCity(postalArea);
-            }
-        }
-    	
-    	
-    	
-        return postalArea;
+    	return postalArea;
 	}
     
-    private void addDistrict(PostalArea postalArea) {
-    	List<District> districts = new ArrayList<District>();
-    	
-    	for (District district : postalArea.getDistricts()){
-    		if(district != null){
-    			District districtResult = districtService.find(district.getIdDistrict());
-    			districts.add(districtResult);
-    		}
+    private void addDistrict(PostalArea postalArea, String selector) {
+    	if (selector != null && selector.equals(PostalArea.DISTRICS)){
+    		List<District> districts = new ArrayList<District>();
+	    	
+	    	for (District district : postalArea.getDistricts()){
+	    		if(district != null){
+	    			District districtResult = districtService.find(district.getIdDistrict());
+	        		districts.add(districtResult);
+	    		}
+	    	}
+	    	postalArea.setDistricts(districts);
     	}
-    	postalArea.setDistricts(districts);
     }
     
     private void addCity(PostalArea postalArea) {
@@ -69,7 +56,6 @@ public class PostalAreaApplicationImpl implements PostalAreaApplication {
     			City city = cityService.find(district.getCity().getIdCity());
     			district.setCity(city);
     			districts.add(district);
-    			
     		}
     	}
     	

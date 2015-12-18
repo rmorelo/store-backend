@@ -44,17 +44,17 @@ public class PostalAreaEntity {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private PostalAreaEntity parentPostalArea;
     
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "DISTRICT_POSTAL_AREA", joinColumns = { @JoinColumn(name = "ID_POSTAL_AREA") },
 			inverseJoinColumns = { @JoinColumn(name = "ID_DISTRICT") })
-	private Set<DistrictEntity> district;
+	private Set<DistrictEntity> districts;
 	
-    public Collection<DistrictEntity> getDistrict() {
-		return district;
+    public Collection<DistrictEntity> getDistricts() {
+		return districts;
 	}
 
-	public void setDistrict(Set<DistrictEntity> district) {
-		this.district = district;
+	public void setDistricts(Set<DistrictEntity> districts) {
+		this.districts = districts;
 	}
 
 	public Integer getIdPostalArea() {

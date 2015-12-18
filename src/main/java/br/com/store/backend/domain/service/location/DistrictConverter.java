@@ -53,19 +53,17 @@ public class DistrictConverter {
 
         district.setLinks(linkList);
     }
-
-    private static void addObjectFields(DistrictEntity districtEntity, District district) {
-        if(districtEntity.getCity() != null){
-        	City cityResult = new City();
-        	CityEntity cityEntity = districtEntity.getCity();
-        	City city = CityConverter.convert(cityEntity);
-        	cityResult.setIdCity(city.getIdCity());
-        	district.setCity(cityResult);
-        }
-    }
     
     private static void createURI(District district) {
     	district.setUri(URI_PATTERN + district.getIdDistrict());
+    }
+    
+    private static void addObjectFields(DistrictEntity districtEntity, District district) {
+        if(districtEntity.getCity() != null){
+        	CityEntity cityEntity = districtEntity.getCity();
+        	City city = CityConverter.convert(cityEntity);
+        	district.setCity(city);
+        }
     }
     
 }

@@ -1,12 +1,7 @@
 package br.com.store.backend.view.endpoint;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
-
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.perf4j.aop.Profiled;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,25 +29,14 @@ public class PostalAreaEndpoint {
     @Profiled(level = Profiling.ENDPOINT)
     @RequestMapping(value = "/{postalareas}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON})
     public ResponseEntity<Resource<PostalArea>> findByCodPostalArea(@PathVariable String postalareas,
-            @MatrixVariable(value = "codPostalArea", required = true) String codPostalArea, @RequestParam("selector") String[] selector) {
+            @MatrixVariable(value = "codPostalArea", required = true) String codPostalArea, 
+            @RequestParam(value = "selector", required = false) String selector) {
         PostalArea postalArea = postalAreaApplication.findByCodPostalArea(codPostalArea, selector);
         
-        postalArea.add(linkTo(methodOn(PostalAreaEndpoint.class).findByCodPostalArea(postalareas, codPostalArea, selector)).withSelfRel());
-        
-        boolean hasDistrictSelector = ArrayUtils.contains(selector, PostalArea.DISTRICS);
-    	if (hasDistrictSelector) {
-    		//postalArea.add(linkTo(methodOn(PostalAreaEndpoint.class).findByCodPostalArea(postalareas, codPostalArea, selector)).withSelfRel());
-    		
-    		boolean hasCitySelector = ArrayUtils.contains(selector, PostalArea.CITY);
-        	if (hasCitySelector) {
-        		//postalArea.add(linkTo(methodOn(PostalAreaEndpoint.class).findByCodPostalArea(postalareas, codPostalArea, selector)).withSelfRel());
-            }
-        }else{
-    		//postalArea.add(linkTo(methodOn(PostalAreaEndpoint.class)).withSelfRel());
-    		//postalArea.add(linkTo(methodOn(PostalAreaEndpoint.class).findByCodPostalArea(postalareas, codPostalArea, selector)).withSelfRel());
-        }
-        
-    	return new ResponseEntity<>(new Resource<PostalArea>(postalArea), HttpStatus.OK);
+        if(selector != null)
+        	postalArea.setUri(postalArea.getUri() + "?selector=" + selector);
+    	
+        return new ResponseEntity<>(new Resource<PostalArea>(postalArea), HttpStatus.OK);
     }
       
 }

@@ -11,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -34,17 +33,15 @@ public class DistrictEntity {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private CityEntity city;
 	
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "DISTRICT_POSTAL_AREA", joinColumns = { @JoinColumn(name = "ID_DISTRICT") },
-			inverseJoinColumns = { @JoinColumn(name = "ID_POSTAL_AREA") })
-	private Set<DistrictEntity> postalArea;
+	@ManyToMany(mappedBy = "districts", fetch = FetchType.EAGER)
+	private Set<PostalAreaEntity> postalAreas;
 	
-	public Collection<DistrictEntity> getPostalArea() {
-		return postalArea;
+	public Collection<PostalAreaEntity> getPostalAreas() {
+		return postalAreas;
 	}
 
-	public void setPostalArea(Set<DistrictEntity> postalArea) {
-		this.postalArea = postalArea;
+	public void setPostalAreas(Set<PostalAreaEntity> postalAreas) {
+		this.postalAreas = postalAreas;
 	}
 
 	public Integer getIdDistrict() {
