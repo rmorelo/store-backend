@@ -44,7 +44,7 @@ public class CityConverter {
 
         List<Link> linkList = new ArrayList<Link>();
         for (CityLinks cityLink : CityLinks.values()) {
-            Link link = new Link(cityLink.getDescription(), city.getUri() + cityLink.getDescription(), HttpMethod.GET.name());
+            Link link = new Link(cityLink.getDescription(), city.getUri() + "/" + cityLink.getDescription(), HttpMethod.GET.name());
             linkList.add(link);
         }
 
