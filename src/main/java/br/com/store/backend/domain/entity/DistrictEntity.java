@@ -33,7 +33,7 @@ public class DistrictEntity {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private CityEntity city;
 	
-	@ManyToMany(mappedBy = "districts", fetch = FetchType.EAGER)
+	@ManyToMany(mappedBy = "districts", fetch = FetchType.LAZY)
 	private Set<PostalAreaEntity> postalAreas;
 	
 	public Collection<PostalAreaEntity> getPostalAreas() {
