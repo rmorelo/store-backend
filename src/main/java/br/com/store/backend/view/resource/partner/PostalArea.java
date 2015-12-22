@@ -2,6 +2,7 @@ package br.com.store.backend.view.resource.partner;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import br.com.store.backend.infrastructure.rest.Linkable;
@@ -33,7 +34,7 @@ public class PostalArea implements Serializable, Linkable{
     
     private Integer idParentPostalArea;
     
-    private List<District> districts;
+    private Collection<District> districts;
     
     private City city;
         
@@ -94,11 +95,11 @@ public class PostalArea implements Serializable, Linkable{
 		this.idParentPostalArea = idParentPostalArea;
 	}
 	
-	public List<District> getDistricts() {
+	public Collection<District> getDistricts() {
 		return districts;
 	}
 
-	public void setDistricts(List<District> districts) {
+	public void setDistricts(Collection<District> districts) {
 		this.districts = districts;
 	}
 	

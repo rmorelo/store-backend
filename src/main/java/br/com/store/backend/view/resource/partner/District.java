@@ -1,6 +1,7 @@
 package br.com.store.backend.view.resource.partner;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 
 import br.com.store.backend.infrastructure.rest.Linkable;
@@ -14,6 +15,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class District implements Serializable, Linkable{
 
+	public static final String CITIES = "cities";
+	
 	private static final long serialVersionUID = -9171673824071100365L;
 
 	private Integer idDistrict;
@@ -28,7 +31,7 @@ public class District implements Serializable, Linkable{
     
     @JsonIgnore
     public static List<String> getSelectableResources() {
-        return null;
+        return Arrays.asList(CITIES);
     }
     
 	public City getCity() {
