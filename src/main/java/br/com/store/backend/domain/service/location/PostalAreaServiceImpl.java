@@ -32,7 +32,9 @@ public class PostalAreaServiceImpl implements PostalAreaService {
             throw new NotFoundException(NotFoundException.POSTAL_AREA_NOT_FOUND);
         }
         
-        return PostalAreaConverter.convert(postalAreaEntity);
+        PostalArea postalArea = PostalAreaConverter.convert(postalAreaEntity);
+        
+        return postalArea;
     }
     
     @Override

@@ -5,11 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.store.backend.domain.entity.CityEntity;
 import br.com.store.backend.domain.entity.DistrictEntity;
 import br.com.store.backend.domain.repository.partner.DistrictRepository;
 import br.com.store.backend.infrastructure.exception.NotFoundException;
 import br.com.store.backend.infrastructure.profiling.Profiling;
-import br.com.store.backend.view.resource.partner.District;
+import br.com.store.backend.view.resource.partner.City;
 
 @Service
 @Transactional(readOnly = true)
@@ -20,14 +21,20 @@ public class DistrictServiceImpl implements DistrictService {
     
     @Override
     @Profiled(level = Profiling.SERVICE)
-    public District find(Integer idDistrict) {
+    public City findCity(Integer idDistrict) {
         DistrictEntity districtEntity = districtRepository.findOne(idDistrict);
                 
         if(districtEntity == null){
             throw new NotFoundException(NotFoundException.DISTRICT_NOT_FOUND);
         }
+
+        CityEntity cityEntity = districtEntity.getCity();
         
-        return DistrictConverter.convert(districtEntity);
+        if(cityEntity == null){
+            throw new NotFoundException(NotFoundException.CITY_NOT_FOUND);
+        }
+        
+        return CityConverter.convert(cityEntity);
     }
     
     

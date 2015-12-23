@@ -1,7 +1,5 @@
 package br.com.store.backend.view.endpoint;
 
-import java.util.Collection;
-
 import javax.ws.rs.core.MediaType;
 
 import org.perf4j.aop.Profiled;
@@ -13,31 +11,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import br.com.store.backend.application.partner.DistrictApplication;
+
+import br.com.store.backend.application.partner.CityApplication;
 import br.com.store.backend.infrastructure.profiling.Profiling;
 import br.com.store.backend.infrastructure.rest.model.Resource;
 import br.com.store.backend.infrastructure.rest.selector.Selector;
-import br.com.store.backend.view.resource.partner.District;
+import br.com.store.backend.view.resource.partner.City;
 
 @RestController
-public class DistrictEndpoint {
+public class CityEndpoint {
 	
     @Autowired
-    private DistrictApplication districtApplication;
+    private CityApplication cityApplication;
     
-    @Selector(resource = District.class)
+    @Selector(resource = City.class)
     @Profiled(level = Profiling.ENDPOINT)
-    @RequestMapping(value = "/postalareas/{idPostalArea}/districts", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON})
-    public ResponseEntity<Resource<Collection<District>>> findDistricts(@PathVariable(value = "idPostalArea") Integer idPostalArea, 
+    @RequestMapping(value = "/districts/{idDistrict}/cities", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON})
+    public ResponseEntity<Resource<City>> findDistricts(@PathVariable(value = "idDistrict") Integer idDistrict, 
             @RequestParam(value = "selector", required = false) String selector) {
-    	Collection<District> districts = districtApplication.findDistricts(idPostalArea, selector);
+    	City city = cityApplication.findCity(idDistrict, selector);
         
         if(selector != null){
-        	for(District district : districts){
-        		district.setUri(district.getUri() + "?selector=" + selector);
-        	}
+        	city.setUri(city.getUri() + "?selector=" + selector);
         }
-        return new ResponseEntity<>(new Resource<Collection<District>>(districts), HttpStatus.OK);
+        
+        return new ResponseEntity<>(new Resource<City>(city), HttpStatus.OK);
     }
       
 }

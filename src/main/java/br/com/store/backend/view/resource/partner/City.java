@@ -1,6 +1,7 @@
 package br.com.store.backend.view.resource.partner;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 
 import br.com.store.backend.infrastructure.rest.Linkable;
@@ -14,11 +15,13 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class City implements Serializable, Linkable{
 
+	public static final String FEDERATION_UNITS = "federation-units";
+	
 	private static final long serialVersionUID = -9171673824071100365L;
 	
 	private Integer idCity;
     
-	private Integer idFederationUnit;
+	private FederationUnit federationUnit;
 	
     private String namCity;
     
@@ -34,7 +37,7 @@ public class City implements Serializable, Linkable{
     
     @JsonIgnore
     public static List<String> getSelectableResources() {
-        return null;
+        return Arrays.asList(FEDERATION_UNITS);
     }
     
 	public Integer getIdCity() {
@@ -45,12 +48,12 @@ public class City implements Serializable, Linkable{
 		this.idCity = idCity;
 	}
 	
-	public Integer getIdFederationUnit() {
-		return idFederationUnit;
+	public FederationUnit getFederationUnit() {
+		return federationUnit;
 	}
 
-	public void setIdFederationUnit(Integer idFederationUnit) {
-		this.idFederationUnit = idFederationUnit;
+	public void setFederationUnit(FederationUnit federationUnit) {
+		this.federationUnit = federationUnit;
 	}
 
 	public String getNamCity() {

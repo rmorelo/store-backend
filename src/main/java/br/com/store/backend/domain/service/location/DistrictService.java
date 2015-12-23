@@ -1,9 +1,9 @@
 package br.com.store.backend.domain.service.location;
 
-import br.com.store.backend.view.resource.partner.District;
+import br.com.store.backend.view.resource.partner.City;
 
 public interface DistrictService {
 	
-    District find(Integer idDistrict);
+    City findCity(Integer idDistrict);
     
 }

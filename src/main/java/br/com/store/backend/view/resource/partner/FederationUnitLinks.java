@@ -1,7 +1,7 @@
 package br.com.store.backend.view.resource.partner;
 
-public enum CityLinks {
-    FEDERATIONS_UNITS("federation-units");
+public enum FederationUnitLinks {
+    COUNTRIES("countries");
 
     private String description;
 
@@ -9,7 +9,7 @@ public enum CityLinks {
         return description;
     }
 
-    private CityLinks(String description) {
+    private FederationUnitLinks(String description) {
         this.description = description;
     }
 }

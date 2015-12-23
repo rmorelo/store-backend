@@ -24,7 +24,7 @@ public class PostalAreaConverter {
         	return null;
         }
         PostalArea postalArea = new PostalArea();
-        BeanUtils.copyProperties(postalAreaEntity, postalArea);
+        BeanUtils.copyProperties(postalAreaEntity, postalArea, "districts");
         createURI(postalArea);
         createLinks(postalArea);
         
