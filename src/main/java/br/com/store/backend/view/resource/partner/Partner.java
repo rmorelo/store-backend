@@ -3,7 +3,11 @@ package br.com.store.backend.view.resource.partner;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+
 import br.com.store.backend.infrastructure.rest.model.Link;
+import br.com.store.backend.view.resource.contact.Email;
+import br.com.store.backend.view.resource.contact.Telephone;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
  

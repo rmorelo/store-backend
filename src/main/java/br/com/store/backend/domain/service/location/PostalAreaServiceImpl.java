@@ -8,13 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.store.backend.domain.entity.DistrictEntity;
-import br.com.store.backend.domain.entity.PostalAreaEntity;
-import br.com.store.backend.domain.repository.partner.PostalAreaRepository;
+import br.com.store.backend.domain.entity.location.DistrictEntity;
+import br.com.store.backend.domain.entity.location.PostalAreaEntity;
+import br.com.store.backend.domain.repository.location.PostalAreaRepository;
 import br.com.store.backend.infrastructure.exception.NotFoundException;
 import br.com.store.backend.infrastructure.profiling.Profiling;
-import br.com.store.backend.view.resource.partner.District;
-import br.com.store.backend.view.resource.partner.PostalArea;
+import br.com.store.backend.view.resource.location.District;
+import br.com.store.backend.view.resource.location.PostalArea;
 
 @Service
 @Transactional(readOnly = true)
@@ -39,7 +39,7 @@ public class PostalAreaServiceImpl implements PostalAreaService {
     
     @Override
     @Profiled(level = Profiling.SERVICE)
-    public Collection<District> findDistricts(Integer idPostalArea){
+    public Collection<District> findDistrictsByPostalArea(Integer idPostalArea){
     	PostalAreaEntity postalAreaEntity = postalAreaRepository.findOne(idPostalArea);
     	
     	if(postalAreaEntity == null){

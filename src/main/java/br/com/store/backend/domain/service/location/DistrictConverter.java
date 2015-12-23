@@ -2,12 +2,14 @@ package br.com.store.backend.domain.service.location;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpMethod;
-import br.com.store.backend.domain.entity.DistrictEntity;
+
+import br.com.store.backend.domain.entity.location.DistrictEntity;
 import br.com.store.backend.infrastructure.rest.model.Link;
-import br.com.store.backend.view.resource.partner.District;
-import br.com.store.backend.view.resource.partner.DistrictLinks;
+import br.com.store.backend.view.resource.location.District;
+import br.com.store.backend.view.resource.location.DistrictLinks;
 
 public class DistrictConverter {
 

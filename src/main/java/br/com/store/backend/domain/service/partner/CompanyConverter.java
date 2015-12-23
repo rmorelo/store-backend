@@ -6,13 +6,13 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpMethod;
 
-import br.com.store.backend.domain.entity.CompanyEntity;
+import br.com.store.backend.domain.entity.partner.CompanyEntity;
 import br.com.store.backend.infrastructure.rest.model.Link;
+import br.com.store.backend.view.resource.contact.Email;
+import br.com.store.backend.view.resource.contact.Telephone;
 import br.com.store.backend.view.resource.partner.Company;
-import br.com.store.backend.view.resource.partner.Email;
 import br.com.store.backend.view.resource.partner.Partner;
 import br.com.store.backend.view.resource.partner.PartnerLinks;
-import br.com.store.backend.view.resource.partner.Telephone;
 
 public class CompanyConverter {
 

@@ -6,10 +6,10 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpMethod;
 
-import br.com.store.backend.domain.entity.FederationUnitEntity;
+import br.com.store.backend.domain.entity.location.FederationUnitEntity;
 import br.com.store.backend.infrastructure.rest.model.Link;
-import br.com.store.backend.view.resource.partner.FederationUnit;
-import br.com.store.backend.view.resource.partner.FederationUnitLinks;
+import br.com.store.backend.view.resource.location.FederationUnit;
+import br.com.store.backend.view.resource.location.FederationUnitLinks;
 
 public class FederationUnitConverter {
 

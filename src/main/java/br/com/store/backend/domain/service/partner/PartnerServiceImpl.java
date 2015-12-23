@@ -1,18 +1,14 @@
 package br.com.store.backend.domain.service.partner;
 
 import java.util.Date;
-
-import javax.annotation.Resource;
-
 import org.perf4j.aop.Profiled;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import br.com.store.backend.domain.entity.CompanyEntity;
-import br.com.store.backend.domain.entity.IndividualEntity;
-import br.com.store.backend.domain.entity.PartnerEntity;
-import br.com.store.backend.domain.entity.PartnerTypeEnum;
+import br.com.store.backend.domain.entity.partner.CompanyEntity;
+import br.com.store.backend.domain.entity.partner.IndividualEntity;
+import br.com.store.backend.domain.entity.partner.PartnerEntity;
+import br.com.store.backend.domain.entity.partner.PartnerTypeEnum;
 import br.com.store.backend.domain.repository.partner.PartnerRepository;
 import br.com.store.backend.infrastructure.exception.NotFoundException;
 import br.com.store.backend.infrastructure.profiling.Profiling;
@@ -26,9 +22,6 @@ public class PartnerServiceImpl implements PartnerService {
 
     @Autowired
     private PartnerRepository partnerRepository;
-
-    @Resource
-	private PartnerServiceMapper partnerServiceMapper;
     
     @Override
     @Profiled(level = Profiling.SERVICE)
@@ -80,9 +73,8 @@ public class PartnerServiceImpl implements PartnerService {
     @Profiled(level = Profiling.SERVICE)
     public Partner update(Partner partner) {
     	PartnerEntity partnerEntity = partnerRepository.findByIdPartner(partner.getIdPartner());
-    	partnerServiceMapper.mapPartnerToPartnerEntity(partner, partnerEntity);
     	PartnerEntity partnerEntitySaved = partnerRepository.save(partnerEntity);
-        return partnerServiceMapper.mapPartnerEntityToPartner(partnerEntitySaved);
+        return PartnerConverter.convert(partnerEntitySaved);
     }
     
     @Override

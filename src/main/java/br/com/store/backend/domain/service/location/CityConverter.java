@@ -6,10 +6,10 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpMethod;
 
-import br.com.store.backend.domain.entity.CityEntity;
+import br.com.store.backend.domain.entity.location.CityEntity;
 import br.com.store.backend.infrastructure.rest.model.Link;
-import br.com.store.backend.view.resource.partner.City;
-import br.com.store.backend.view.resource.partner.CityLinks;
+import br.com.store.backend.view.resource.location.City;
+import br.com.store.backend.view.resource.location.CityLinks;
 
 public class CityConverter {
 
