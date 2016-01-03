@@ -29,7 +29,7 @@ public class FederationUnitEntity {
 	private String abvFederationUnit;
 	
 	@JoinColumn(name = "id_country")
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	private CountryEntity country;
     
 

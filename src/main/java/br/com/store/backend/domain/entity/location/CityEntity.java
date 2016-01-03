@@ -23,7 +23,7 @@ public class CityEntity {
 	private Integer idCity;
 	
 	@JoinColumn(name = "id_federation_unit")
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	private FederationUnitEntity federationUnit;
 	
 	@Column(name = "NAM_CITY")

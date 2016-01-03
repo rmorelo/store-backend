@@ -7,9 +7,12 @@ import br.com.store.backend.view.resource.location.PostalArea;
 
 public interface PostalAreaService {
 	
-    PostalArea findByCodPostalArea(String codPostalArea);
+    PostalArea findPostalAreaByCodPostalArea(String codPostalArea);
+    
+    PostalArea findPostalArea(Integer idPostalArea);
   
     Collection<District> findDistrictsByPostalArea(Integer idPostalArea);
-
+    
+    Collection<District> findDistrictsByPostalArea(String codPostalArea);
     
 }

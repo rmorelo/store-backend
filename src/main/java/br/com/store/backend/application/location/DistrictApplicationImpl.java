@@ -31,6 +31,14 @@ public class DistrictApplicationImpl implements DistrictApplication {
     
     @Override
     @Profiled(level = Profiling.APPLICATION)
+	public Collection<District> findDistrictsByPostalArea(String codPostalArea, String selector){
+		Collection<District> districts = postalAreaService.findDistrictsByPostalArea(codPostalArea);
+	    addCity(districts, selector);
+		return districts;
+	}
+    
+    @Override
+    @Profiled(level = Profiling.APPLICATION)
     public District findDistrict(Integer idDistrict, String selector){
         District district = districtService.findDistrict(idDistrict);
         addCity(district, selector);

@@ -8,14 +8,11 @@ public class Link {
     private String rel;
 
     private String href;
-
-    private String method;
-
+    
     @JsonCreator
-    public Link(@JsonProperty("rel") String rel, @JsonProperty("href") String href, @JsonProperty("method") String method) {
+    public Link(@JsonProperty("rel") String rel, @JsonProperty("href") String href) {
         this.rel = rel;
         this.href = href;
-        this.method = method;
     }
     
     public String getRel() {
@@ -26,11 +23,4 @@ public class Link {
         return href;
     }
 
-    public String getMethod() {
-        return method;
-    }
-
-    public void setHref(String href) {
-        this.href = href;
-    }
 }

@@ -26,7 +26,7 @@ public class TelephoneApplicationImpl implements TelephoneApplication {
     @Transactional
 	public Telephone save(Integer idPartner, Telephone telephone){
     	Telephone newTelephone = telephoneService.save(telephone);
-    	Partner partner = partnerService.findByIdPartner(idPartner);
+    	Partner partner = partnerService.findPartner(idPartner);
     	partner.setTelephone(newTelephone);
     	partnerService.update(partner);
 		return newTelephone;

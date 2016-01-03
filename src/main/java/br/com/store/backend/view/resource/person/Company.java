@@ -1,6 +1,10 @@
-package br.com.store.backend.view.resource.partner;
+package br.com.store.backend.view.resource.person;
 
 import java.io.Serializable;
+import java.util.Date;
+
+import br.com.store.backend.view.resource.partner.Partner;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -10,6 +14,8 @@ public class Company extends Partner implements Serializable {
 	
 	private static final long serialVersionUID = 2330409383635152466L;
 
+	private Integer idCompany;
+	
 	private String cnpj;
     
     private String companyName;
@@ -18,7 +24,35 @@ public class Company extends Partner implements Serializable {
     
     private String commercialName;
 
-    public String getCnpj() {
+    private Date signupDate;
+
+	private Partner partner;
+    
+    public Integer getIdCompany() {
+		return idCompany;
+	}
+
+	public void setIdCompany(Integer idCompany) {
+		this.idCompany = idCompany;
+	}
+
+	public Date getSignupDate() {
+		return signupDate;
+	}
+
+	public void setSignupDate(Date signupDate) {
+		this.signupDate = signupDate;
+	}
+
+	public Partner getPartner() {
+		return partner;
+	}
+
+	public void setPartner(Partner partner) {
+		this.partner = partner;
+	}
+
+	public String getCnpj() {
         return cnpj;
     }
 

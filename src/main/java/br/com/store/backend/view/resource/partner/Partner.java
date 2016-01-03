@@ -1,13 +1,19 @@
 package br.com.store.backend.view.resource.partner;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 import br.com.store.backend.infrastructure.rest.model.Link;
 import br.com.store.backend.view.resource.contact.Email;
 import br.com.store.backend.view.resource.contact.Telephone;
+import br.com.store.backend.view.resource.location.Address;
+import br.com.store.backend.view.resource.person.Company;
+import br.com.store.backend.view.resource.person.Individual;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
  
@@ -17,13 +23,21 @@ public class Partner implements Serializable{
 
 	private static final long serialVersionUID = 5300621263838588237L;
 
+	public static final String ADDRESSES = "addresses";
+	
+	public static final String INDIVIDUALS = "individuals";
+	
+	public static final String COMPANIES = "companies";
+	
+	private static final String URI_PATH = "/api/partners/";
+	
 	private Integer idPartner;
     
 	private Integer idContact;
 	
     private String description;
 	
-	private Integer idAddress;
+	private Address address;
 	
 	private Integer likes;
 
@@ -47,9 +61,18 @@ public class Partner implements Serializable{
 	
 	private Telephone telephone;
 	
+	private Individual individual;
+	
+	private Company company;
+	
 	private String uri;
     
     private List<Link> links;
+    
+    @JsonIgnore
+    public static List<String> getSelectableResources() {
+        return Arrays.asList(ADDRESSES, COMPANIES, INDIVIDUALS);
+    }
     
 	public Integer getIdPartner() {
 		return idPartner;
@@ -74,13 +97,13 @@ public class Partner implements Serializable{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-	public Integer getIdAddress() {
-		return idAddress;
+	
+	public Address getAddress() {
+		return address;
 	}
 
-	public void setIdAddress(Integer idAddress) {
-		this.idAddress = idAddress;
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 	public Integer getLikes() {
@@ -171,19 +194,38 @@ public class Partner implements Serializable{
 		this.telephone = telephone;
 	}
 
+	public Individual getIndividual() {
+		return individual;
+	}
+
+	public void setIndividual(Individual individual) {
+		this.individual = individual;
+	}
+
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
+	}
+
 	public String getUri() {
         return uri;
     }
 
-    public void setUri(String uri) {
-        this.uri = uri;
+	public void setUri(String uri, String queryParam) {
+    	this.uri = uri + (queryParam != null ? "?" + queryParam : "");
     }
 
     public List<Link> getLinks() {
+    	this.links = new ArrayList<Link>();
+    	
+    	for (String resource : getSelectableResources()) {
+            Link link = new Link(resource, URI_PATH + this.idPartner + "/" + resource);
+            this.links.add(link);
+        }
         return links;
     }
 
-    public void setLinks(List<Link> links) {
-        this.links = links;
-    }
 }

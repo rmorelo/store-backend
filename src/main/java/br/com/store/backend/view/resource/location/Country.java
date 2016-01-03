@@ -2,8 +2,10 @@ package br.com.store.backend.view.resource.location;
 
 import java.io.Serializable;
 import java.util.List;
+
 import br.com.store.backend.infrastructure.rest.Linkable;
 import br.com.store.backend.infrastructure.rest.model.Link;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -31,6 +33,9 @@ public class Country implements Serializable, Linkable{
 	private String uri;
     
     private List<Link> links;
+    
+    public Country(){
+    }
     
     @JsonIgnore
     public static List<String> getSelectableResources() {
@@ -97,16 +102,12 @@ public class Country implements Serializable, Linkable{
         return uri;
     }
 
-    public void setUri(String uri) {
-        this.uri = uri;
+	public void setUri(String uri, String queryParam) {
+    	this.uri = uri + (queryParam != null ? "?" + queryParam : "");
     }
 
     public List<Link> getLinks() {
         return links;
-    }
-
-    public void setLinks(List<Link> links) {
-        this.links = links;
     }
 
 	@Override

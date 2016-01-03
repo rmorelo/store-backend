@@ -19,6 +19,9 @@ import javax.persistence.TemporalType;
 
 import br.com.store.backend.domain.entity.contact.EmailEntity;
 import br.com.store.backend.domain.entity.contact.TelephoneEntity;
+import br.com.store.backend.domain.entity.location.AddressEntity;
+import br.com.store.backend.domain.entity.person.CompanyEntity;
+import br.com.store.backend.domain.entity.person.IndividualEntity;
 
 import com.google.common.base.Objects;
 
@@ -30,49 +33,58 @@ public class PartnerEntity {
 	@Id
     @Column(name = "ID_PARTNER")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Integer idPartner;
+	private Integer idPartner;
     	
 	@Column(name = "DESCRIPTION")
-	protected String description;
-	
-	@Column(name = "ID_ADDRESS")
-	protected Integer idAddress;
+	private String description;
 	
 	@Column(name = "LIKES")
-	protected Integer likes;
+	private Integer likes;
 
 	@Column(name = "PARTNER_TYPE")
-	protected String partnerType;
+	private String partnerType;
 
 	@Column(name = "URL_LOGO")
-	protected String urlLogo;
+	private String urlLogo;
 	
 	@Column(name = "URL_SITE")
-	protected String urlSite;
+	private String urlSite;
 	
 	@Column(name = "URL_FACEBOOK")
-	protected String urlFacebook;
+	private String urlFacebook;
 	
 	@Column(name = "URL_GOOGLE_PLUS")
-	protected String urlGooglePlus;
+	private String urlGooglePlus;
 	
 	@Column(name = "USERNAME_INSTAGRAM")
-	protected String usernameInstagram;
+	private String usernameInstagram;
 	
 	@Column(name = "USERNAME_TWITTER")
-	protected String usernameTwitter;
+	private String usernameTwitter;
 	
 	@Column(name = "SIGNUP_DATE")
     @Temporal(TemporalType.TIMESTAMP)
-	protected Date signupDate;
+	private Date signupDate;
 	
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_email")
 	private EmailEntity email;
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_telephone")
 	private TelephoneEntity telephone;
+	
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_address")
+	private AddressEntity address;
+	
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_company")
+	private CompanyEntity company;
+	
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_individual")
+	private IndividualEntity individual;
 	
 	public PartnerEntity (){
 	    
@@ -112,14 +124,6 @@ public class PartnerEntity {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public Integer getIdAddress() {
-		return idAddress;
-	}
-
-	public void setIdAddress(Integer idAddress) {
-		this.idAddress = idAddress;
 	}
 
 	public Integer getLikes() {
@@ -194,6 +198,30 @@ public class PartnerEntity {
 		this.partnerType = partnerType;
 	}
 
+	public AddressEntity getAddress() {
+		return address;
+	}
+
+	public void setAddress(AddressEntity address) {
+		this.address = address;
+	}
+	
+	public CompanyEntity getCompany() {
+		return company;
+	}
+
+	public void setCompany(CompanyEntity company) {
+		this.company = company;
+	}
+
+	public IndividualEntity getIndividual() {
+		return individual;
+	}
+
+	public void setIndividual(IndividualEntity individual) {
+		this.individual = individual;
+	}
+
 	@Override
     public boolean equals(Object obj) {
         return super.equals(obj) || (obj != null && this.getClass().isInstance(obj) && this.hashCode() == obj.hashCode());
@@ -210,7 +238,7 @@ public class PartnerEntity {
                 .omitNullValues()
                 .add("idPartner", idPartner)
                 .add("description", description)                
-                .add("idAddress", idAddress)
+                .add("address", address)
                 .add("likes", likes)
                 .add("urlLogo", urlLogo)
                 .add("urlSite", urlSite)
@@ -218,6 +246,10 @@ public class PartnerEntity {
                 .add("urlGooglePlus", urlGooglePlus)
                 .add("usernameInstagram", usernameInstagram)
                 .add("signupDate", signupDate)
+                .add("company", company)
+                .add("individual", individual)
+                .add("address", address)
+                .add("partnerType", partnerType)
                 .toString();
     }
 }

@@ -1,9 +1,10 @@
-package br.com.store.backend.view.resource.partner;
+package br.com.store.backend.view.resource.person;
 
 import java.io.Serializable;
 import java.util.Date;
 
 import br.com.store.backend.infrastructure.serializer.JsonDateSerializer;
+import br.com.store.backend.view.resource.partner.Partner;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -15,6 +16,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 public class Individual extends Partner implements Serializable {
 
 	private static final long serialVersionUID = 1903053427687642328L;
+	
+	private Integer idIndividual;
 
 	private String cpf;
     
@@ -27,6 +30,18 @@ public class Individual extends Partner implements Serializable {
     private Character sex;
 
     private Date birthDate;
+
+	private Date signupDate;
+
+	private Partner partner;
+    
+	public Integer getIdIndividual() {
+		return idIndividual;
+	}
+
+	public void setIdIndividual(Integer idIndividual) {
+		this.idIndividual = idIndividual;
+	}
 
 	public String getCpf() {
 		return cpf;
@@ -75,5 +90,21 @@ public class Individual extends Partner implements Serializable {
 	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
 	}
-    
+
+	public Date getSignupDate() {
+		return signupDate;
+	}
+
+	public void setSignupDate(Date signupDate) {
+		this.signupDate = signupDate;
+	}
+
+	public Partner getPartner() {
+		return partner;
+	}
+
+	public void setPartner(Partner partner) {
+		this.partner = partner;
+	}
+	
 }

@@ -19,8 +19,16 @@ public class PostalAreaApplicationImpl implements PostalAreaApplication {
 	
     @Override
     @Profiled(level = Profiling.APPLICATION)    
-	public PostalArea findByCodPostalArea(String codPostalArea, String selector){
-    	PostalArea postalArea = postalAreaService.findByCodPostalArea(codPostalArea);
+	public PostalArea findPostalAreaByCodPostalArea(String codPostalArea, String selector){
+    	PostalArea postalArea = postalAreaService.findPostalAreaByCodPostalArea(codPostalArea);
+    	addDistrict(postalArea, selector);
+    	return postalArea;
+	}
+    
+    @Override
+    @Profiled(level = Profiling.APPLICATION)    
+	public PostalArea findPostalArea(Integer idPostalArea, String selector){
+    	PostalArea postalArea = postalAreaService.findPostalArea(idPostalArea);
     	addDistrict(postalArea, selector);
     	return postalArea;
 	}

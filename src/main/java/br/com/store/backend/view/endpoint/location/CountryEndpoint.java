@@ -1,5 +1,6 @@
 package br.com.store.backend.view.endpoint.location;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.MediaType;
 
 import org.perf4j.aop.Profiled;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 import br.com.store.backend.application.location.CountryApplication;
 import br.com.store.backend.infrastructure.profiling.Profiling;
 import br.com.store.backend.infrastructure.rest.model.Resource;
@@ -20,18 +22,27 @@ public class CountryEndpoint {
 	
     @Autowired
     private CountryApplication countryApplication;
+
+    @Autowired
+    private HttpServletRequest request;
     
     @Profiled(level = Profiling.ENDPOINT)
     @RequestMapping(value = "/federation-units/{idFederationUnit}/countries", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON})
     public ResponseEntity<Resource<Country>> findCountryByFederationUnit(@PathVariable(value = "idFederationUnit") Integer idFederationUnit) {
-        Country country = countryApplication.findCountryByFederationUnit(idFederationUnit);
+        
+    	Country country = countryApplication.findCountryByFederationUnit(idFederationUnit);
+        country.setUri(request.getRequestURI(), request.getQueryString());
+
         return new ResponseEntity<>(new Resource<Country>(country), HttpStatus.OK);
     }
     
     @Profiled(level = Profiling.ENDPOINT)
     @RequestMapping(value = "/countries/{idCountry}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON})
     public ResponseEntity<Resource<Country>> findCountry(@PathVariable(value = "idCountry") Integer idCountry) {
-        Country country = countryApplication.findCountry(idCountry);
+        
+    	Country country = countryApplication.findCountry(idCountry);
+    	country.setUri(request.getRequestURI(), request.getQueryString());
+
         return new ResponseEntity<>(new Resource<Country>(country), HttpStatus.OK);
     }
 }

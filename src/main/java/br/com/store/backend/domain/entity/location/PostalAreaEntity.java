@@ -28,7 +28,7 @@ public class PostalAreaEntity {
 	private Integer idPostalArea;
 	
 	@JoinColumn(name = "id_city")
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	private CityEntity city;
 	
 	@Column(name = "NAM_POSTAL_AREA")
@@ -41,7 +41,7 @@ public class PostalAreaEntity {
 	private String desSegment;
 	
 	@JoinColumn(name = "id_parent_postal_area")
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	private PostalAreaEntity parentPostalArea;
     
 	@ManyToMany(fetch = FetchType.LAZY)

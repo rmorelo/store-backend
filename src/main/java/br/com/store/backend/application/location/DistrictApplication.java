@@ -8,6 +8,8 @@ public interface DistrictApplication {
  	
 	Collection<District> findDistrictsByPostalArea(Integer idPostalArea, String selector);
 	
+	Collection<District> findDistrictsByPostalArea(String codPostalArea, String selector);
+	
 	District findDistrict(Integer idDistrict, String selector);
 	
 }

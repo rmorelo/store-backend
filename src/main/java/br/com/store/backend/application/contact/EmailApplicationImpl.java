@@ -26,7 +26,7 @@ public class EmailApplicationImpl implements EmailApplication {
     @Transactional
 	public Email save(Integer idPartner, Email email){
     	Email newEmail = emailService.save(email);
-    	Partner partner = partnerService.findByIdPartner(idPartner);
+    	Partner partner = partnerService.findPartner(idPartner);
     	partner.setEmail(newEmail);
     	partnerService.update(partner);
 		return newEmail;

@@ -1,6 +1,7 @@
 package br.com.store.backend.view.resource.location;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -16,9 +17,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PostalArea implements Serializable, Linkable{
 
-	private static final long serialVersionUID = -9171673824071100365L;
+	private static final String URI_PATH = "/api/postalareas/";
 	
-	public static final String CITIES = "cities";
+	private static final long serialVersionUID = -9171673824071100365L;
 	
 	public static final String DISTRICS = "districts";
 	
@@ -42,9 +43,12 @@ public class PostalArea implements Serializable, Linkable{
     
     private List<Link> links;
     
+    public PostalArea(){
+    }
+    
     @JsonIgnore
     public static List<String> getSelectableResources() {
-        return Arrays.asList(DISTRICS, CITIES);
+        return Arrays.asList(DISTRICS);
     }
     
     public Integer getIdPostalArea() {
@@ -115,16 +119,18 @@ public class PostalArea implements Serializable, Linkable{
         return uri;
     }
 
-    public void setUri(String uri) {
-        this.uri = uri;
+    public void setUri(String uri, String queryParam) {
+    	this.uri = uri + (queryParam != null ? "?" + queryParam : "");
     }
 
     public List<Link> getLinks() {
+    	this.links = new ArrayList<Link>();
+    	
+    	for (String resource : getSelectableResources()) {
+            Link link = new Link(resource, URI_PATH + this.idPostalArea + "/" + resource);
+            this.links.add(link);
+        }
         return links;
-    }
-
-    public void setLinks(List<Link> links) {
-        this.links = links;
     }
 
 	@Override

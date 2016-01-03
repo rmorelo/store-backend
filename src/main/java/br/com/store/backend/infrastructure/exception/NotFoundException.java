@@ -19,7 +19,11 @@ public class NotFoundException extends CustomRuntimeException {
     public static final int FEDERATION_UNIT_NOT_FOUND = 404007;
     
     public static final int COUNTRY_NOT_FOUND = 404008;
+    
+    public static final int ADDRESS_NOT_FOUND = 404009;
 
+    public static final int INDIVIDUAL_NOT_FOUND = 404010;
+    
     public NotFoundException(int code) {
         super(code);
     }

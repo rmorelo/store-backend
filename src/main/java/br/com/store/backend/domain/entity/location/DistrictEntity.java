@@ -30,7 +30,7 @@ public class DistrictEntity {
 	private String namDistrict;
 	
 	@JoinColumn(name = "id_city")
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	private CityEntity city;
 	
 	@ManyToMany(mappedBy = "districts", fetch = FetchType.LAZY)

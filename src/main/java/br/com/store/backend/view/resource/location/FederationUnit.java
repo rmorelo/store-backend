@@ -1,6 +1,7 @@
 package br.com.store.backend.view.resource.location;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,6 +16,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FederationUnit implements Serializable, Linkable{
 
+	private static final String URI_PATH = "/api/federation-units/";
+	
 	public static final String COUNTRIES = "countries";
 	
 	private static final long serialVersionUID = -4227637322758177840L;
@@ -30,6 +33,9 @@ public class FederationUnit implements Serializable, Linkable{
 	private String uri;
     
     private List<Link> links;
+    
+    public FederationUnit(){
+    }
     
     @JsonIgnore
     public static List<String> getSelectableResources() {
@@ -72,16 +78,18 @@ public class FederationUnit implements Serializable, Linkable{
         return uri;
     }
 
-    public void setUri(String uri) {
-        this.uri = uri;
+	public void setUri(String uri, String queryParam) {
+    	this.uri = uri + (queryParam != null ? "?" + queryParam : "");
     }
 
     public List<Link> getLinks() {
+    	this.links = new ArrayList<Link>();
+    	
+    	for (String resource : getSelectableResources()) {
+            Link link = new Link(resource, URI_PATH + this.idFederationUnit + "/" + resource);
+            this.links.add(link);
+        }
         return links;
-    }
-
-    public void setLinks(List<Link> links) {
-        this.links = links;
     }
 
 	@Override

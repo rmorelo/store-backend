@@ -6,8 +6,6 @@ import br.com.store.backend.view.resource.location.Country;
 
 public class CountryConverter {
 
-    private static final String URI_PATTERN = "api/countries/";
-
     private CountryConverter() {
     }
 
@@ -18,7 +16,6 @@ public class CountryConverter {
         
         Country country = new Country();
         BeanUtils.copyProperties(countryEntity, country);
-        createURI(country);
         
         return country;
     }
@@ -31,10 +28,6 @@ public class CountryConverter {
         BeanUtils.copyProperties(country, countryEntity);
         
         return countryEntity;
-    }
-
-    private static void createURI(Country country) {
-        country.setUri(URI_PATTERN + country.getIdCountry());
     }
     
 }
