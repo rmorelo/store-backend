@@ -29,6 +29,10 @@ public class Partner implements Serializable{
 	
 	public static final String COMPANIES = "companies";
 	
+	public static final String TELEPHONES = "telephones";
+	
+	public static final String EMAILS = "emails";
+		
 	private static final String URI_PATH = "/api/partners/";
 	
 	private Integer idPartner;
@@ -71,7 +75,7 @@ public class Partner implements Serializable{
     
     @JsonIgnore
     public static List<String> getSelectableResources() {
-        return Arrays.asList(ADDRESSES, COMPANIES, INDIVIDUALS);
+        return Arrays.asList(ADDRESSES, COMPANIES, INDIVIDUALS, TELEPHONES, EMAILS);
     }
     
 	public Integer getIdPartner() {

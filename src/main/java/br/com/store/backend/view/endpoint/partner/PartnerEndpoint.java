@@ -1,8 +1,12 @@
 package br.com.store.backend.view.endpoint.partner;
 
+import java.util.Collection;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.perf4j.aop.Profiled;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -12,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import br.com.store.backend.application.partner.PartnerApplication;
 import br.com.store.backend.infrastructure.profiling.Profiling;
 import br.com.store.backend.infrastructure.rest.model.Resource;
@@ -32,11 +37,25 @@ public class PartnerEndpoint {
     @Selector(resource = Partner.class)
     public ResponseEntity<Resource<Partner>> findByIdPartner(
     		@PathVariable(value = "idPartner") Integer idPartner, 
-    		@RequestParam(value = "selector", required = false) String selector) {
-    	Partner partner = partnerApplication.findPartner(idPartner, selector);
+    		@RequestParam(value = "selector", required = false) String[] selectors) {
+    	Partner partner = partnerApplication.findPartner(idPartner, selectors);
     	partner.setUri(request.getRequestURI(), request.getQueryString());
     	
     	return new ResponseEntity<>(new Resource<Partner>(partner), HttpStatus.OK);
+    }
+    
+    @Profiled(level = Profiling.ENDPOINT)
+    @RequestMapping(value = "/customers/{idCustomer}/partners", method = RequestMethod.GET)
+    public ResponseEntity<Resource<Collection<Partner>>> findPartnersByIdCustomer(
+            @PathVariable(value = "idCustomer") Integer idCustomer,
+            Pageable pageable) {
+        Collection<Partner> partners = partnerApplication.findPartnersByIdCustomer(idCustomer, pageable);
+        
+        for(Partner partner : partners){
+            partner.setUri(request.getRequestURI(), request.getQueryString());
+        }
+        
+        return new ResponseEntity<>(new Resource<Collection<Partner>>(partners), HttpStatus.OK);
     }
     
     @Profiled(level = Profiling.ENDPOINT)

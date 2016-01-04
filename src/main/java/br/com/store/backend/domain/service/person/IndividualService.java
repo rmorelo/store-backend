@@ -6,9 +6,11 @@ public interface IndividualService {
   
 	Individual findIndividualByPartner(Integer idPartner);
 	
+	Individual findIndividualByCustomer(Integer idCustomer);
+	
 	Individual findIndividual(Integer idIndividual);
     
-    Individual saveIndividualOfPartner(Integer idPartner, Individual individual);
+    Individual save(Individual individual);
     
     Individual update(Individual individual);
   

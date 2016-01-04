@@ -9,9 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.store.backend.domain.entity.customer.CustomerEntity;
 import br.com.store.backend.domain.entity.location.AddressEntity;
 import br.com.store.backend.domain.entity.location.PostalAreaEntity;
 import br.com.store.backend.domain.entity.partner.PartnerEntity;
+import br.com.store.backend.domain.repository.customer.CustomerRepository;
 import br.com.store.backend.domain.repository.location.AddressRepository;
 import br.com.store.backend.domain.repository.partner.PartnerRepository;
 import br.com.store.backend.infrastructure.exception.NotFoundException;
@@ -31,6 +33,9 @@ public class AddressServiceImpl implements AddressService {
     
     @Autowired
     private PartnerRepository partnerRepository;
+    
+    @Autowired
+    private CustomerRepository customerRepository;
     
     @Override
     @Profiled(level = Profiling.SERVICE)
@@ -79,27 +84,6 @@ public class AddressServiceImpl implements AddressService {
     @Override
     @Transactional
     @Profiled(level = Profiling.SERVICE)
-    public Address saveAddressOfPartner(Integer idPartner, Address address){
-    	address.setSignupDate(new Date());
-        AddressEntity addressEntity = AddressConverter.convert(address);       
-        addressEntity = addressRepository.save(addressEntity);
-        
-        PartnerEntity partnerEntity = partnerRepository.findOne(idPartner);
-    	
-    	if(partnerEntity == null){
-    		throw new NotFoundException(NotFoundException.PARTNER_NOT_FOUND);
-    	}
-        
-    	partnerEntity.setAddress(addressEntity);
-    	
-    	partnerRepository.save(partnerEntity);
-        
-        return AddressConverter.convert(addressEntity);
-    }
-    
-    @Override
-    @Transactional
-    @Profiled(level = Profiling.SERVICE)
 	public Address update(Address address) {
     	address.setSignupDate(new Date());
     	AddressEntity addressEntity = addressRepository.findOne(address.getIdAddress());
@@ -142,6 +126,24 @@ public class AddressServiceImpl implements AddressService {
         }
     	
     	return AddressConverter.convert(addressEntity);
+    }
+    
+    @Override
+    @Profiled(level = Profiling.SERVICE)
+    public Address findAddressByCustomer(Integer idCustomer){
+        CustomerEntity customerEntity = customerRepository.findOne(idCustomer);
+        
+        if(customerEntity == null){
+            throw new NotFoundException(NotFoundException.CUSTOMER_NOT_FOUND);
+        }
+        
+        AddressEntity addressEntity = customerEntity.getAddress();
+
+        if(addressEntity == null){
+            throw new NotFoundException(NotFoundException.ADDRESS_NOT_FOUND);
+        }
+        
+        return AddressConverter.convert(addressEntity);
     }
 
 }

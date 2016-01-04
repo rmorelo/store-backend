@@ -8,7 +8,7 @@ public interface CompanyService {
 	
 	Company findCompany(Integer idCompany);
     
-    Company saveCompanyOfPartner(Integer idPartner, Company company);
+    Company save(Company company);
     
     Company update(Company company);
                 

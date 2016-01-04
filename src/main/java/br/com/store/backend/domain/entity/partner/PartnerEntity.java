@@ -1,7 +1,7 @@
 package br.com.store.backend.domain.entity.partner;
 
 import java.util.Date;
-
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,13 +12,15 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
 import br.com.store.backend.domain.entity.contact.EmailEntity;
 import br.com.store.backend.domain.entity.contact.TelephoneEntity;
+import br.com.store.backend.domain.entity.customer.CustomerEntity;
 import br.com.store.backend.domain.entity.location.AddressEntity;
 import br.com.store.backend.domain.entity.person.CompanyEntity;
 import br.com.store.backend.domain.entity.person.IndividualEntity;
@@ -85,6 +87,11 @@ public class PartnerEntity {
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_individual")
 	private IndividualEntity individual;
+	
+	@ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "PARTNER_CUSTOMER", joinColumns = { @JoinColumn(name = "ID_PARTNER") },
+            inverseJoinColumns = { @JoinColumn(name = "ID_CUSTOMER") })
+    private Set<CustomerEntity> customers;
 	
 	public PartnerEntity (){
 	    
@@ -221,8 +228,16 @@ public class PartnerEntity {
 	public void setIndividual(IndividualEntity individual) {
 		this.individual = individual;
 	}
+	
+	public Set<CustomerEntity> getCustomers() {
+        return customers;
+    }
 
-	@Override
+    public void setCustomers(Set<CustomerEntity> customers) {
+        this.customers = customers;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         return super.equals(obj) || (obj != null && this.getClass().isInstance(obj) && this.hashCode() == obj.hashCode());
     }
@@ -250,6 +265,7 @@ public class PartnerEntity {
                 .add("individual", individual)
                 .add("address", address)
                 .add("partnerType", partnerType)
+                .add("customers", customers)
                 .toString();
     }
 }

@@ -24,6 +24,8 @@ public class NotFoundException extends CustomRuntimeException {
 
     public static final int INDIVIDUAL_NOT_FOUND = 404010;
     
+    public static final int CUSTOMER_NOT_FOUND = 404011;
+    
     public NotFoundException(int code) {
         super(code);
     }

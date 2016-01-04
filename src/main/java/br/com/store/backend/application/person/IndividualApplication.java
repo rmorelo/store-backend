@@ -9,6 +9,8 @@ public interface IndividualApplication {
 	Individual findIndividual(Integer idIndividual);
 	
 	Individual saveIndividualOfPartner(Integer idPartner, Individual individual);
+	
+	Individual saveIndividualOfCustomer(Integer idCustomer, Individual individual);
     
     Individual update(Individual individual);
 

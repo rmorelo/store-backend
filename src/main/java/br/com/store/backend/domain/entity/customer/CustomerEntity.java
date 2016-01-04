@@ -1,6 +1,7 @@
 package br.com.store.backend.domain.entity.customer;
 
 import java.util.Date;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -16,7 +18,9 @@ import javax.persistence.TemporalType;
 import br.com.store.backend.domain.entity.contact.EmailEntity;
 import br.com.store.backend.domain.entity.contact.TelephoneEntity;
 import br.com.store.backend.domain.entity.location.AddressEntity;
+import br.com.store.backend.domain.entity.partner.PartnerEntity;
 import br.com.store.backend.domain.entity.person.IndividualEntity;
+
 import com.google.common.base.Objects;
 
 @Entity
@@ -35,6 +39,9 @@ public class CustomerEntity {
     @Temporal(TemporalType.TIMESTAMP)
 	protected Date signupDate;
 	
+	@Column(name = "CUSTOMER_TYPE")
+    private String customerType;
+	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_email")
 	private EmailEntity email;
@@ -50,6 +57,9 @@ public class CustomerEntity {
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_individual")
 	private IndividualEntity individual;
+	
+	@ManyToMany(mappedBy = "customers", fetch = FetchType.LAZY)
+    private Set<PartnerEntity> partners;
 	
 	public Integer getIdCustomer() {
 		return idCustomer;
@@ -106,8 +116,24 @@ public class CustomerEntity {
 	public void setIndividual(IndividualEntity individual) {
 		this.individual = individual;
 	}
+	
+	public String getCustomerType() {
+        return customerType;
+    }
 
-	@Override
+    public void setCustomerType(String customerType) {
+        this.customerType = customerType;
+    }
+    
+    public Set<PartnerEntity> getPartners() {
+        return partners;
+    }
+
+    public void setPartners(Set<PartnerEntity> partners) {
+        this.partners = partners;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         return super.equals(obj) || (obj != null && this.getClass().isInstance(obj) && this.hashCode() == obj.hashCode());
     }
@@ -128,6 +154,8 @@ public class CustomerEntity {
                 .add("telephone", telephone)
                 .add("address", address)
                 .add("individual", individual)
+                .add("customerType", customerType)
+                .add("partners", partners)
                 .toString();
     }
 }

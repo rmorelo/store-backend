@@ -1,12 +1,12 @@
-package br.com.store.backend.domain.entity.partner;
+package br.com.store.backend.domain.entity.person;
 
-public enum PartnerTypeEnum {
+public enum PersonTypeEnum {
 
     PESSOA_FISICA("PF"), PESSOA_JURIDICA("PJ");
     
     private String type;
     
-    PartnerTypeEnum(String type){
+    PersonTypeEnum(String type){
     	this.type = type;
     }
 

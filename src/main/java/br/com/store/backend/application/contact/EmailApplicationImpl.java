@@ -1,6 +1,6 @@
 package br.com.store.backend.application.contact;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import org.perf4j.aop.Profiled;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +13,7 @@ import br.com.store.backend.view.resource.contact.Email;
 import br.com.store.backend.view.resource.partner.Partner;
 
 @Service
+@Transactional(readOnly = true)
 public class EmailApplicationImpl implements EmailApplication {
 
     @Autowired
@@ -31,6 +32,5 @@ public class EmailApplicationImpl implements EmailApplication {
     	partnerService.update(partner);
 		return newEmail;
 	}
-
 	
 }

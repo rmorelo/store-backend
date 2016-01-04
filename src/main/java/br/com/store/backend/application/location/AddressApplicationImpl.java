@@ -3,14 +3,18 @@ package br.com.store.backend.application.location;
 import org.perf4j.aop.Profiled;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.store.backend.domain.service.location.AddressService;
 import br.com.store.backend.domain.service.location.PostalAreaService;
+import br.com.store.backend.domain.service.partner.PartnerService;
 import br.com.store.backend.infrastructure.profiling.Profiling;
 import br.com.store.backend.view.resource.location.Address;
 import br.com.store.backend.view.resource.location.PostalArea;
+import br.com.store.backend.view.resource.partner.Partner;
 
 @Service
+@Transactional(readOnly = true)
 public class AddressApplicationImpl implements AddressApplication {
 
 	@Autowired
@@ -18,6 +22,9 @@ public class AddressApplicationImpl implements AddressApplication {
 	
 	@Autowired
 	private PostalAreaService postalAreaService;
+	
+	@Autowired
+    private PartnerService partnerService;
 	
     @Override
     @Profiled(level = Profiling.APPLICATION)    
@@ -29,10 +36,14 @@ public class AddressApplicationImpl implements AddressApplication {
     
     @Override
     @Profiled(level = Profiling.APPLICATION)
+    @Transactional
     public Address saveAddressOfPartner(Integer idPartner, Address address){
-    	return addressService.saveAddressOfPartner(idPartner, address);
+        Address addressResult = addressService.save(address);
+        Partner partner = partnerService.findPartner(idPartner);
+        partner.setAddress(addressResult);
+        partnerService.update(partner);        
+    	return addressResult;
     }
-
     
     @Override
     @Profiled(level = Profiling.APPLICATION)    

@@ -1,6 +1,6 @@
 package br.com.store.backend.application.contact;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import org.perf4j.aop.Profiled;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +13,7 @@ import br.com.store.backend.view.resource.contact.Telephone;
 import br.com.store.backend.view.resource.partner.Partner;
 
 @Service
+@Transactional(readOnly = true)
 public class TelephoneApplicationImpl implements TelephoneApplication {
 
 	@Autowired

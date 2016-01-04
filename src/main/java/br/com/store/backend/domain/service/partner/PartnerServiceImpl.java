@@ -1,12 +1,20 @@
 package br.com.store.backend.domain.service.partner;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+
 import javax.annotation.Resource;
+
 import org.perf4j.aop.Profiled;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import br.com.store.backend.domain.entity.customer.CustomerEntity;
 import br.com.store.backend.domain.entity.partner.PartnerEntity;
+import br.com.store.backend.domain.repository.customer.CustomerRepository;
 import br.com.store.backend.domain.repository.partner.PartnerRepository;
 import br.com.store.backend.infrastructure.exception.NotFoundException;
 import br.com.store.backend.infrastructure.profiling.Profiling;
@@ -18,6 +26,9 @@ public class PartnerServiceImpl implements PartnerService {
 
     @Autowired
     private PartnerRepository partnerRepository;
+    
+    @Autowired
+    private CustomerRepository customerRepository;
     
     @Resource
 	private PartnerServiceMapper partnerServiceMapper;
@@ -32,6 +43,26 @@ public class PartnerServiceImpl implements PartnerService {
     	}
     	
     	return PartnerConverter.convert(partnerEntity);
+    }
+    
+    @Override
+    @Profiled(level = Profiling.SERVICE)
+    public Collection<Partner> findPartnersByCustomer(Integer idCustomer, Pageable pageable) {
+        CustomerEntity customerEntity = customerRepository.findOne(idCustomer);
+        
+        if(customerEntity == null){
+            throw new NotFoundException(NotFoundException.CUSTOMER_NOT_FOUND);
+        }
+        
+        Collection<Partner> partners = new ArrayList<Partner>();
+        Collection<PartnerEntity> partnerEntities = partnerRepository.findAllByCustomer(customerEntity, pageable);
+        
+        for (PartnerEntity partnerEntity : partnerEntities){
+            Partner partner = PartnerConverter.convert(partnerEntity);
+            partners.add(partner);
+        }
+        
+        return partners;
     }
     
     @Override
