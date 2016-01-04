@@ -24,7 +24,7 @@ public class EmailApplicationImpl implements EmailApplication {
     @Override
     @Profiled(level = Profiling.APPLICATION)
     @Transactional
-	public Email save(Integer idPartner, Email email){
+	public Email saveEmailOfPartner(Integer idPartner, Email email){
     	Email newEmail = emailService.save(email);
     	Partner partner = partnerService.findPartner(idPartner);
     	partner.setEmail(newEmail);

@@ -56,15 +56,6 @@ public class PartnerApplicationImpl implements PartnerApplication {
         partnerService.delete(idPartner);
     }
 	
-	@Override
-    @Profiled(level = Profiling.APPLICATION)
-	public Partner updateAddress(Integer idPartner, Integer idAddress){
-		Address address = addressService.findAddress(idAddress);
-		Partner partner = partnerService.findPartner(idPartner);
-		partner.setAddress(address);
-		return partnerService.update(partner);
-	}
-	
 	private void addIndividual(Partner partner, String selector) {
     	if (selector != null && selector.equals(Partner.INDIVIDUALS)){
     		Individual individual = individualService.findIndividualByPartner(partner.getIdPartner());

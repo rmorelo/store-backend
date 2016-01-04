@@ -4,6 +4,6 @@ import br.com.store.backend.view.resource.contact.Email;
 
 public interface EmailApplication {
  
-	Email save(Integer idPartner, Email email);
+	Email saveEmailOfPartner(Integer idPartner, Email email);
 	
 }

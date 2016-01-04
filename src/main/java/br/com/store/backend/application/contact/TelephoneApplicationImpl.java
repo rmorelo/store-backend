@@ -24,7 +24,7 @@ public class TelephoneApplicationImpl implements TelephoneApplication {
     @Override
     @Profiled(level = Profiling.APPLICATION)
     @Transactional
-	public Telephone save(Integer idPartner, Telephone telephone){
+	public Telephone saveTelephoneOfPartner(Integer idPartner, Telephone telephone){
     	Telephone newTelephone = telephoneService.save(telephone);
     	Partner partner = partnerService.findPartner(idPartner);
     	partner.setTelephone(newTelephone);

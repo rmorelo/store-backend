@@ -51,6 +51,18 @@ public class CompanyServiceImpl implements CompanyService {
     }
     
     @Override
+    @Profiled(level = Profiling.SERVICE)
+    public Company findCompany(Integer idCompany) {
+    	CompanyEntity companyEntity = companyRepository.findOne(idCompany);
+    	
+    	if(companyEntity == null){
+    		throw new NotFoundException(NotFoundException.COMPANY_NOT_FOUND);
+    	}
+    	
+    	return CompanyConverter.convert(companyEntity);
+    }
+    
+    @Override
     @Transactional
     @Profiled(level = Profiling.SERVICE)
 	public Company saveCompanyOfPartner(Integer idPartner, Company company) {

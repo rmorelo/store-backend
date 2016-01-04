@@ -11,6 +11,8 @@ public interface AddressService {
     
     Address findAddressByPartner(Integer idPartner);
     
+    Address saveAddressOfPartner(Integer idPartner, Address address);
+    
     Address save(Address address);
     
     Address update(Address address);

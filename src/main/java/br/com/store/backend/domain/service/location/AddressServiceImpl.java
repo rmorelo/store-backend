@@ -79,6 +79,27 @@ public class AddressServiceImpl implements AddressService {
     @Override
     @Transactional
     @Profiled(level = Profiling.SERVICE)
+    public Address saveAddressOfPartner(Integer idPartner, Address address){
+    	address.setSignupDate(new Date());
+        AddressEntity addressEntity = AddressConverter.convert(address);       
+        addressEntity = addressRepository.save(addressEntity);
+        
+        PartnerEntity partnerEntity = partnerRepository.findOne(idPartner);
+    	
+    	if(partnerEntity == null){
+    		throw new NotFoundException(NotFoundException.PARTNER_NOT_FOUND);
+    	}
+        
+    	partnerEntity.setAddress(addressEntity);
+    	
+    	partnerRepository.save(partnerEntity);
+        
+        return AddressConverter.convert(addressEntity);
+    }
+    
+    @Override
+    @Transactional
+    @Profiled(level = Profiling.SERVICE)
 	public Address update(Address address) {
     	address.setSignupDate(new Date());
     	AddressEntity addressEntity = addressRepository.findOne(address.getIdAddress());

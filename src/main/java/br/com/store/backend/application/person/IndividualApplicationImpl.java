@@ -18,6 +18,12 @@ public class IndividualApplicationImpl implements IndividualApplication {
     public Individual findIndividualByPartner(Integer idPartner) {    	
     	 return individualService.findIndividualByPartner(idPartner);
     }
+    
+    @Override
+    @Profiled(level = Profiling.APPLICATION)
+    public Individual findIndividual(Integer idIndividual) {    	
+    	 return individualService.findIndividual(idIndividual);
+    }
 
 	@Override
     @Profiled(level = Profiling.APPLICATION)

@@ -28,6 +28,13 @@ public class AddressApplicationImpl implements AddressApplication {
 	}
     
     @Override
+    @Profiled(level = Profiling.APPLICATION)
+    public Address saveAddressOfPartner(Integer idPartner, Address address){
+    	return addressService.saveAddressOfPartner(idPartner, address);
+    }
+
+    
+    @Override
     @Profiled(level = Profiling.APPLICATION)    
 	public Address save(Address address){
     	PostalArea postalArea = postalAreaService.findPostalArea(address.getPostalArea().getIdPostalArea());

@@ -1,5 +1,7 @@
 package br.com.store.backend.view.endpoint.contact;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.perf4j.aop.Profiled;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,12 +24,17 @@ public class TelephoneEndpoint {
     @Autowired
     private TelephoneApplication telephoneApplication;
     
+	@Autowired
+    private HttpServletRequest request;
+    
     @Profiled(level = Profiling.ENDPOINT)
     @RequestMapping(value = "/partners/{idPartner}/telephones", method = RequestMethod.POST)
-    public ResponseEntity<Resource<Telephone>> save(@PathVariable(value = "idPartner") Integer idPartner, 
+    public ResponseEntity<Resource<Telephone>> saveTelephoneOfPartner(@PathVariable(value = "idPartner") Integer idPartner, 
     		@RequestBody Telephone telephone) {
-        Resource<Telephone> telephoneResource = new Resource<>(telephoneApplication.save(idPartner, telephone));        
-        return new ResponseEntity<>(telephoneResource, HttpStatus.CREATED);
+        Telephone telephoneResource = telephoneApplication.saveTelephoneOfPartner(idPartner, telephone);
+        telephoneResource.setUri(request.getRequestURI(), request.getQueryString());
+        
+        return new ResponseEntity<>(new Resource<>(telephoneResource), HttpStatus.CREATED);
     }
     
     @Profiled(level = Profiling.ENDPOINT)

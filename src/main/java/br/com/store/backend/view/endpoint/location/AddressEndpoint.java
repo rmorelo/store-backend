@@ -46,10 +46,13 @@ public class AddressEndpoint {
     }
     
     @Profiled(level = Profiling.ENDPOINT)
-    @RequestMapping(value = "/addresses", method = RequestMethod.POST)
-    public ResponseEntity<Resource<Address>> save(@RequestBody Address address) {
-        Resource<Address> addressResource = new Resource<>(addressApplication.save(address));        
-        return new ResponseEntity<>(addressResource, HttpStatus.CREATED);
+    @RequestMapping(value = "/partners/{idPartner}/addresses", method = RequestMethod.POST)
+    public ResponseEntity<Resource<Address>> save(@PathVariable(value = "idPartner") Integer idPartner,
+    		@RequestBody Address address) {
+        Address addressResource = addressApplication.saveAddressOfPartner(idPartner, address);
+        addressResource.setUri(request.getRequestURI(), request.getQueryString());
+        
+        return new ResponseEntity<>(new Resource<Address>(addressResource), HttpStatus.CREATED);
     }
     
     @Profiled(level = Profiling.ENDPOINT)
@@ -64,8 +67,10 @@ public class AddressEndpoint {
     public ResponseEntity<Resource<Address>> updatePartial(@PathVariable(value = "idAddress") Integer idAddress,
             @Validated @RequestBody Address address) {
     	address.setIdAddress(idAddress);
-        Resource<Address> addressResource = new Resource<>(addressApplication.update(address));
-        return new ResponseEntity<>(addressResource, HttpStatus.OK);
+        Address addressResource = addressApplication.update(address);
+        addressResource.setUri(request.getRequestURI(), request.getQueryString());
+
+        return new ResponseEntity<>(new Resource<Address>(addressResource), HttpStatus.OK);
     }
     
     @Profiled(level = Profiling.ENDPOINT)

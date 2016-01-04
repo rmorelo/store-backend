@@ -8,6 +8,8 @@ public interface AddressApplication {
     
     Address save(Address address);
     
+    Address saveAddressOfPartner(Integer idPartner, Address address);
+    
     Address update(Address address);
     
     void delete(Integer idAddress);

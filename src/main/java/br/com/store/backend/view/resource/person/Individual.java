@@ -1,21 +1,27 @@
 package br.com.store.backend.view.resource.person;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import br.com.store.backend.infrastructure.rest.model.Link;
 import br.com.store.backend.infrastructure.serializer.JsonDateSerializer;
 import br.com.store.backend.view.resource.partner.Partner;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonSerialize(using = JsonDateSerializer.class)
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Individual extends Partner implements Serializable {
+public class Individual implements Serializable {
 
 	private static final long serialVersionUID = 1903053427687642328L;
+	
+	private static final String URI_PATH = "/api/individuals/";
 	
 	private Integer idIndividual;
 
@@ -34,6 +40,15 @@ public class Individual extends Partner implements Serializable {
 	private Date signupDate;
 
 	private Partner partner;
+	
+	private String uri;
+    
+    private List<Link> links;
+    
+    @JsonIgnore
+    public static List<String> getSelectableResources() {
+        return null;
+    }
     
 	public Integer getIdIndividual() {
 		return idIndividual;
@@ -106,5 +121,23 @@ public class Individual extends Partner implements Serializable {
 	public void setPartner(Partner partner) {
 		this.partner = partner;
 	}
+	
+	public String getUri() {
+        return uri;
+    }
+
+	public void setUri(String uri, String queryParam) {
+    	this.uri = uri + (queryParam != null ? "?" + queryParam : "");
+    }
+
+    public List<Link> getLinks() {
+    	this.links = new ArrayList<Link>();
+    	
+    	for (String resource : getSelectableResources()) {
+            Link link = new Link(resource, URI_PATH + this.idIndividual + "/" + resource);
+            this.links.add(link);
+        }
+        return links;
+    }
 	
 }

@@ -9,8 +9,6 @@ public interface PartnerApplication {
     Partner save(Partner partner);
     
     Partner update(Partner partner);
-
-    Partner updateAddress(Integer idPartner, Integer idAddress);
     
     void delete(Integer idPartner);
     

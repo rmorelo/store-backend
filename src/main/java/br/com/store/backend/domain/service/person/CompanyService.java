@@ -5,6 +5,8 @@ import br.com.store.backend.view.resource.person.Company;
 public interface CompanyService {
   
 	Company findCompanyByPartner(Integer idPartner);
+	
+	Company findCompany(Integer idCompany);
     
     Company saveCompanyOfPartner(Integer idPartner, Company company);
     

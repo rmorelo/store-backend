@@ -52,6 +52,18 @@ public class IndividualServiceImpl implements IndividualService {
     }
     
     @Override
+    @Profiled(level = Profiling.SERVICE)
+    public Individual findIndividual(Integer idIndividual) {
+    	IndividualEntity individualEntity = individualRepository.findOne(idIndividual);
+    	
+    	if(individualEntity == null){
+    		throw new NotFoundException(NotFoundException.INDIVIDUAL_NOT_FOUND);
+    	}
+    	
+    	return IndividualConverter.convert(individualEntity);
+    }
+    
+    @Override
     @Transactional
     @Profiled(level = Profiling.SERVICE)
 	public Individual saveIndividualOfPartner(Integer idPartner, Individual individual) {

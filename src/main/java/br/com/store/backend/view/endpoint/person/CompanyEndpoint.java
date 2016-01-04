@@ -1,5 +1,7 @@
 package br.com.store.backend.view.endpoint.person;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.perf4j.aop.Profiled;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,12 +23,29 @@ public class CompanyEndpoint {
 
 	@Autowired
     private CompanyApplication companyApplication;
+	
+	@Autowired
+    private HttpServletRequest request;
     
     @Profiled(level = Profiling.ENDPOINT)
     @RequestMapping(value = "/partners/{idPartner}/companies", method = RequestMethod.GET)
     public ResponseEntity<Resource<Company>> findCompanyByPartner(
     		@PathVariable(value = "idPartner") Integer idPartner) {
     	Company company = companyApplication.findCompanyByPartner(idPartner);
+    	
+    	company.setUri(request.getRequestURI(), request.getQueryString());
+    	
+    	return new ResponseEntity<>(new Resource<Company>(company), HttpStatus.OK);
+    }
+    
+    @Profiled(level = Profiling.ENDPOINT)
+    @RequestMapping(value = "/companies/{idCompany}", method = RequestMethod.GET)
+    public ResponseEntity<Resource<Company>> findCompany(
+    		@PathVariable(value = "idCompany") Integer idCompany) {
+    	Company company = companyApplication.findCompany(idCompany);
+    	
+    	company.setUri(request.getRequestURI(), request.getQueryString());
+    	
     	return new ResponseEntity<>(new Resource<Company>(company), HttpStatus.OK);
     }
     
@@ -34,8 +53,11 @@ public class CompanyEndpoint {
     @RequestMapping(value = "/partners/{idPartner}/companies", method = RequestMethod.POST)
     public ResponseEntity<Resource<Company>> saveCompanyOfPartner(@PathVariable(value = "idPartner") Integer idPartner, 
     		@RequestBody Company company) {
-        Resource<Company> companyResource = new Resource<>(companyApplication.saveCompanyOfPartner(idPartner, company));        
-        return new ResponseEntity<>(companyResource, HttpStatus.CREATED);
+    	Company companyResource = companyApplication.saveCompanyOfPartner(idPartner, company);        
+    	
+    	companyResource.setUri(request.getRequestURI(), request.getQueryString());
+    	
+    	return new ResponseEntity<>(new Resource<Company>(companyResource), HttpStatus.CREATED);
     }
     
     @Profiled(level = Profiling.ENDPOINT)
@@ -43,8 +65,10 @@ public class CompanyEndpoint {
     public ResponseEntity<Resource<Company>> update(@PathVariable(value = "idCompany") Integer idCompany,
             @Validated @RequestBody Company company) {
     	company.setIdCompany(idCompany);
-        Resource<Company> companyResource = new Resource<>(companyApplication.update(company));
-        return new ResponseEntity<>(companyResource, HttpStatus.OK);
+    	Company companyResource = companyApplication.update(company);
+    	companyResource.setUri(request.getRequestURI(), request.getQueryString());
+    	
+    	return new ResponseEntity<>(new Resource<Company>(companyResource), HttpStatus.OK);
     }
         
     @Profiled(level = Profiling.ENDPOINT)
@@ -52,8 +76,10 @@ public class CompanyEndpoint {
     public ResponseEntity<Resource<Company>> updatePartial(@PathVariable(value = "idCompany") Integer idCompany,
             @Validated @RequestBody Company company) {
     	company.setIdCompany(idCompany);
-        Resource<Company> companyResource = new Resource<>(companyApplication.update(company));
-        return new ResponseEntity<>(companyResource, HttpStatus.OK);
+    	Company companyResource = companyApplication.update(company);
+    	companyResource.setUri(request.getRequestURI(), request.getQueryString());
+    	
+    	return new ResponseEntity<>(new Resource<Company>(companyResource), HttpStatus.OK);
     }
     
     @Profiled(level = Profiling.ENDPOINT)

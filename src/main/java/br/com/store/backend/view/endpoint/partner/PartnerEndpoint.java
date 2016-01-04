@@ -33,7 +33,6 @@ public class PartnerEndpoint {
     public ResponseEntity<Resource<Partner>> findByIdPartner(
     		@PathVariable(value = "idPartner") Integer idPartner, 
     		@RequestParam(value = "selector", required = false) String selector) {
-    	
     	Partner partner = partnerApplication.findPartner(idPartner, selector);
     	partner.setUri(request.getRequestURI(), request.getQueryString());
     	
@@ -43,8 +42,10 @@ public class PartnerEndpoint {
     @Profiled(level = Profiling.ENDPOINT)
     @RequestMapping(value = "/partners", method = RequestMethod.POST)
     public ResponseEntity<Resource<Partner>> save(@RequestBody Partner partner) {
-        Resource<Partner> partnerResource = new Resource<>(partnerApplication.save(partner));        
-        return new ResponseEntity<>(partnerResource, HttpStatus.CREATED);
+    	Partner partnerResource = partnerApplication.save(partner);
+    	partnerResource.setUri(request.getRequestURI(), request.getQueryString());
+
+        return new ResponseEntity<>(new Resource<Partner>(partnerResource), HttpStatus.CREATED);
     }
     
     @Profiled(level = Profiling.ENDPOINT)
@@ -52,8 +53,10 @@ public class PartnerEndpoint {
     public ResponseEntity<Resource<Partner>> update(@PathVariable(value = "idPartner") Integer idPartner,
             @Validated @RequestBody Partner partner) {
         partner.setIdPartner(idPartner);
-        Resource<Partner> partnerResource = new Resource<>(partnerApplication.update(partner));
-        return new ResponseEntity<>(partnerResource, HttpStatus.OK);
+        Partner partnerResource = partnerApplication.update(partner);
+        partnerResource.setUri(request.getRequestURI(), request.getQueryString());
+
+        return new ResponseEntity<>(new Resource<Partner>(partnerResource), HttpStatus.OK);
     }
         
     @Profiled(level = Profiling.ENDPOINT)
@@ -61,8 +64,10 @@ public class PartnerEndpoint {
     public ResponseEntity<Resource<Partner>> updatePartial(@PathVariable(value = "idPartner") Integer idPartner,
             @Validated @RequestBody Partner partner) {
         partner.setIdPartner(idPartner);
-        Resource<Partner> partnerResource = new Resource<>(partnerApplication.update(partner));
-        return new ResponseEntity<>(partnerResource, HttpStatus.OK);
+        Partner partnerResource = partnerApplication.update(partner);
+        partnerResource.setUri(request.getRequestURI(), request.getQueryString());
+
+        return new ResponseEntity<>(new Resource<Partner>(partnerResource), HttpStatus.OK);
     }
     
     @Profiled(level = Profiling.ENDPOINT)
@@ -70,14 +75,6 @@ public class PartnerEndpoint {
     public ResponseEntity<Resource<Partner>> delete(@PathVariable(value = "idPartner") Integer idPartner){
         partnerApplication.delete(idPartner);
         return new ResponseEntity<>(HttpStatus.OK);
-    }
-    
-    @Profiled(level = Profiling.ENDPOINT)
-    @RequestMapping(value = "/partners/{idPartner}/addresses/{idAddress}", method = RequestMethod.PATCH)
-    public ResponseEntity<Resource<Partner>> updatePartial(@PathVariable(value = "idPartner") Integer idPartner,
-    		@PathVariable(value = "idAddress") Integer idAddress) {
-        Resource<Partner> partnerResource = new Resource<>(partnerApplication.updateAddress(idPartner, idAddress));
-        return new ResponseEntity<>(partnerResource, HttpStatus.OK);
     }
     
     @Profiled(level = Profiling.ENDPOINT)
