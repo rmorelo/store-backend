@@ -1,13 +1,10 @@
 package br.com.store.backend.application.location;
 
 import java.util.Collection;
-
 import org.perf4j.aop.Profiled;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import br.com.store.backend.domain.service.location.DistrictService;
-import br.com.store.backend.domain.service.location.PostalAreaService;
 import br.com.store.backend.infrastructure.profiling.Profiling;
 import br.com.store.backend.view.resource.location.City;
 import br.com.store.backend.view.resource.location.District;
@@ -17,14 +14,11 @@ public class DistrictApplicationImpl implements DistrictApplication {
 
 	@Autowired
 	private DistrictService districtService;
-	
-	@Autowired
-    private PostalAreaService postalAreaService;
-    
+	    
     @Override
     @Profiled(level = Profiling.APPLICATION)
 	public Collection<District> findDistrictsByPostalArea(Integer idPostalArea, String selector){
-		Collection<District> districts = postalAreaService.findDistrictsByPostalArea(idPostalArea);
+		Collection<District> districts = districtService.findDistrictsByPostalArea(idPostalArea);
 	    addCity(districts, selector);
 		return districts;
 	}
@@ -32,7 +26,7 @@ public class DistrictApplicationImpl implements DistrictApplication {
     @Override
     @Profiled(level = Profiling.APPLICATION)
 	public Collection<District> findDistrictsByPostalArea(String codPostalArea, String selector){
-		Collection<District> districts = postalAreaService.findDistrictsByPostalArea(codPostalArea);
+		Collection<District> districts = districtService.findDistrictsByPostalArea(codPostalArea);
 	    addCity(districts, selector);
 		return districts;
 	}

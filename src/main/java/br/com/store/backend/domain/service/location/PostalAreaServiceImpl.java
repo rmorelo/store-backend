@@ -49,46 +49,5 @@ public class PostalAreaServiceImpl implements PostalAreaService {
         PostalArea postalArea = PostalAreaConverter.convert(postalAreaEntity);
         
         return postalArea;
-    }
-    
-    @Override
-    @Profiled(level = Profiling.SERVICE)
-    public Collection<District> findDistrictsByPostalArea(Integer idPostalArea){
-    	PostalAreaEntity postalAreaEntity = postalAreaRepository.findOne(idPostalArea);
-    	
-    	if(postalAreaEntity == null){
-            throw new NotFoundException(NotFoundException.POSTAL_AREA_NOT_FOUND);
-        }
-
-    	Collection<District> districts = new ArrayList<District>();
-    	Collection<DistrictEntity> districtEntities = postalAreaEntity.getDistricts();
-    	
-    	for (DistrictEntity districtEntity : districtEntities){
-    		District district = DistrictConverter.convert(districtEntity);
-    		districts.add(district);
-    	}
-    	
-    	return districts;
-    }
-    
-    @Override
-    @Profiled(level = Profiling.SERVICE)
-    public Collection<District> findDistrictsByPostalArea(String codPostalArea){
-    	PostalAreaEntity postalAreaEntity = postalAreaRepository.findByCodPostalArea(codPostalArea);
-        	
-        if(postalAreaEntity == null){
-        	throw new NotFoundException(NotFoundException.POSTAL_AREA_NOT_FOUND);
-        }
-
-        Collection<District> districts = new ArrayList<District>();
-        Collection<DistrictEntity> districtEntities = postalAreaEntity.getDistricts();
-        	
-        for (DistrictEntity districtEntity : districtEntities){
-        	District district = DistrictConverter.convert(districtEntity);
-        	districts.add(district);
-        }
-    	
-    	return districts;
-    }
-
+    }    
 }
