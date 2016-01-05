@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 
 import org.perf4j.aop.Profiled;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,7 +56,7 @@ public class CustomerServiceImpl implements CustomerService {
         }
         
         Collection<Customer> customers = new ArrayList<Customer>();
-        Collection<CustomerEntity> customerEntities = customerRepository.findAllByPartner(partnerEntity, pageable);
+        Page<CustomerEntity> customerEntities = customerRepository.findAllByPartners(partnerEntity, pageable);
         
         for (CustomerEntity customerEntity : customerEntities){
             Customer customer = CustomerConverter.convert(customerEntity);

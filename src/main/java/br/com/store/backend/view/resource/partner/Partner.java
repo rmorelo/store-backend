@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import br.com.store.backend.domain.entity.person.PersonTypeEnum;
 import br.com.store.backend.infrastructure.rest.model.Link;
 import br.com.store.backend.view.resource.contact.Email;
 import br.com.store.backend.view.resource.contact.Telephone;
@@ -224,10 +225,18 @@ public class Partner implements Serializable{
 
     public List<Link> getLinks() {
     	this.links = new ArrayList<Link>();
-    	
+    	    	
     	for (String resource : getSelectableResources()) {
-            Link link = new Link(resource, URI_PATH + this.idPartner + "/" + resource);
-            this.links.add(link);
+    	    if(resource == COMPANIES && this.getPartnerType().equals(PersonTypeEnum.PESSOA_JURIDICA.getType())){
+    	        Link link = new Link(resource, URI_PATH + this.idPartner + "/" + resource);
+	            this.links.add(link);    	           
+    	    }else if(resource == INDIVIDUALS && this.getPartnerType().equals(PersonTypeEnum.PESSOA_FISICA.getType())){
+    	        Link link = new Link(resource, URI_PATH + this.idPartner + "/" + resource);
+                this.links.add(link);
+    	    }else if(resource != COMPANIES && resource != INDIVIDUALS){
+    	        Link link = new Link(resource, URI_PATH + this.idPartner + "/" + resource);
+                this.links.add(link);
+    	    }    	    
         }
         return links;
     }

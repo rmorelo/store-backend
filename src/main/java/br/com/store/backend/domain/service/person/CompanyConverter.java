@@ -15,7 +15,7 @@ public class CompanyConverter {
         	return null;
         }
         Company company = new Company();
-        BeanUtils.copyProperties(entity, company);
+        BeanUtils.copyProperties(entity, company, "partner");
         
         return company;
     }

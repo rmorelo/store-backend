@@ -68,7 +68,7 @@ public class DistrictServiceImpl implements DistrictService {
         }
 
         Collection<District> districts = new ArrayList<District>();
-        Collection<DistrictEntity> districtEntities = districtRepository.findAllByPostalArea(postalAreaEntity);
+        Collection<DistrictEntity> districtEntities = districtRepository.findAllByPostalAreas(postalAreaEntity);
         
         for (DistrictEntity districtEntity : districtEntities){
             District district = DistrictConverter.convert(districtEntity);
@@ -88,7 +88,7 @@ public class DistrictServiceImpl implements DistrictService {
         }
 
         Collection<District> districts = new ArrayList<District>();
-        Collection<DistrictEntity> districtEntities = districtRepository.findAllByPostalArea(postalAreaEntity);
+        Collection<DistrictEntity> districtEntities = districtRepository.findAllByPostalAreas(postalAreaEntity);
             
         for (DistrictEntity districtEntity : districtEntities){
             District district = DistrictConverter.convert(districtEntity);
