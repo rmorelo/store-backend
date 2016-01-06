@@ -4,17 +4,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import br.com.store.backend.infrastructure.rest.Linkable;
 import br.com.store.backend.infrastructure.rest.model.Link;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
  
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class District implements Serializable, Linkable{
+public class District implements Serializable{
 
 	private static final String URI_PATH = "/api/districts/";
 	
@@ -80,23 +77,5 @@ public class District implements Serializable, Linkable{
             this.links.add(link);
         }
         return links;
-    }
-
-	@Override
-	public boolean hasLink() {
-        return !links.isEmpty();
-	}
-
-	@Override
-	public void addLink(Link link) {
-        links.add(link);		
-	}
-	
-	@Override public boolean hasNextPage() {
-        return false;
-    }
-
-    @Override public String getNextPageHref() {
-        return null;
     }
 }

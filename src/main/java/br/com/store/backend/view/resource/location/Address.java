@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import br.com.store.backend.infrastructure.rest.Linkable;
 import br.com.store.backend.infrastructure.rest.model.Link;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -13,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
  
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Address implements Serializable, Linkable{
+public class Address implements Serializable{
 	
 	private static final long serialVersionUID = 5980144247797985004L;
 
@@ -109,23 +108,5 @@ public class Address implements Serializable, Linkable{
             this.links.add(link);
         }
         return links;
-    }
-
-	@Override
-	public boolean hasLink() {
-        return !links.isEmpty();
-	}
-
-	@Override
-	public void addLink(Link link) {
-        links.add(link);		
-	}
-	
-	@Override public boolean hasNextPage() {
-        return false;
-    }
-
-    @Override public String getNextPageHref() {
-        return null;
     }
 }

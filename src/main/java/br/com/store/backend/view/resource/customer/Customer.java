@@ -3,13 +3,16 @@ package br.com.store.backend.view.resource.customer;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import br.com.store.backend.domain.entity.person.PersonTypeEnum;
 import br.com.store.backend.infrastructure.rest.model.Link;
 import br.com.store.backend.view.resource.contact.Email;
 import br.com.store.backend.view.resource.contact.Telephone;
 import br.com.store.backend.view.resource.location.Address;
+import br.com.store.backend.view.resource.partner.Partner;
 import br.com.store.backend.view.resource.person.Individual;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -30,6 +33,8 @@ public class Customer implements Serializable{
 	    
 	public static final String EMAILS = "emails";
 	
+	public static final String PARTNERS = "partners";
+	
 	private static final String URI_PATH = "/api/customers/";
 	
 	private Integer idCustomer;
@@ -47,6 +52,8 @@ public class Customer implements Serializable{
 	private Telephone telephone;
 	
 	private Individual individual;
+	
+	private Collection<Partner> partners;
 		
 	private String uri;
     
@@ -54,7 +61,7 @@ public class Customer implements Serializable{
     
     @JsonIgnore
     public static List<String> getSelectableResources() {
-        return Arrays.asList(ADDRESSES, INDIVIDUALS, TELEPHONES, EMAILS);
+        return Arrays.asList(ADDRESSES, INDIVIDUALS, TELEPHONES, EMAILS, PARTNERS);
     }
     
 	public Integer getIdCustomer() {
@@ -120,8 +127,16 @@ public class Customer implements Serializable{
     public void setUrlPhoto(String urlPhoto) {
         this.urlPhoto = urlPhoto;
     }
+    
+    public Collection<Partner> getPartners() {
+		return partners;
+	}
 
-    public String getUri() {
+	public void setPartners(Collection<Partner> partners) {
+		this.partners = partners;
+	}
+
+	public String getUri() {
         return uri;
     }
 
@@ -129,12 +144,17 @@ public class Customer implements Serializable{
     	this.uri = uri + (queryParam != null ? "?" + queryParam : "");
     }
 
-    public List<Link> getLinks() {
+	public List<Link> getLinks() {
     	this.links = new ArrayList<Link>();
-    	
+    	    	
     	for (String resource : getSelectableResources()) {
-            Link link = new Link(resource, URI_PATH + this.idCustomer + "/" + resource);
-            this.links.add(link);
+    	    if(resource == INDIVIDUALS && this.getCustomerType().equals(PersonTypeEnum.PESSOA_FISICA.getType())){
+    	        Link link = new Link(resource, URI_PATH + this.idCustomer + "/" + resource);
+                this.links.add(link);
+    	    }else if(resource != INDIVIDUALS){
+    	        Link link = new Link(resource, URI_PATH + this.idCustomer + "/" + resource);
+                this.links.add(link);
+    	    }    	    
         }
         return links;
     }

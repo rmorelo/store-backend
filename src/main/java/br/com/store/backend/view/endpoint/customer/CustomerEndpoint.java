@@ -1,11 +1,9 @@
 package br.com.store.backend.view.endpoint.customer;
 
-import java.util.Collection;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.perf4j.aop.Profiled;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import br.com.store.backend.application.customer.CustomerApplication;
 import br.com.store.backend.infrastructure.profiling.Profiling;
 import br.com.store.backend.infrastructure.rest.model.Resource;
@@ -46,16 +43,16 @@ public class CustomerEndpoint {
     
     @Profiled(level = Profiling.ENDPOINT)
     @RequestMapping(value = "/partners/{idPartner}/customers", method = RequestMethod.GET)    
-    public ResponseEntity<Resource<Collection<Customer>>> findCustomersByIdPartner(
+    public ResponseEntity<Resource<Page<Customer>>> findCustomersByIdPartner(
             @PathVariable(value = "idPartner") Integer idPartner,
             Pageable pageable) {
-        Collection<Customer> customers = customerApplication.findCustomersByIdPartner(idPartner, pageable);
+        Page<Customer> customers = customerApplication.findCustomersByIdPartner(idPartner, pageable);
         
         for(Customer customer : customers){
             customer.setUri(request.getRequestURI(), request.getQueryString());
         }
         
-        return new ResponseEntity<>(new Resource<Collection<Customer>>(customers), HttpStatus.OK);
+        return new ResponseEntity<>(new Resource<Page<Customer>>(customers), HttpStatus.OK);
     }
     
     @Profiled(level = Profiling.ENDPOINT)

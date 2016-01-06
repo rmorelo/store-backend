@@ -3,17 +3,17 @@ package br.com.store.backend.view.resource.partner;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-
 import br.com.store.backend.domain.entity.person.PersonTypeEnum;
 import br.com.store.backend.infrastructure.rest.model.Link;
 import br.com.store.backend.view.resource.contact.Email;
 import br.com.store.backend.view.resource.contact.Telephone;
+import br.com.store.backend.view.resource.customer.Customer;
 import br.com.store.backend.view.resource.location.Address;
 import br.com.store.backend.view.resource.person.Company;
 import br.com.store.backend.view.resource.person.Individual;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -33,6 +33,8 @@ public class Partner implements Serializable{
 	public static final String TELEPHONES = "telephones";
 	
 	public static final String EMAILS = "emails";
+	
+	public static final String CUSTOMERS = "customers";
 		
 	private static final String URI_PATH = "/api/partners/";
 	
@@ -70,13 +72,15 @@ public class Partner implements Serializable{
 	
 	private Company company;
 	
+	private Collection<Customer> customers;
+	
 	private String uri;
     
     private List<Link> links;
     
     @JsonIgnore
     public static List<String> getSelectableResources() {
-        return Arrays.asList(ADDRESSES, COMPANIES, INDIVIDUALS, TELEPHONES, EMAILS);
+        return Arrays.asList(ADDRESSES, COMPANIES, INDIVIDUALS, TELEPHONES, EMAILS, CUSTOMERS);
     }
     
 	public Integer getIdPartner() {
@@ -213,6 +217,14 @@ public class Partner implements Serializable{
 
 	public void setCompany(Company company) {
 		this.company = company;
+	}
+	
+	public Collection<Customer> getCustomers() {
+		return customers;
+	}
+
+	public void setCustomers(Collection<Customer> customers) {
+		this.customers = customers;
 	}
 
 	public String getUri() {

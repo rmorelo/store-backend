@@ -1,18 +1,16 @@
 package br.com.store.backend.domain.service.customer;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
-
+import java.util.List;
 import javax.annotation.Resource;
-
 import org.perf4j.aop.Profiled;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import br.com.store.backend.domain.entity.customer.CustomerEntity;
 import br.com.store.backend.domain.entity.partner.PartnerEntity;
 import br.com.store.backend.domain.repository.customer.CustomerRepository;
@@ -48,22 +46,22 @@ public class CustomerServiceImpl implements CustomerService {
     
     @Override
     @Profiled(level = Profiling.SERVICE)
-    public Collection<Customer> findCustomersByPartner(Integer idPartner, Pageable pageable) {
+    public Page<Customer> findCustomersByPartner(Integer idPartner, Pageable pageable) {
         PartnerEntity partnerEntity = partnerRepository.findOne(idPartner);
         
         if(partnerEntity == null){
             throw new NotFoundException(NotFoundException.PARTNER_NOT_FOUND);
         }
         
-        Collection<Customer> customers = new ArrayList<Customer>();
+        List<Customer> customers = new ArrayList<Customer>();
         Page<CustomerEntity> customerEntities = customerRepository.findAllByPartners(partnerEntity, pageable);
-        
+
         for (CustomerEntity customerEntity : customerEntities){
             Customer customer = CustomerConverter.convert(customerEntity);
             customers.add(customer);
         }
         
-        return customers;
+        return new PageImpl<Customer>(customers);
     }
     
     

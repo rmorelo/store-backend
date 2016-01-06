@@ -1,14 +1,12 @@
 package br.com.store.backend.application.customer;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
-
 import org.perf4j.aop.Profiled;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import br.com.store.backend.domain.entity.person.PersonTypeEnum;
 import br.com.store.backend.domain.service.customer.CustomerService;
 import br.com.store.backend.domain.service.location.AddressService;
@@ -47,8 +45,8 @@ public class CustomerApplicationImpl implements CustomerApplication {
     
     @Override
     @Profiled(level = Profiling.APPLICATION)
-    public Collection<Customer> findCustomersByIdPartner(Integer idPartner, Pageable pageable) {
-        Collection<Customer> customers = customerService.findCustomersByPartner(idPartner, pageable);
+    public Page<Customer> findCustomersByIdPartner(Integer idPartner, Pageable pageable) {
+    	Page<Customer> customers = customerService.findCustomersByPartner(idPartner, pageable);
         
         return customers;
     }

@@ -7,6 +7,7 @@
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d [%p] %c{1}: %m%n"/>
         </layout>
+        <param name="Threshold" value="TRACE" />
     </appender>
 
     <appender class="org.apache.log4j.DailyRollingFileAppender" name="FileAppender">
@@ -15,6 +16,7 @@
             <param value="%d{ABSOLUTE} %-5p [%c{1}] %m%n" name="ConversionPattern"/>
         </layout>
         <param value="true" name="ImmediateFlush"/>
+        <param name="Threshold" value="TRACE" />
     </appender>
 
     <!-- Perf4J appenders -->
@@ -23,7 +25,7 @@
         <param name="File" value="/export/logs/store-backend/statistics.log"/>
         <param name="Append" value="true" />
         <param name="ImmediateFlush" value="true" />
-        <param name="Threshold" value="DEBUG" />
+        <param name="Threshold" value="TRACE" />
         <layout class="br.com.store.backend.infrastructure.profiling.KeyValueLayout" />
     </appender>
 
@@ -58,7 +60,7 @@
         <level value="error"/>
     </logger>
     <logger name="org.springframework">
-        <level value="warn"/>
+        <level value="trace"/>
     </logger>
     <logger name="com.sun.jersey">
         <level value="warn"/>

@@ -1,18 +1,12 @@
 package br.com.store.backend.view.resource.location;
 
 import java.io.Serializable;
-import java.util.List;
-
-import br.com.store.backend.infrastructure.rest.Linkable;
-import br.com.store.backend.infrastructure.rest.model.Link;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
  
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Country implements Serializable, Linkable{
+public class Country implements Serializable{
 
 	private static final long serialVersionUID = 751976419909654745L;
 
@@ -32,16 +26,6 @@ public class Country implements Serializable, Linkable{
     
 	private String uri;
     
-    private List<Link> links;
-    
-    public Country(){
-    }
-    
-    @JsonIgnore
-    public static List<String> getSelectableResources() {
-        return null;
-    }
-   
 	public Integer getIdCountry() {
 		return idCountry;
 	}
@@ -104,27 +88,5 @@ public class Country implements Serializable, Linkable{
 
 	public void setUri(String uri, String queryParam) {
     	this.uri = uri + (queryParam != null ? "?" + queryParam : "");
-    }
-
-    public List<Link> getLinks() {
-        return links;
-    }
-
-	@Override
-	public boolean hasLink() {
-        return !links.isEmpty();
-	}
-
-	@Override
-	public void addLink(Link link) {
-        links.add(link);		
-	}
-	
-	@Override public boolean hasNextPage() {
-        return false;
-    }
-
-    @Override public String getNextPageHref() {
-        return null;
     }
 }
