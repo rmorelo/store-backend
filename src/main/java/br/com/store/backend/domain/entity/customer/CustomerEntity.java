@@ -58,7 +58,7 @@ public class CustomerEntity {
 	@JoinColumn(name = "id_individual")
 	private IndividualEntity individual;
 	
-	@ManyToMany(mappedBy = "customers", fetch = FetchType.LAZY)
+	@ManyToMany(mappedBy = "customers", fetch = FetchType.EAGER)
     private Set<PartnerEntity> partners;
 	
 	public Integer getIdCustomer() {

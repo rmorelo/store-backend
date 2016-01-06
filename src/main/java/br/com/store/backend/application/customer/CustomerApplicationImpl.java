@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import br.com.store.backend.domain.entity.person.PersonTypeEnum;
 import br.com.store.backend.domain.service.customer.CustomerService;
 import br.com.store.backend.domain.service.location.AddressService;
+import br.com.store.backend.domain.service.partner.PartnerService;
 import br.com.store.backend.domain.service.person.CompanyService;
 import br.com.store.backend.domain.service.person.IndividualService;
 import br.com.store.backend.infrastructure.exception.BadRequestException;
@@ -20,6 +22,7 @@ import br.com.store.backend.view.resource.partner.Partner;
 import br.com.store.backend.view.resource.person.Individual;
 
 @Service
+@Transactional(readOnly = true)
 public class CustomerApplicationImpl implements CustomerApplication {
 
     @Autowired
@@ -33,6 +36,9 @@ public class CustomerApplicationImpl implements CustomerApplication {
     
     @Autowired
     private AddressService addressService;
+    
+    @Autowired
+    private PartnerService partnerService;
     
     @Override
     @Profiled(level = Profiling.APPLICATION)

@@ -1,19 +1,27 @@
 package br.com.store.backend.application.partner;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+
 import org.perf4j.aop.Profiled;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import br.com.store.backend.domain.entity.person.PersonTypeEnum;
+import br.com.store.backend.domain.service.customer.CustomerService;
 import br.com.store.backend.domain.service.location.AddressService;
 import br.com.store.backend.domain.service.partner.PartnerService;
 import br.com.store.backend.domain.service.person.CompanyService;
 import br.com.store.backend.domain.service.person.IndividualService;
 import br.com.store.backend.infrastructure.exception.BadRequestException;
+import br.com.store.backend.infrastructure.exception.NotFoundException;
 import br.com.store.backend.infrastructure.profiling.Profiling;
+import br.com.store.backend.view.resource.customer.Customer;
 import br.com.store.backend.view.resource.location.Address;
 import br.com.store.backend.view.resource.partner.Partner;
 import br.com.store.backend.view.resource.person.Company;
@@ -33,6 +41,9 @@ public class PartnerApplicationImpl implements PartnerApplication {
     
     @Autowired
     private AddressService addressService;
+    
+    @Autowired
+    private CustomerService customerService;
     
     @Override
     @Profiled(level = Profiling.APPLICATION)
@@ -92,6 +103,36 @@ public class PartnerApplicationImpl implements PartnerApplication {
 	    }
 	    
 	}
+	
+	@Override
+    @Profiled(level = Profiling.APPLICATION)
+    @Transactional
+    public Partner updateCustomerOfPartner(Integer idPartner, Integer idCustomer){
+        Partner partner = partnerService.findPartner(idPartner);
+        
+        if(partner == null){
+            throw new NotFoundException(NotFoundException.PARTNER_NOT_FOUND);
+        }
+        
+        Customer customer = customerService.findCustomer(idCustomer);
+        
+        if(customer == null){
+            throw new NotFoundException(NotFoundException.CUSTOMER_NOT_FOUND);
+        }
+        
+        Collection<Partner> partners = new ArrayList<Partner>();
+        partners.add(partner);
+        customer.setPartners(partners);
+        
+        Collection<Customer> customers = new ArrayList<Customer>();
+        customers.add(customer);
+        partner.setCustomers(customers);
+        
+        customerService.update(customer);
+        Partner partnerResult = partnerService.update(partner);
+                
+        return partnerResult;
+    }
 	
 	private void addIndividual(Partner partner) {
 	    Individual individual = individualService.findIndividualByPartner(partner.getIdPartner());

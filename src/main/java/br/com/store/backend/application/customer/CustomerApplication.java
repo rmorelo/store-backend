@@ -14,7 +14,7 @@ public interface CustomerApplication {
     Customer save(Customer customer);
     
     Customer update(Customer customer);
-    
+        
     void delete(Integer idCustomer);
     
 }
