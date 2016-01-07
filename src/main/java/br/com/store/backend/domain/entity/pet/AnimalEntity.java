@@ -1,7 +1,8 @@
-package br.com.store.backend.domain.entity.animal;
+package br.com.store.backend.domain.entity.pet;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import br.com.store.backend.domain.entity.customer.CustomerEntity;
@@ -33,15 +35,15 @@ public class AnimalEntity {
 	@Column(name = "SEX")
 	private String sex;
 	
-	@Column(name = "WEIGHT")
-	private Integer weight;
+	@Column(name = "AGE")
+	private Double age;
 	
-	@Column(name = "HEIGHT")
-	private Integer height;
+	@Column(name = "ADDITIONAL_INFO")
+	private String addtionalInfo;
 	
-	@Column(name = "WIDTH")
-	private Integer width;
-	
+	@Column(name = "URL_PHOTO")
+    private String urlPhoto;
+		
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "ANIMAL_BREED", joinColumns = { @JoinColumn(name = "ID_ANIMAL") },
 			inverseJoinColumns = { @JoinColumn(name = "ID_BREED") })
@@ -50,6 +52,10 @@ public class AnimalEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_customer")
 	private CustomerEntity customer;
+	
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_weight")
+	private WeightEntity weight;
 	
 	public Integer getIdAnimal() {
 		return idAnimal;
@@ -75,31 +81,31 @@ public class AnimalEntity {
 		this.sex = sex;
 	}
 
-	public Integer getWeight() {
-		return weight;
-	}
+	public Double getAge() {
+        return age;
+    }
 
-	public void setWeight(Integer weight) {
-		this.weight = weight;
-	}
+    public void setAge(Double age) {
+        this.age = age;
+    }
 
-	public Integer getHeight() {
-		return height;
-	}
+    public String getAddtionalInfo() {
+        return addtionalInfo;
+    }
 
-	public void setHeight(Integer height) {
-		this.height = height;
-	}
+    public void setAddtionalInfo(String addtionalInfo) {
+        this.addtionalInfo = addtionalInfo;
+    }
 
-	public Integer getWidth() {
-		return width;
-	}
+    public WeightEntity getWeight() {
+        return weight;
+    }
 
-	public void setWidth(Integer width) {
-		this.width = width;
-	}
+    public void setWeight(WeightEntity weight) {
+        this.weight = weight;
+    }
 
-	public Set<BreedEntity> getBreeds() {
+    public Set<BreedEntity> getBreeds() {
 		return breeds;
 	}
 
@@ -114,8 +120,16 @@ public class AnimalEntity {
 	public void setCustomer(CustomerEntity customer) {
 		this.customer = customer;
 	}
+	
+	public String getUrlPhoto() {
+        return urlPhoto;
+    }
 
-	@Override
+    public void setUrlPhoto(String urlPhoto) {
+        this.urlPhoto = urlPhoto;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         return super.equals(obj) || (obj != null && this.getClass().isInstance(obj) && this.hashCode() == obj.hashCode());
     }
@@ -133,10 +147,11 @@ public class AnimalEntity {
                 .add("name", name)
                 .add("sex", sex)
                 .add("weight", weight)
-                .add("height", height)
-                .add("width", width)
+                .add("age", age)
+                .add("addtionalInfo", addtionalInfo)
                 .add("breeds", breeds)
                 .add("customer", customer)
+                .add("urlPhoto", urlPhoto)
                 .toString();
     }
 }

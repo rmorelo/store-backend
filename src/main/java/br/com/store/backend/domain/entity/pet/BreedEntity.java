@@ -1,4 +1,4 @@
-package br.com.store.backend.domain.entity.animal;
+package br.com.store.backend.domain.entity.pet;
 
 import java.util.Set;
 import javax.persistence.Column;
@@ -22,8 +22,8 @@ public class BreedEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idBreed;
 	
-	@Column(name = "DESCRIPTION")
-	private String description;
+	@Column(name = "NAME")
+	private String name;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_species")
@@ -40,15 +40,15 @@ public class BreedEntity {
 		this.idBreed = idBreed;
 	}
 
-	public String getDescription() {
-		return description;
-	}
+	public String getName() {
+        return name;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public SpeciesEntity getSpecies() {
+    public SpeciesEntity getSpecies() {
 		return species;
 	}
 
@@ -79,7 +79,7 @@ public class BreedEntity {
         return Objects.toStringHelper(this)
                 .omitNullValues()
                 .add("idBreed", idBreed)
-                .add("description", description)
+                .add("name", name)
                 .add("species", species)
                 .add("animals", animals)
                 .toString();

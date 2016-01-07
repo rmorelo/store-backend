@@ -1,4 +1,4 @@
-package br.com.store.backend.domain.entity.animal;
+package br.com.store.backend.domain.entity.pet;
 
 import java.util.Set;
 
@@ -22,8 +22,8 @@ public class GroupEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idGroup;
 	
-	@Column(name = "DESCRIPTION")
-	private String description;
+	@Column(name = "NAME")
+	private String name;
 	
 	@OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
 	private Set<SpeciesEntity> species;
@@ -36,15 +36,15 @@ public class GroupEntity {
 		this.idGroup = idGroup;
 	}
 
-	public String getDescription() {
-		return description;
-	}
+	public String getName() {
+        return name;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public Set<SpeciesEntity> getSpecies() {
+    public Set<SpeciesEntity> getSpecies() {
 		return species;
 	}
 
@@ -67,7 +67,7 @@ public class GroupEntity {
         return Objects.toStringHelper(this)
                 .omitNullValues()
                 .add("idGroup", idGroup)
-                .add("description", description)
+                .add("name", name)
                 .add("species", species)
                 .toString();
     }

@@ -18,12 +18,12 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import br.com.store.backend.domain.entity.animal.AnimalEntity;
 import br.com.store.backend.domain.entity.contact.EmailEntity;
 import br.com.store.backend.domain.entity.contact.TelephoneEntity;
 import br.com.store.backend.domain.entity.location.AddressEntity;
 import br.com.store.backend.domain.entity.partner.PartnerEntity;
 import br.com.store.backend.domain.entity.person.IndividualEntity;
+import br.com.store.backend.domain.entity.pet.AnimalEntity;
 
 import com.google.common.base.Objects;
 

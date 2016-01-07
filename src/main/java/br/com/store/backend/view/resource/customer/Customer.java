@@ -35,6 +35,8 @@ public class Customer implements Serializable{
 	
 	public static final String PARTNERS = "partners";
 	
+	public static final String ANIMALS = "animals";
+	
 	private static final String URI_PATH = "/api/customers/";
 	
 	private Integer idCustomer;
@@ -61,7 +63,7 @@ public class Customer implements Serializable{
     
     @JsonIgnore
     public static List<String> getSelectableResources() {
-        return Arrays.asList(ADDRESSES, INDIVIDUALS, TELEPHONES, EMAILS, PARTNERS);
+        return Arrays.asList(ADDRESSES, INDIVIDUALS, TELEPHONES, EMAILS, PARTNERS, ANIMALS);
     }
     
 	public Integer getIdCustomer() {
