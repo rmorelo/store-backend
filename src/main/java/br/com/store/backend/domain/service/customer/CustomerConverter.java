@@ -15,7 +15,7 @@ public class CustomerConverter {
         	return null;
         }
         Customer customer = new Customer();
-        BeanUtils.copyProperties(entity, customer);
+        BeanUtils.copyProperties(entity, customer, "partners");
 
         return customer;
     }

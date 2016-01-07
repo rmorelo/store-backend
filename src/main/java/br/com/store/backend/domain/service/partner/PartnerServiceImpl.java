@@ -2,7 +2,9 @@ package br.com.store.backend.domain.service.partner;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.annotation.Resource;
 import org.perf4j.aop.Profiled;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,6 @@ import br.com.store.backend.infrastructure.profiling.Profiling;
 import br.com.store.backend.view.resource.partner.Partner;
 
 @Service
-@Transactional(readOnly = true)
 public class PartnerServiceImpl implements PartnerService {
 
     @Autowired
@@ -88,6 +89,37 @@ public class PartnerServiceImpl implements PartnerService {
     	
     	partnerServiceMapper.mapPartnerToPartnerEntity(partner, partnerEntity);
     	PartnerEntity partnerEntitySaved = partnerRepository.save(partnerEntity);
+        return PartnerConverter.convert(partnerEntitySaved);
+    }
+    
+    @Override
+    @Profiled(level = Profiling.APPLICATION)
+    @Transactional
+    public Partner updateCustomerOfPartner(Integer idPartner, Integer idCustomer){
+    	PartnerEntity partnerEntity = partnerRepository.findOne(idPartner);
+    	
+    	if(partnerEntity == null){
+    		throw new NotFoundException(NotFoundException.PARTNER_NOT_FOUND);
+    	}
+        
+    	CustomerEntity customerEntity = customerRepository.findOne(idCustomer);
+        
+        if(customerEntity == null){
+            throw new NotFoundException(NotFoundException.CUSTOMER_NOT_FOUND);
+        }
+        
+        Set<PartnerEntity> partners = new HashSet<PartnerEntity>();
+        partners.add(partnerEntity);
+        customerEntity.setPartners(partners);
+        
+        Set<CustomerEntity> customers = new HashSet<CustomerEntity>();
+        customers.add(customerEntity);
+        partnerEntity.setCustomers(customers);
+
+        PartnerEntity partnerEntitySaved = partnerRepository.save(partnerEntity);
+
+        customerRepository.save(customerEntity);
+                
         return PartnerConverter.convert(partnerEntitySaved);
     }
     

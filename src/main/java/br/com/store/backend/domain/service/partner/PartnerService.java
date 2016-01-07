@@ -15,5 +15,7 @@ public interface PartnerService {
     
     Partner update(Partner partner);
     
+    Partner updateCustomerOfPartner(Integer idPartner, Integer idCustomer);
+    
     void delete(Integer idPartner);
 }

@@ -88,7 +88,7 @@ public class PartnerEntity {
 	@JoinColumn(name = "id_individual")
 	private IndividualEntity individual;
 	
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "PARTNER_CUSTOMER", joinColumns = { @JoinColumn(name = "ID_PARTNER") },
             inverseJoinColumns = { @JoinColumn(name = "ID_CUSTOMER") })
     private Set<CustomerEntity> customers;

@@ -11,7 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import br.com.store.backend.domain.entity.customer.CustomerEntity;
+
 import com.google.common.base.Objects;
 
 @Entity
@@ -42,6 +46,10 @@ public class AnimalEntity {
 	@JoinTable(name = "ANIMAL_BREED", joinColumns = { @JoinColumn(name = "ID_ANIMAL") },
 			inverseJoinColumns = { @JoinColumn(name = "ID_BREED") })
 	private Set<BreedEntity> breeds;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_customer")
+	private CustomerEntity customer;
 	
 	public Integer getIdAnimal() {
 		return idAnimal;
@@ -98,6 +106,14 @@ public class AnimalEntity {
 	public void setBreeds(Set<BreedEntity> breeds) {
 		this.breeds = breeds;
 	}
+	
+	public CustomerEntity getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(CustomerEntity customer) {
+		this.customer = customer;
+	}
 
 	@Override
     public boolean equals(Object obj) {
@@ -120,6 +136,7 @@ public class AnimalEntity {
                 .add("height", height)
                 .add("width", width)
                 .add("breeds", breeds)
+                .add("customer", customer)
                 .toString();
     }
 }

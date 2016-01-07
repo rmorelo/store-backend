@@ -2,6 +2,7 @@ package br.com.store.backend.domain.entity.customer;
 
 import java.util.Date;
 import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,10 +12,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import br.com.store.backend.domain.entity.animal.AnimalEntity;
 import br.com.store.backend.domain.entity.contact.EmailEntity;
 import br.com.store.backend.domain.entity.contact.TelephoneEntity;
 import br.com.store.backend.domain.entity.location.AddressEntity;
@@ -58,8 +62,11 @@ public class CustomerEntity {
 	@JoinColumn(name = "id_individual")
 	private IndividualEntity individual;
 	
-	@ManyToMany(mappedBy = "customers", fetch = FetchType.EAGER)
+	@ManyToMany(mappedBy = "customers", fetch = FetchType.LAZY)
     private Set<PartnerEntity> partners;
+	
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Set<AnimalEntity> animals;
 	
 	public Integer getIdCustomer() {
 		return idCustomer;
@@ -132,8 +139,16 @@ public class CustomerEntity {
     public void setPartners(Set<PartnerEntity> partners) {
         this.partners = partners;
     }
+    
+    public Set<AnimalEntity> getAnimals() {
+		return animals;
+	}
 
-    @Override
+	public void setAnimals(Set<AnimalEntity> animals) {
+		this.animals = animals;
+	}
+
+	@Override
     public boolean equals(Object obj) {
         return super.equals(obj) || (obj != null && this.getClass().isInstance(obj) && this.hashCode() == obj.hashCode());
     }
@@ -156,6 +171,7 @@ public class CustomerEntity {
                 .add("individual", individual)
                 .add("customerType", customerType)
                 .add("partners", partners)
+                .add("animals", animals)
                 .toString();
     }
 }

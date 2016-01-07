@@ -14,8 +14,8 @@ public class PartnerConverter {
         	return null;
         }
         Partner partner = new Partner();
-        BeanUtils.copyProperties(entity, partner);
-
+        BeanUtils.copyProperties(entity, partner, "customers");
+        
         return partner;
     }
     
@@ -28,5 +28,5 @@ public class PartnerConverter {
         
         return entity;
     }
-    
+      
 }
