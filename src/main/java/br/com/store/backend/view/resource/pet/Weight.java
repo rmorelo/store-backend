@@ -8,7 +8,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Weight implements Serializable{
 
-    private Integer idWeight;
+	private static final long serialVersionUID = -5471227374939865228L;
+
+	private Integer idWeight;
     
     private String weightRange;
     

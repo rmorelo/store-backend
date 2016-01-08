@@ -14,7 +14,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Breed implements Serializable{
 
-    public static final String ANIMALS = "animals";
+	private static final long serialVersionUID = -7983036896700593659L;
+
+	public static final String ANIMALS = "animals";
     
     public static final String SPECIES = "species";
     

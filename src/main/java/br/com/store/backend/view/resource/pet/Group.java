@@ -8,8 +8,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Group implements Serializable{
-    
-    private Integer idGroup;
+
+	private static final long serialVersionUID = 8556860560387369226L;
+
+	private Integer idGroup;
     
     private String name;
     

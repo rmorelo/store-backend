@@ -15,7 +15,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Animal implements Serializable{
 
-    public static final String WEIGHTS = "weights";
+	private static final long serialVersionUID = -3942341234151303636L;
+
+	public static final String WEIGHTS = "weights";
     
     public static final String BREEDS = "breeds";
     
