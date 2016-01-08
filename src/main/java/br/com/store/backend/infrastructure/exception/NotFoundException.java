@@ -32,6 +32,10 @@ public class NotFoundException extends CustomRuntimeException {
     
     public static final int BREED_NOT_FOUND = 404014;
     
+    public static final int SPECIES_NOT_FOUND = 404015;
+    
+    public static final int GROUP_NOT_FOUND = 404016;
+    
     public NotFoundException(int code) {
         super(code);
     }
