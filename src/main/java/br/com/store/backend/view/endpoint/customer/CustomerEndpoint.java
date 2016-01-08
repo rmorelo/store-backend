@@ -93,12 +93,4 @@ public class CustomerEndpoint {
         return new ResponseEntity<>(HttpStatus.OK);
     }
     
-    @Profiled(level = Profiling.ENDPOINT)
-    @RequestMapping(value = "/customers/{idCustomer}/addresses/{idAddress}", method = RequestMethod.DELETE)
-    public ResponseEntity<Resource<Customer>> delete(@PathVariable(value = "idCustomer") Integer idCustomer,
-    		@PathVariable(value = "idAddress") Integer idAddress) {
-//        customerApplication.delete(idCustomer, idAddress);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
 }

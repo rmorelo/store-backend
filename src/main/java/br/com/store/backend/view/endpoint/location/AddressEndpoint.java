@@ -56,6 +56,16 @@ public class AddressEndpoint {
     }
     
     @Profiled(level = Profiling.ENDPOINT)
+    @RequestMapping(value = "/customers/{idCustomers}/addresses", method = RequestMethod.POST)
+    public ResponseEntity<Resource<Address>> saveAddressOfCustomer(@PathVariable(value = "idCustomer") Integer idCustomer,
+    		@RequestBody Address address) {
+        Address addressResource = addressApplication.saveAddressOfCustomer(idCustomer, address);
+        addressResource.setUri(request.getRequestURI(), request.getQueryString());
+        
+        return new ResponseEntity<>(new Resource<Address>(addressResource), HttpStatus.CREATED);
+    }
+    
+    @Profiled(level = Profiling.ENDPOINT)
     @RequestMapping(value = "/addresses/types", method = RequestMethod.GET)
     public ResponseEntity<Resource<AddressTypeEnum[]>> getAddressType() {
         Resource<AddressTypeEnum[]> addressTypeEnum = new Resource<>(AddressTypeEnum.values());

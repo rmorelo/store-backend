@@ -5,10 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.store.backend.domain.service.customer.CustomerService;
 import br.com.store.backend.domain.service.location.AddressService;
 import br.com.store.backend.domain.service.location.PostalAreaService;
 import br.com.store.backend.domain.service.partner.PartnerService;
 import br.com.store.backend.infrastructure.profiling.Profiling;
+import br.com.store.backend.view.resource.customer.Customer;
 import br.com.store.backend.view.resource.location.Address;
 import br.com.store.backend.view.resource.location.PostalArea;
 import br.com.store.backend.view.resource.partner.Partner;
@@ -26,6 +28,9 @@ public class AddressApplicationImpl implements AddressApplication {
 	@Autowired
     private PartnerService partnerService;
 	
+	@Autowired
+	private CustomerService customerService;
+	
     @Override
     @Profiled(level = Profiling.APPLICATION)    
 	public Address findAddress(Integer idAddress, String selector){
@@ -42,6 +47,17 @@ public class AddressApplicationImpl implements AddressApplication {
         Partner partner = partnerService.findPartner(idPartner);
         partner.setAddress(addressResult);
         partnerService.update(partner);        
+    	return addressResult;
+    }
+    
+    @Override
+    @Profiled(level = Profiling.APPLICATION)
+    @Transactional
+    public Address saveAddressOfCustomer(Integer idCustomer, Address address){
+        Address addressResult = addressService.save(address);
+        Customer customer = customerService.findCustomer(idCustomer);
+        customer.setAddress(addressResult);
+        customerService.update(customer);        
     	return addressResult;
     }
     

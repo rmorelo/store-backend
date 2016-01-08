@@ -2,24 +2,21 @@ package br.com.store.backend.application.pet;
 
 import java.util.Arrays;
 import java.util.List;
+
 import org.perf4j.aop.Profiled;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import br.com.store.backend.domain.entity.person.PersonTypeEnum;
+
 import br.com.store.backend.domain.service.pet.AnimalService;
 import br.com.store.backend.domain.service.location.AddressService;
 import br.com.store.backend.domain.service.customer.CustomerService;
 import br.com.store.backend.domain.service.person.CompanyService;
 import br.com.store.backend.domain.service.person.IndividualService;
-import br.com.store.backend.infrastructure.exception.BadRequestException;
 import br.com.store.backend.infrastructure.profiling.Profiling;
 import br.com.store.backend.view.resource.pet.Animal;
-import br.com.store.backend.view.resource.location.Address;
-import br.com.store.backend.view.resource.customer.Customer;
-import br.com.store.backend.view.resource.person.Individual;
 
 @Service
 @Transactional(readOnly = true)
@@ -77,8 +74,8 @@ public class AnimalApplicationImpl implements AnimalApplication {
 
     @Override
     @Profiled(level = Profiling.APPLICATION)
-    public Animal save(Animal animal) {
-        return animalService.save(animal);
+    public Animal saveAnimalOfCustomer(Animal animal, Integer idCustomer) {
+        return animalService.saveAnimalOfCustomer(animal, idCustomer);
     }
     
 	@Override
@@ -86,6 +83,12 @@ public class AnimalApplicationImpl implements AnimalApplication {
     public Animal update(Animal animal) {
         return animalService.update(animal);
     }
+	
+	@Override
+    @Profiled(level = Profiling.APPLICATION)
+	public Animal updateBreedOfAnimal(Integer idAnimal, Integer idBreed){
+		return animalService.updateBreedOfAnimal(idAnimal, idBreed);
+	}
 	
 	@Override
     @Profiled(level = Profiling.APPLICATION)

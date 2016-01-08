@@ -103,12 +103,4 @@ public class PartnerEndpoint {
         return new ResponseEntity<>(HttpStatus.OK);
     }
     
-    @Profiled(level = Profiling.ENDPOINT)
-    @RequestMapping(value = "/partners/{idPartner}/addresses/{idAddress}", method = RequestMethod.DELETE)
-    public ResponseEntity<Resource<Partner>> delete(@PathVariable(value = "idPartner") Integer idPartner,
-    		@PathVariable(value = "idAddress") Integer idAddress) {
-//        partnerApplication.delete(idPartner, idAddress);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
 }

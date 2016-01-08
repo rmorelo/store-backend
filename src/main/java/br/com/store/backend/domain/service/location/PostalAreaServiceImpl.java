@@ -1,19 +1,13 @@
 package br.com.store.backend.domain.service.location;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.perf4j.aop.Profiled;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import br.com.store.backend.domain.entity.location.DistrictEntity;
 import br.com.store.backend.domain.entity.location.PostalAreaEntity;
 import br.com.store.backend.domain.repository.location.PostalAreaRepository;
 import br.com.store.backend.infrastructure.exception.NotFoundException;
 import br.com.store.backend.infrastructure.profiling.Profiling;
-import br.com.store.backend.view.resource.location.District;
 import br.com.store.backend.view.resource.location.PostalArea;
 
 @Service

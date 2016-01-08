@@ -15,6 +15,7 @@ import br.com.store.backend.domain.entity.customer.CustomerEntity;
 import br.com.store.backend.domain.entity.partner.PartnerEntity;
 import br.com.store.backend.domain.repository.customer.CustomerRepository;
 import br.com.store.backend.domain.repository.partner.PartnerRepository;
+import br.com.store.backend.domain.repository.pet.AnimalRepository;
 import br.com.store.backend.infrastructure.exception.NotFoundException;
 import br.com.store.backend.infrastructure.profiling.Profiling;
 import br.com.store.backend.view.resource.customer.Customer;
@@ -28,6 +29,9 @@ public class CustomerServiceImpl implements CustomerService {
     
     @Autowired
     private PartnerRepository partnerRepository;
+    
+    @Autowired
+    private AnimalRepository animalRepository;
     
     @Resource
 	private CustomerServiceMapper customerServiceMapper;

@@ -56,9 +56,9 @@ public class AnimalEndpoint {
     }
     
     @Profiled(level = Profiling.ENDPOINT)
-    @RequestMapping(value = "/animals", method = RequestMethod.POST)
-    public ResponseEntity<Resource<Animal>> save(@RequestBody Animal animal) {
-    	Animal animalResource = animalApplication.save(animal);
+    @RequestMapping(value = "/customers/{idCustomer}/animals", method = RequestMethod.POST)
+    public ResponseEntity<Resource<Animal>> save(@RequestBody Animal animal, Integer idCustomer) {
+    	Animal animalResource = animalApplication.saveAnimalOfCustomer(animal, idCustomer);
     	animalResource.setUri(request.getRequestURI(), request.getQueryString());
 
         return new ResponseEntity<>(new Resource<Animal>(animalResource), HttpStatus.CREATED);
@@ -82,6 +82,16 @@ public class AnimalEndpoint {
         animal.setIdAnimal(idAnimal);
         Animal animalResource = animalApplication.update(animal);
         animalResource.setUri(request.getRequestURI(), request.getQueryString());
+
+        return new ResponseEntity<>(new Resource<Animal>(animalResource), HttpStatus.OK);
+    }
+    
+    @Profiled(level = Profiling.ENDPOINT)
+    @RequestMapping(value = "/animals/{idAnimal}/breeds/{idBreed}", method = RequestMethod.PATCH)
+    public ResponseEntity<Resource<Animal>> updatePartnerOfCustomer(@PathVariable(value = "idAnimal") Integer idAnimal, 
+            @PathVariable(value = "idBreed") Integer idBreed) {
+    	Animal animalResource = animalApplication.updateBreedOfAnimal(idAnimal, idBreed);
+    	animalResource.setUri(request.getRequestURI(), request.getQueryString());
 
         return new ResponseEntity<>(new Resource<Animal>(animalResource), HttpStatus.OK);
     }

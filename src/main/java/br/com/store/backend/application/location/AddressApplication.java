@@ -10,6 +10,8 @@ public interface AddressApplication {
     
     Address saveAddressOfPartner(Integer idPartner, Address address);
     
+    Address saveAddressOfCustomer(Integer idCustomer, Address address);
+    
     Address update(Address address);
     
     void delete(Integer idAddress);
