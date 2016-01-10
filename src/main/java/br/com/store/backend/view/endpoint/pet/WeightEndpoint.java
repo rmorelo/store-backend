@@ -41,6 +41,16 @@ public class WeightEndpoint {
     }
     
     @Profiled(level = Profiling.ENDPOINT)
+    @RequestMapping(value = "/animals/{idAnimal}/weights", method = RequestMethod.GET)
+    public ResponseEntity<Resource<Weight>> findWeightByAnimal(
+    		@PathVariable(value = "idAnimal") Integer idAnimal) {
+    	Weight weight = weightApplication.findWeightByAnimal(idAnimal);
+    	weight.setUri(request.getRequestURI(), request.getQueryString());
+    	
+    	return new ResponseEntity<>(new Resource<Weight>(weight), HttpStatus.OK);
+    }
+    
+    @Profiled(level = Profiling.ENDPOINT)
     @RequestMapping(value = "/weights", method = RequestMethod.GET)
     public ResponseEntity<Resource<Collection<Weight>>> findWeights() {
     	Collection<Weight> weights = weightApplication.findWeights();

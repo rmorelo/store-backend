@@ -6,7 +6,7 @@ import br.com.store.backend.view.resource.pet.Breed;
 
 public interface BreedApplication {
     
-    Breed findBreed(Integer idBreed);
+    Breed findBreed(Integer idBreed, String selector);
     
     Collection<Breed> findBreedByAnimal(Integer idAnimal, String selector);
     

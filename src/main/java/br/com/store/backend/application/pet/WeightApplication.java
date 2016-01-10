@@ -1,6 +1,7 @@
 package br.com.store.backend.application.pet;
 
 import java.util.Collection;
+
 import br.com.store.backend.view.resource.pet.Weight;
 
 public interface WeightApplication {
@@ -8,6 +9,8 @@ public interface WeightApplication {
     Weight findWeight(Integer idWeight);
     
     Collection<Weight> findWeights();
+    
+    Weight findWeightByAnimal(Integer idAnimal);
     
     Weight saveWeight(Weight weight);
     

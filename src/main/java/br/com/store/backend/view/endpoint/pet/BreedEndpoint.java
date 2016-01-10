@@ -51,8 +51,9 @@ public class BreedEndpoint {
     @Profiled(level = Profiling.ENDPOINT)
     @RequestMapping(value = "/breeds/{idBreed}", method = RequestMethod.GET)
     public ResponseEntity<Resource<Breed>> findByIdBreed(
-    		@PathVariable(value = "idBreed") Integer idBreed) {
-    	Breed breed = breedApplication.findBreed(idBreed);
+    		@PathVariable(value = "idBreed") Integer idBreed, 
+    		@RequestParam(value = "selector", required = false) String selector) {
+    	Breed breed = breedApplication.findBreed(idBreed, selector);
     	breed.setUri(request.getRequestURI(), request.getQueryString());
     	
     	return new ResponseEntity<>(new Resource<Breed>(breed), HttpStatus.OK);
