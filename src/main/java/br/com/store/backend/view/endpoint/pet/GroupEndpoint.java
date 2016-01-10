@@ -2,9 +2,8 @@ package br.com.store.backend.view.endpoint.pet;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
 import javax.servlet.http.HttpServletRequest;
-
+import javax.ws.rs.core.MediaType;
 import org.perf4j.aop.Profiled;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 import br.com.store.backend.application.pet.GroupApplication;
 import br.com.store.backend.infrastructure.profiling.Profiling;
 import br.com.store.backend.infrastructure.rest.model.Resource;
@@ -29,6 +27,16 @@ public class GroupEndpoint {
     
     @Autowired
     private HttpServletRequest request;
+    
+    @Profiled(level = Profiling.ENDPOINT)
+    @RequestMapping(value = "/species/{idSpecies}/groups", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON})
+    public ResponseEntity<Resource<Group>> findGroupBySpecies(@PathVariable(value = "idSpecies") Integer idSpecies) {
+        
+    	Group group = groupApplication.findGroupBySpecies(idSpecies);
+    	group.setUri(request.getRequestURI(), request.getQueryString());
+        
+        return new ResponseEntity<>(new Resource<Group>(group), HttpStatus.OK);
+    }
     
     @Profiled(level = Profiling.ENDPOINT)
     @RequestMapping(value = "/groups/{idGroup}", method = RequestMethod.GET)

@@ -1,22 +1,19 @@
 package br.com.store.backend.application.pet;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
-
 import org.perf4j.aop.Profiled;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import br.com.store.backend.domain.service.pet.AnimalService;
-import br.com.store.backend.domain.service.location.AddressService;
-import br.com.store.backend.domain.service.customer.CustomerService;
-import br.com.store.backend.domain.service.person.CompanyService;
-import br.com.store.backend.domain.service.person.IndividualService;
+import br.com.store.backend.domain.service.pet.BreedService;
+import br.com.store.backend.domain.service.pet.WeightService;
 import br.com.store.backend.infrastructure.profiling.Profiling;
 import br.com.store.backend.view.resource.pet.Animal;
+import br.com.store.backend.view.resource.pet.Breed;
+import br.com.store.backend.view.resource.pet.Weight;
 
 @Service
 @Transactional(readOnly = true)
@@ -24,18 +21,12 @@ public class AnimalApplicationImpl implements AnimalApplication {
 
     @Autowired
     private AnimalService animalService;
-        
-    @Autowired
-    private IndividualService individualService;
     
     @Autowired
-    private CompanyService companyService;
+    private WeightService weightService; 
     
     @Autowired
-    private AddressService addressService;
-    
-    @Autowired
-    private CustomerService customerService;
+    private BreedService breedService;
     
     @Override
     @Profiled(level = Profiling.APPLICATION)
@@ -48,8 +39,8 @@ public class AnimalApplicationImpl implements AnimalApplication {
     
     @Override
     @Profiled(level = Profiling.APPLICATION)
-    public Page<Animal> findAnimalsByIdCustomer(Integer idCustomer, Pageable pageable) {
-    	Page<Animal> animals = animalService.findAnimalsByCustomer(idCustomer, pageable);
+    public Collection<Animal> findAnimalsByIdCustomer(Integer idCustomer) {
+    	Collection<Animal> animals = animalService.findAnimalsByCustomer(idCustomer);
         
         return animals;
     }
@@ -58,16 +49,12 @@ public class AnimalApplicationImpl implements AnimalApplication {
         if (selectors != null){
             List<String> selectorList = Arrays.asList(selectors);
             
-            if(selectorList.contains(Animal.CUSTOMERS)){
-                
-            }
-            
             if(selectorList.contains(Animal.BREEDS)){
-                
+            	addBreeds(animal);
             }
             
             if(selectorList.contains(Animal.WEIGHTS)){
-                
+            	addWeight(animal);
             }
         }        
     }
@@ -95,5 +82,15 @@ public class AnimalApplicationImpl implements AnimalApplication {
     public void delete(Integer idAnimal) {
         animalService.delete(idAnimal);
     }
+	
+	private void addWeight(Animal animal) {
+		Weight weight = weightService.findWeightByAnimal(animal.getIdAnimal());
+		animal.setWeight(weight);
+	}
+	
+	private void addBreeds(Animal animal){
+		Collection<Breed> breeds = breedService.findBreedByAnimal(animal.getIdAnimal());
+		animal.setBreeds(breeds);
+	}
 		
 }

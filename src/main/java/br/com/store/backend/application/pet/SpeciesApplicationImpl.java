@@ -3,11 +3,9 @@ package br.com.store.backend.application.pet;
 import org.perf4j.aop.Profiled;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import br.com.store.backend.domain.service.pet.BreedService;
+import br.com.store.backend.domain.service.pet.GroupService;
 import br.com.store.backend.domain.service.pet.SpeciesService;
 import br.com.store.backend.infrastructure.profiling.Profiling;
-import br.com.store.backend.view.resource.location.Country;
 import br.com.store.backend.view.resource.pet.Group;
 import br.com.store.backend.view.resource.pet.Species;
 
@@ -15,15 +13,16 @@ import br.com.store.backend.view.resource.pet.Species;
 public class SpeciesApplicationImpl implements SpeciesApplication {
     
 	@Autowired
-	private BreedService breedService;
+    private SpeciesService speciesService;
 	
 	@Autowired
-    private SpeciesService speciesService;
+    private GroupService groupService;
+	
 	
 	@Override
     @Profiled(level = Profiling.APPLICATION)
     public Species findSpeciesByBreed(Integer idBreed, String selector){
-	    Species species = breedService.findSpeciesByBreed(idBreed);
+		Species species = speciesService.findSpeciesByBreed(idBreed);
 	    addGroup(species, selector);
         return species;
     }
@@ -38,7 +37,7 @@ public class SpeciesApplicationImpl implements SpeciesApplication {
     
     private void addGroup(Species species, String selector) {
     	if (selector != null && selector.equals(Species.GROUPS)){
-    		Group group = speciesService.findGroupBySpecies(species.getIdSpecies());
+    		Group group = groupService.findGroupBySpecies(species.getIdSpecies());
     	    species.setGroup(group);
     	}
     }

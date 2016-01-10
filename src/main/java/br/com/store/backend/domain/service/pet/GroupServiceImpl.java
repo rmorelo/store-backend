@@ -2,13 +2,18 @@ package br.com.store.backend.domain.service.pet;
 
 import java.util.ArrayList;
 import java.util.Collection;
+
 import javax.annotation.Resource;
+
 import org.perf4j.aop.Profiled;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import br.com.store.backend.domain.entity.pet.GroupEntity;
+import br.com.store.backend.domain.entity.pet.SpeciesEntity;
 import br.com.store.backend.domain.repository.pet.GroupRepository;
+import br.com.store.backend.domain.repository.pet.SpeciesRepository;
 import br.com.store.backend.infrastructure.exception.NotFoundException;
 import br.com.store.backend.infrastructure.profiling.Profiling;
 import br.com.store.backend.view.resource.pet.Group;
@@ -19,6 +24,9 @@ public class GroupServiceImpl implements GroupService {
 
     @Autowired
     private GroupRepository groupRepository;
+    
+    @Autowired
+    private SpeciesRepository speciesRepository;
     
     @Resource
 	private GroupServiceMapper groupServiceMapper;
@@ -52,6 +60,24 @@ public class GroupServiceImpl implements GroupService {
         }
         
         return groups;
+    }
+    
+    @Override
+    @Profiled(level = Profiling.SERVICE)
+    public Group findGroupBySpecies(Integer idSpecies) {
+        SpeciesEntity speciesEntity = speciesRepository.findOne(idSpecies);
+        
+        if(speciesEntity == null){
+            throw new NotFoundException(NotFoundException.SPECIES_NOT_FOUND);
+        }
+        
+        GroupEntity groupEntity = speciesEntity.getGroup();
+        
+        if(groupEntity == null){
+            throw new NotFoundException(NotFoundException.GROUP_NOT_FOUND);
+        }
+        
+        return GroupConverter.convert(groupEntity);
     }
     
     

@@ -1,15 +1,13 @@
 package br.com.store.backend.domain.service.pet;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-
+import java.util.Collection;
 import br.com.store.backend.view.resource.pet.Animal;
 
 public interface AnimalService {
   
     Animal findAnimal(Integer idAnimal);
     
-    Page<Animal> findAnimalsByCustomer(Integer idCustomer, Pageable pageable);
+    Collection<Animal> findAnimalsByCustomer(Integer idCustomer);
     
     Animal saveAnimalOfCustomer(Animal animal, Integer idCustomer);
     

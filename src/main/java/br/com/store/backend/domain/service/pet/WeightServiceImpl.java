@@ -2,12 +2,17 @@ package br.com.store.backend.domain.service.pet;
 
 import java.util.ArrayList;
 import java.util.Collection;
+
 import javax.annotation.Resource;
+
 import org.perf4j.aop.Profiled;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import br.com.store.backend.domain.entity.pet.AnimalEntity;
 import br.com.store.backend.domain.entity.pet.WeightEntity;
+import br.com.store.backend.domain.repository.pet.AnimalRepository;
 import br.com.store.backend.domain.repository.pet.WeightRepository;
 import br.com.store.backend.infrastructure.exception.NotFoundException;
 import br.com.store.backend.infrastructure.profiling.Profiling;
@@ -19,6 +24,9 @@ public class WeightServiceImpl implements WeightService {
 
     @Autowired
     private WeightRepository weightRepository;
+    
+    @Autowired
+    private AnimalRepository animalRepository;
     
     @Resource
 	private WeightServiceMapper weightServiceMapper;
@@ -54,6 +62,23 @@ public class WeightServiceImpl implements WeightService {
         return weights;
     }
     
+    @Override
+    @Profiled(level = Profiling.SERVICE)
+    public Weight findWeightByAnimal(Integer idAnimal){
+    	AnimalEntity animalEntity = animalRepository.findOne(idAnimal);
+    	
+    	if(animalEntity == null){
+    		throw new NotFoundException(NotFoundException.ANIMAL_NOT_FOUND);
+    	}
+    	
+    	WeightEntity weightEntity = animalEntity.getWeight();
+     	
+     	if(weightEntity == null){
+     		throw new NotFoundException(NotFoundException.WEIGHT_NOT_FOUND);
+     	}
+     	
+     	return WeightConverter.convert(weightEntity);
+    }
     
     @Override
     @Transactional

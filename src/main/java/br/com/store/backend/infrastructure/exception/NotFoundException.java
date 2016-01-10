@@ -36,6 +36,8 @@ public class NotFoundException extends CustomRuntimeException {
     
     public static final int GROUP_NOT_FOUND = 404016;
     
+    public static final int TELEPHONE_NOT_FOUND = 404017;
+    
     public NotFoundException(int code) {
         super(code);
     }

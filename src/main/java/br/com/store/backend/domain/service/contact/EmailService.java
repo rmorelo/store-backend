@@ -5,5 +5,9 @@ import br.com.store.backend.view.resource.contact.Email;
 public interface EmailService {
 	
 	Email save(Email email);
+	
+	Email findEmailByCustomer(Integer idCustomer);
+	
+	Email findEmailByPartner(Integer idPartner);
   
 }

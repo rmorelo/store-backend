@@ -1,10 +1,12 @@
 package br.com.store.backend.application.pet;
 
 import java.util.Collection;
+
 import org.perf4j.aop.Profiled;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import br.com.store.backend.domain.service.pet.GroupService;
 import br.com.store.backend.infrastructure.profiling.Profiling;
 import br.com.store.backend.view.resource.pet.Group;
@@ -20,6 +22,12 @@ public class GroupApplicationImpl implements GroupApplication {
     @Profiled(level = Profiling.APPLICATION)
     public Group findGroup(Integer idGroup) {
     	return groupService.findGroup(idGroup);
+    }
+    
+    @Override
+    @Profiled(level = Profiling.APPLICATION)
+    public Group findGroupBySpecies(Integer idSpecies){
+    	return groupService.findGroupBySpecies(idSpecies);
     }
     
     @Override

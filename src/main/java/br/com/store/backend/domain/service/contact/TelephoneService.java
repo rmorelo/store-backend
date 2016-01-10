@@ -5,5 +5,9 @@ import br.com.store.backend.view.resource.contact.Telephone;
 public interface TelephoneService {
 	
 	Telephone save(Telephone telephone);
+	
+	Telephone findTelephoneByCustomer(Integer idCustomer);
+	
+	Telephone findTelephoneByPartner(Integer idPartner);
   
 }

@@ -20,9 +20,7 @@ public class Animal implements Serializable{
 	public static final String WEIGHTS = "weights";
     
     public static final String BREEDS = "breeds";
-    
-    public static final String CUSTOMERS = "customers";
-    
+        
     private static final String URI_PATH = "/api/animals/";
 
     private Integer idAnimal;
@@ -49,7 +47,7 @@ public class Animal implements Serializable{
     
     @JsonIgnore
     public static List<String> getSelectableResources() {
-        return Arrays.asList(WEIGHTS, BREEDS, CUSTOMERS);
+        return Arrays.asList(WEIGHTS, BREEDS);
     }
     
     public Integer getIdAnimal() {

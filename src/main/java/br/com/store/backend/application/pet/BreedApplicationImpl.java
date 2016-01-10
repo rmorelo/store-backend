@@ -27,6 +27,12 @@ public class BreedApplicationImpl implements BreedApplication {
     public Collection<Breed> findBreeds() {
     	return breedService.findBreeds();
     }
+
+    @Override
+    @Profiled(level = Profiling.APPLICATION)
+    public Collection<Breed> findBreedByAnimal(Integer idAnimal, String selector){
+    	return breedService.findBreedByAnimal(idAnimal);
+    }
     
     @Override
     @Profiled(level = Profiling.APPLICATION)

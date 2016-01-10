@@ -14,6 +14,7 @@ import br.com.store.backend.view.resource.contact.Telephone;
 import br.com.store.backend.view.resource.location.Address;
 import br.com.store.backend.view.resource.partner.Partner;
 import br.com.store.backend.view.resource.person.Individual;
+import br.com.store.backend.view.resource.pet.Animal;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -56,6 +57,8 @@ public class Customer implements Serializable{
 	private Individual individual;
 	
 	private Collection<Partner> partners;
+	
+	private Collection<Animal> animals;
 		
 	private String uri;
     
@@ -136,6 +139,14 @@ public class Customer implements Serializable{
 
 	public void setPartners(Collection<Partner> partners) {
 		this.partners = partners;
+	}
+	
+	public Collection<Animal> getAnimals() {
+		return animals;
+	}
+
+	public void setAnimals(Collection<Animal> animals) {
+		this.animals = animals;
 	}
 
 	public String getUri() {

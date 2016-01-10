@@ -31,7 +31,7 @@ public class CityEndpoint {
     @Selector(resource = City.class)
     @Profiled(level = Profiling.ENDPOINT)
     @RequestMapping(value = "/districts/{idDistrict}/cities", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON})
-    public ResponseEntity<Resource<City>> findDistricts(@PathVariable(value = "idDistrict") Integer idDistrict, 
+    public ResponseEntity<Resource<City>> findCityByDistric(@PathVariable(value = "idDistrict") Integer idDistrict, 
             @RequestParam(value = "selector", required = false) String selector) {
     	
     	City city = cityApplication.findCityByDistrict(idDistrict, selector);
@@ -43,7 +43,7 @@ public class CityEndpoint {
     @Selector(resource = City.class)
     @Profiled(level = Profiling.ENDPOINT)
     @RequestMapping(value = "/cities/{idCity}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON})
-    public ResponseEntity<Resource<City>> findDistrict(@PathVariable(value = "idCity") Integer idCity, 
+    public ResponseEntity<Resource<City>> findCity(@PathVariable(value = "idCity") Integer idCity, 
             @RequestParam(value = "selector", required = false) String selector) {
         
     	City city = cityApplication.findCity(idCity, selector);

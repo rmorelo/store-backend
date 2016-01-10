@@ -2,12 +2,17 @@ package br.com.store.backend.domain.service.pet;
 
 import java.util.ArrayList;
 import java.util.Collection;
+
 import javax.annotation.Resource;
+
 import org.perf4j.aop.Profiled;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import br.com.store.backend.domain.entity.pet.AnimalEntity;
 import br.com.store.backend.domain.entity.pet.BreedEntity;
+import br.com.store.backend.domain.repository.pet.AnimalRepository;
 import br.com.store.backend.domain.repository.pet.BreedRepository;
 import br.com.store.backend.infrastructure.exception.NotFoundException;
 import br.com.store.backend.infrastructure.profiling.Profiling;
@@ -19,6 +24,9 @@ public class BreedServiceImpl implements BreedService {
 
     @Autowired
     private BreedRepository breedRepository;
+    
+    @Autowired
+    private AnimalRepository animalRepository;
     
     @Resource
 	private BreedServiceMapper breedServiceMapper;
@@ -39,6 +47,31 @@ public class BreedServiceImpl implements BreedService {
     @Profiled(level = Profiling.SERVICE)
     public Collection<Breed> findBreeds() {
     	Collection<BreedEntity> breedEntities = breedRepository.findAll();
+    	
+    	if(breedEntities == null || breedEntities.isEmpty()){
+    		throw new NotFoundException(NotFoundException.BREED_NOT_FOUND);
+    	}
+        
+        Collection<Breed> breeds = new ArrayList<Breed>();
+
+        for (BreedEntity breedEntity : breedEntities){
+            Breed breed = BreedConverter.convert(breedEntity);
+            breeds.add(breed);
+        }
+        
+        return breeds;
+    }
+    
+    @Override
+    @Profiled(level = Profiling.SERVICE)
+    public Collection<Breed> findBreedByAnimal(Integer idAnimal){
+    	AnimalEntity animalEntity = animalRepository.findOne(idAnimal);
+    	
+    	if(animalEntity == null){
+    		throw new NotFoundException(NotFoundException.ANIMAL_NOT_FOUND);
+    	}
+    	
+    	Collection<BreedEntity> breedEntities  = animalEntity.getBreeds();
     	
     	if(breedEntities == null || breedEntities.isEmpty()){
     		throw new NotFoundException(NotFoundException.BREED_NOT_FOUND);

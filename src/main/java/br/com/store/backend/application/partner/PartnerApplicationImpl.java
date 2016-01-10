@@ -9,13 +9,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import br.com.store.backend.domain.entity.person.PersonTypeEnum;
+import br.com.store.backend.domain.service.contact.EmailService;
+import br.com.store.backend.domain.service.contact.TelephoneService;
 import br.com.store.backend.domain.service.customer.CustomerService;
 import br.com.store.backend.domain.service.location.AddressService;
 import br.com.store.backend.domain.service.partner.PartnerService;
 import br.com.store.backend.domain.service.person.CompanyService;
 import br.com.store.backend.domain.service.person.IndividualService;
+import br.com.store.backend.domain.service.pet.AnimalService;
 import br.com.store.backend.infrastructure.exception.BadRequestException;
 import br.com.store.backend.infrastructure.profiling.Profiling;
+import br.com.store.backend.view.resource.contact.Email;
+import br.com.store.backend.view.resource.contact.Telephone;
 import br.com.store.backend.view.resource.location.Address;
 import br.com.store.backend.view.resource.partner.Partner;
 import br.com.store.backend.view.resource.person.Company;
@@ -38,6 +43,15 @@ public class PartnerApplicationImpl implements PartnerApplication {
     
     @Autowired
     private CustomerService customerService;
+    
+    @Autowired
+    private EmailService emailService;
+    
+    @Autowired
+    private TelephoneService telephoneService;
+    
+    @Autowired
+    private AnimalService animalService;
     
     @Override
     @Profiled(level = Profiling.APPLICATION)
@@ -93,7 +107,16 @@ public class PartnerApplicationImpl implements PartnerApplication {
 	        
 	        if(selectorList.contains(Partner.ADDRESSES)){
 	            addAddress(partner);
-	        }	        
+	        }
+	        
+	        if(selectorList.contains(Partner.EMAILS)){
+                addEmail(partner);
+            }
+            
+            if(selectorList.contains(Partner.TELEPHONES)){
+                addTelephone(partner);
+            }
+            
 	    }
 	    
 	}
@@ -119,4 +142,15 @@ public class PartnerApplicationImpl implements PartnerApplication {
 		Address address = addressService.findAddressByPartner(partner.getIdPartner());
 		partner.setAddress(address);
     }
+	
+	private void addEmail(Partner partner) {
+		Email email = emailService.findEmailByPartner(partner.getIdPartner());
+		partner.setEmail(email);
+	}
+	
+	private void addTelephone(Partner partner) {
+		Telephone telephone = telephoneService.findTelephoneByPartner(partner.getIdPartner());
+		partner.setTelephone(telephone);
+	}
+		
 }

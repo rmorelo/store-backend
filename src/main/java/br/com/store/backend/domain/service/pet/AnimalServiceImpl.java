@@ -1,15 +1,13 @@
 package br.com.store.backend.domain.service.pet;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.annotation.Resource;
 import org.perf4j.aop.Profiled;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import br.com.store.backend.domain.entity.pet.AnimalEntity;
@@ -57,7 +55,7 @@ public class AnimalServiceImpl implements AnimalService {
     
     @Override
     @Profiled(level = Profiling.SERVICE)
-    public Page<Animal> findAnimalsByCustomer(Integer idCustomer, Pageable pageable) {
+    public Collection<Animal> findAnimalsByCustomer(Integer idCustomer) {
         CustomerEntity customerEntity = customerRepository.findOne(idCustomer);
         
         if(customerEntity == null){
@@ -65,16 +63,15 @@ public class AnimalServiceImpl implements AnimalService {
         }
         
         List<Animal> animals = new ArrayList<Animal>();
-        Page<AnimalEntity> animalEntities = animalRepository.findAllByCustomer(customerEntity, pageable);
+        Collection<AnimalEntity> animalEntities = animalRepository.findAllByCustomer(customerEntity);
 
         for (AnimalEntity animalEntity : animalEntities){
             Animal animal = AnimalConverter.convert(animalEntity);
             animals.add(animal);
         }
         
-        return new PageImpl<Animal>(animals);
+        return animals;
     }
-    
     
     @Override
     @Transactional

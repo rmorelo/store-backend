@@ -9,6 +9,8 @@ public interface WeightService {
     
     Collection<Weight> findWeights();
     
+    Weight findWeightByAnimal(Integer idAnimal);
+    
     Weight saveWeight(Weight weight);
     
     Weight update(Weight weight);

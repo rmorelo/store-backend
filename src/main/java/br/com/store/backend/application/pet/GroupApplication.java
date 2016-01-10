@@ -7,6 +7,8 @@ public interface GroupApplication {
     
     Group findGroup(Integer idGroup);
     
+    Group findGroupBySpecies(Integer idSpecies);
+    
     Collection<Group> findGroups();
     
     Group saveGroup(Group group);

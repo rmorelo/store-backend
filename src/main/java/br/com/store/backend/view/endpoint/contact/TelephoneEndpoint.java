@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 import br.com.store.backend.application.contact.TelephoneApplication;
 import br.com.store.backend.domain.entity.contact.TelephoneTypeEnum;
 import br.com.store.backend.infrastructure.profiling.Profiling;
@@ -38,10 +37,38 @@ public class TelephoneEndpoint {
     }
     
     @Profiled(level = Profiling.ENDPOINT)
+    @RequestMapping(value = "/customers/{idCustomer}/telephones", method = RequestMethod.POST)
+    public ResponseEntity<Resource<Telephone>> saveTelephoneOfCustomer(@PathVariable(value = "idCustomer") Integer idCustomer, 
+    		@RequestBody Telephone telephone) {
+        Telephone telephoneResource = telephoneApplication.saveTelephoneOfCustomer(idCustomer, telephone);
+        telephoneResource.setUri(request.getRequestURI(), request.getQueryString());
+        
+        return new ResponseEntity<>(new Resource<>(telephoneResource), HttpStatus.CREATED);
+    }
+    
+    @Profiled(level = Profiling.ENDPOINT)
     @RequestMapping(value = "/telephones/types", method = RequestMethod.GET)
     public ResponseEntity<Resource<TelephoneTypeEnum[]>> getTelephoneType() {
         Resource<TelephoneTypeEnum[]> telephoneResource = new Resource<>(TelephoneTypeEnum.values());
         return new ResponseEntity<>(telephoneResource, HttpStatus.CREATED);
+    }
+    
+    @Profiled(level = Profiling.ENDPOINT)
+    @RequestMapping(value = "/customers/{idCustomer}/telephones", method = RequestMethod.GET)
+    public ResponseEntity<Resource<Telephone>> findTelephoneByCustomer(@PathVariable(value = "idCustomer") Integer idCustomer){
+    	Telephone telephoneResource = telephoneApplication.findTelephoneByCustomer(idCustomer);
+    	telephoneResource.setUri(request.getRequestURI(), request.getQueryString());
+        
+    	return new ResponseEntity<>(new Resource<Telephone>(telephoneResource), HttpStatus.OK);
+    }
+	
+    @Profiled(level = Profiling.ENDPOINT)
+    @RequestMapping(value = "/partners/{idPartner}/telephones", method = RequestMethod.GET)
+    public ResponseEntity<Resource<Telephone>> findTelephoneByPartner(@PathVariable(value = "idPartner") Integer idPartner){
+    	Telephone telephoneResource = telephoneApplication.findTelephoneByPartner(idPartner);
+    	telephoneResource.setUri(request.getRequestURI(), request.getQueryString());
+        
+    	return new ResponseEntity<>(new Resource<Telephone>(telephoneResource), HttpStatus.OK);
     }
     
     

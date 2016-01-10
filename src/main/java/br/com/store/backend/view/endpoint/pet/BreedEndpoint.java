@@ -2,9 +2,8 @@ package br.com.store.backend.view.endpoint.pet;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
 import javax.servlet.http.HttpServletRequest;
-
+import javax.ws.rs.core.MediaType;
 import org.perf4j.aop.Profiled;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,11 +13,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import br.com.store.backend.application.pet.BreedApplication;
 import br.com.store.backend.infrastructure.profiling.Profiling;
 import br.com.store.backend.infrastructure.rest.model.Resource;
+import br.com.store.backend.infrastructure.rest.selector.Selector;
 import br.com.store.backend.view.resource.pet.Breed;
 
 @RestController
@@ -29,6 +29,24 @@ public class BreedEndpoint {
     
     @Autowired
     private HttpServletRequest request;
+    
+    @Selector(resource = Breed.class)
+    @Profiled(level = Profiling.ENDPOINT)
+    @RequestMapping(value = "/animals/{idAnimal}/breeds", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON})
+    public ResponseEntity<Resource<Collection<Breed>>> findAnimals(@PathVariable(value = "idAnimal") Integer idAnimal, 
+            @RequestParam(value = "selector", required = false) String selector) {
+    	
+    	Collection<Breed> breeds = breedApplication.findBreedByAnimal(idAnimal, selector);
+    	
+    	Collection<Breed> breedsResult = new ArrayList<Breed>();
+    	
+    	for(Breed breed : breeds){
+        	breed.setUri(request.getRequestURI(), request.getQueryString());
+        	breedsResult.add(breed);
+    	}
+    	
+        return new ResponseEntity<>(new Resource<Collection<Breed>>(breeds), HttpStatus.OK);
+    }
     
     @Profiled(level = Profiling.ENDPOINT)
     @RequestMapping(value = "/breeds/{idBreed}", method = RequestMethod.GET)

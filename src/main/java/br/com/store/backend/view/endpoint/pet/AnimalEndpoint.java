@@ -1,10 +1,9 @@
 package br.com.store.backend.view.endpoint.pet;
 
+import java.util.Collection;
 import javax.servlet.http.HttpServletRequest;
 import org.perf4j.aop.Profiled;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -43,16 +42,15 @@ public class AnimalEndpoint {
     
     @Profiled(level = Profiling.ENDPOINT)
     @RequestMapping(value = "/customers/{idCustomer}/animals", method = RequestMethod.GET)    
-    public ResponseEntity<Resource<Page<Animal>>> findAnimalsByIdCustomer(
-            @PathVariable(value = "idCustomer") Integer idCustomer,
-            Pageable pageable) {
-        Page<Animal> animals = animalApplication.findAnimalsByIdCustomer(idCustomer, pageable);
+    public ResponseEntity<Resource<Collection<Animal>>> findAnimalsByIdCustomer(
+            @PathVariable(value = "idCustomer") Integer idCustomer) {
+        Collection<Animal> animals = animalApplication.findAnimalsByIdCustomer(idCustomer);
         
         for(Animal animal : animals){
             animal.setUri(request.getRequestURI(), request.getQueryString());
         }
         
-        return new ResponseEntity<>(new Resource<Page<Animal>>(animals), HttpStatus.OK);
+        return new ResponseEntity<>(new Resource<Collection<Animal>>(animals), HttpStatus.OK);
     }
     
     @Profiled(level = Profiling.ENDPOINT)
